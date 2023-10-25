@@ -1,17 +1,37 @@
 # cs490-project-Birb
-Repository for our project for submission for CS490.
+Repository for CS490 Project - Crush It. \
+Daily Task Management Web App built using the MERN Stack.
 
-Make sure to run these two commands at the same time: 
+
+
+## How to Run
+
+When cloning the app for the first time, follow these steps:
+
+Database Server:
+```
+cd cs490-project-Birb/server
+npm install
+node server.js
+```
+
+Web Server:
+```
+cd cs490-project-Birb/crush-it
+npm install
+npm start
+```
+
+For subsequent runs, you may omit the npm install.
+
 
 ### `node server.js`
 
-Navigate to server folder and run this command in terminal. \
-Connects to MongoDB server. \
-Failing to do this step will result in a Fail to Fetch error. \
+Starts server that connects to MongoDB. \
+Failing to do this step will result in a Fail to Fetch error. 
 
 ### `npm start`
 
-Navigate to crush-it folder and run this command in a separate terminal. \
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
