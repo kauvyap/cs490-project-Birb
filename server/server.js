@@ -20,7 +20,9 @@ app.use((req, res, next) => {
 app.use('/api/records', recordRoutes);
 
 
-mongoose.connect(process.env.ATLAS_URI)
+mongoose.connect(process.env.ATLAS_URI, {
+  dbName: 'crush-it'
+})
   .then(() => {
     console.log('Connected to MongoDB');
     app.listen(process.env.PORT, () => {
