@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from "react-router-dom";
-import {Box, Heading, FormControl, FormLabel, Input, Button, Card, CardHeader, CardBody, VStack} from '@chakra-ui/react';
+import {Box, Heading, FormControl, FormLabel, Input, Flex, Button, Text, Link, Card, CardHeader, CardBody, CardFooter, VStack} from '@chakra-ui/react';
 
 import MainLogo from './components/mainlogo';
 
@@ -62,6 +62,12 @@ const LoginForm = () => {
                 </NavLink>
               </VStack>
             </CardBody>
+            <CardFooter bg="white" style={{ textAlign: 'center' }}>
+              <Box w="100%" bg="#F5F7F9" display="inline-block" p={2} rounded="md">
+                <Text display="inline" textAlign="center">Don't Have an Account?</Text>
+                <Link display="inline" color="#6284FF" style={{ marginLeft: '5px', fontWeight: 'bold'}}>Sign up Here!</Link>
+              </Box>
+            </CardFooter>
           </Card>
         </Box>
       </Box>
