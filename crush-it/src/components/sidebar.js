@@ -3,7 +3,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
  // We import NavLink to utilize the react router.
 import navbar from "./navbar2";
-import { NavLink } from "react-router-dom";
+import { NavLink,useLocation } from "react-router-dom";
 import { Box, VStack, Text, Button,ChakraProvider, Spacer, createIcon, Image} from "@chakra-ui/react";
 
 
@@ -15,6 +15,13 @@ const Group_2 = createIcon({
     });
  // Here, we display our Navbar
 export default function Sidebar() {
+
+  const location = useLocation()
+  if (location.pathname === "/" ){
+      return null;
+  }
+
+
       return (
         
         <VStack align="start" height={"100vh"} width="200px" spacing={4} p={4} bg="black" alignItems={"center"}>

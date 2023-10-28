@@ -12,8 +12,10 @@ import Edit from "./components/edit";
 import Create from "./components/create";
 import Homepage from "./Homepage/homepage.js";
 import Profile from "./Profile/profile.js";
+
  const App = () => {
  return (
+
   <ChakraProvider>
     <Flex>
       <Sidebar />
