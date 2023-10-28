@@ -14,7 +14,9 @@ export default function Navbar2() {
     <Flex as={"nav"} bg={"white"} width={"100%"} height={"70px" } alignItems={"center"} p={"20px"} >
     <Heading>Profile</Heading>
     <Spacer></Spacer>
-    <Button leftIcon={<Image borderRadius='full' boxSize="40px" src="https://bit.ly/dan-abramov"/>} variant={"ghost"} colorScheme="linkedin" bg={"white"}>name lastName</Button>
+    <NavLink to="/profile" >
+        <Button leftIcon={<Image borderRadius='full' boxSize="40px" src="https://bit.ly/dan-abramov"/>} variant={"ghost"} colorScheme="linkedin" bg={"white"}>name lastName</Button>
+    </NavLink>
     </Flex>
      
    
