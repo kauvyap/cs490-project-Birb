@@ -4,7 +4,7 @@ import { Box, Image } from '@chakra-ui/react';
 const Logo = () => {
   return (
     <Box
-      bg="black"
+      bg="#252628"
       h="100%"
       display="flex"
       alignItems="center"
