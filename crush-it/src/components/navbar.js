@@ -29,6 +29,11 @@ export default function Navbar() {
                Create Record
              </NavLink>
            </li>
+           <li className="nav-item">
+             <NavLink className="nav-link" to="/signup">
+               Sign Up
+             </NavLink>
+           </li>
          </ul>
        </div>
      </nav>
