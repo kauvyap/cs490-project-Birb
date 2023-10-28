@@ -10,8 +10,8 @@ import Sidebar from "./components/sidebar";
 import RecordList from "./components/recordList";
 import Edit from "./components/edit";
 import Create from "./components/create";
-import Homepage from "./Homepage/index";
-import Profile from "./Profile";
+import Homepage from "./Homepage/homepage.js";
+import Profile from "./Profile/profile.js";
  const App = () => {
  return (
   <ChakraProvider>
