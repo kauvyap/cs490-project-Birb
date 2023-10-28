@@ -1,4 +1,5 @@
 import React from "react";
+import { ChakraProvider } from '@chakra-ui/react'
 import { createRoot } from 'react-dom/client';
 
 
