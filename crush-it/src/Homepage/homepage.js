@@ -3,13 +3,10 @@ function Homepage(){
 
 
     return (
-        <div>
+        <div style={{'background-color': '#F5F7F9', 'min-height': '94%'}}>
             <p>
                 This is the homepage for now!
             </p>
-
-
-
         </div>
     )
     

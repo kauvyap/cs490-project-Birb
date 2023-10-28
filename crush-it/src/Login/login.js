@@ -1,16 +1,8 @@
 import React, { useState } from 'react';
-import {
-  Box,
-  Heading,
-  FormControl,
-  FormLabel,
-  Input,
-  Button,
-  Card, CardHeader, CardBody, CardFooter,
-  VStack,
-} from '@chakra-ui/react';
+import { NavLink } from "react-router-dom";
+import {Box, Heading, FormControl, FormLabel, Input, Button, Card, CardHeader, CardBody, VStack} from '@chakra-ui/react';
 
-import MainLogo from './mainlogo';
+import MainLogo from './components/mainlogo';
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
@@ -65,9 +57,9 @@ const LoginForm = () => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </FormControl>
-                <Button colorScheme="blue" onClick={handleLogin}>
-                  Login
-                </Button>
+                <NavLink to="/homepage" >
+                  <Button colorScheme="blue" onClick={handleLogin}>Login</Button>
+                </NavLink>
               </VStack>
             </CardBody>
           </Card>

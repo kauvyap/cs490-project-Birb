@@ -3,7 +3,7 @@ function Profile(){
 
 
     return (
-        <div>
+        <div style={{'background-color': '#F5F7F9', 'min-height': '94%'}}>
             <p>
                 This is the Settings page for now!
             </p>
@@ -14,4 +14,5 @@ function Profile(){
     )
 
 }
+
 export default Profile;
