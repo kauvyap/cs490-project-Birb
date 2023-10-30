@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.css";
  // We import NavLink to utilize the react router.
 import { NavLink, useLocation } from "react-router-dom";
 import { Flex, Heading, Spacer, Button, Image, VStack, Popover, PopoverTrigger, PopoverContent} from '@chakra-ui/react';
-
+import userIcon from '../media/userIcon.png';
 
  // Here, we display our Navbar
 export default function Navbar() {
@@ -21,7 +21,7 @@ export default function Navbar() {
                 <Spacer></Spacer>
                 <Popover>
                     <PopoverTrigger>
-                        <Button leftIcon={<Image borderRadius='full' boxSize="40px" src="/user.png" display='fixed'/>} variant={"ghost"} colorScheme="linkedin" bg={"white"} color={"black"}>name lastName</Button>
+                        <Button leftIcon={<Image borderRadius='full' boxSize="40px" src={userIcon} display='fixed'/>} variant={"ghost"} colorScheme="linkedin" bg={"white"} color={"black"}>name lastName</Button>
                     </PopoverTrigger>
                     <PopoverContent width='180px' height='140px' padding='20px'>
                         <VStack spacing={4}>
@@ -44,7 +44,7 @@ export default function Navbar() {
     <Spacer></Spacer>
     <Popover>
         <PopoverTrigger>
-            <Button leftIcon={<Image borderRadius='full' boxSize="40px" src="/user.png" display='fixed'/>} variant={"ghost"} colorScheme="linkedin" bg={"white"} color={"black"}>name lastName</Button>
+            <Button leftIcon={<Image borderRadius='full' boxSize="40px" src={userIcon} display='fixed'/>} variant={"ghost"} colorScheme="linkedin" bg={"white"} color={"black"}>name lastName</Button>
         </PopoverTrigger>
         <PopoverContent width='180px' height='140px' padding='20px'>
             <VStack spacing={4}>
