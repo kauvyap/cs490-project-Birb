@@ -8,7 +8,7 @@ function Profile(){
 
 
     return (
-    <Box p={5} bg="#F5F7F9">    
+    <Box p={5} bg="#F5F7F9" height={"94%"}>    
       <VStack spacing={4} align="start">
         <Box w="100%">
           <Heading as="h2" size="md" mb={2}>
@@ -21,7 +21,7 @@ function Profile(){
           w="100%"
          
           >
-          <Card boxShadow='xl' p={5} mb={4} w="100%">
+          <Card boxShadow='xl' p={5} mb={4} w="100%" >
           <HStack spacing={4} align="start">
           <FormControl id="firstName" flex={1}>
             <Flex spacing={4}>
@@ -42,7 +42,7 @@ function Profile(){
         </Box>
         </Box>
 
-        <Divider />
+        <Divider color={"#fffbf2"} />
 
         <Box w="100%">
         <Heading as="h2" size="md" mb={2}>

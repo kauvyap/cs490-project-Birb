@@ -17,7 +17,7 @@ export default function Sidebar() {
         
         <VStack align="start" height={"100vh"} width="200px" spacing={4} p={4} bg="#252628" alignItems={"center"}>
           <NavLink to="/homepage">
-          <Text fontFamily={"'Fredoka', sans-serif"} fontSize="30px" fontWeight={"400"} textColor={"white"} align={"center"} >Crush It</Text>
+            <Text fontFamily={"'Fredoka', sans-serif"} fontSize="30px" fontWeight={"400"} textColor={"white"} align={"center"} >Crush It</Text>
           </NavLink>
           
           <Box height={"1px"} width={"160px"} bg={"#3E3F42"}></Box>

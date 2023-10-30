@@ -11,6 +11,7 @@ function Signup() {
 
   const handleLogin = () => {
     // Implement your login logic here
+    //make sure to route the user back to login page
     console.log('Username:', username);
     console.log('Password:', password);
     console.log('Confirm-Password:', confirmPassword);
@@ -19,6 +20,7 @@ function Signup() {
   return (
     <Box h="100vh" display="flex">
         <MainLogo />
+        
       <Box
         flex="1"
         bg="white"
@@ -69,7 +71,7 @@ function Signup() {
                   />
                 </FormControl>
                 <NavLink to="/homepage" >
-                  <Button colorScheme="brand" onClick={handleLogin}>Sign Up</Button>
+                  <Button width='200px' colorScheme="brand" onClick={handleLogin}>Sign Up</Button>
                 </NavLink>
               </VStack>
             </CardBody>
