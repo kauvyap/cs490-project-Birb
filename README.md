@@ -6,7 +6,7 @@ Daily Task Management Web App built using the MERN Stack.
 
 ## How to Run
 
-When cloning the app for the first time, follow these steps:
+When cloning or pulling the repo, follow these steps:
 
 Database Server:
 ```
@@ -22,13 +22,16 @@ npm install
 npm start
 ```
 
-For subsequent runs, you may omit the npm install.
+### `npm install`
+
+Installs all necesssary dependencies from package.json \
+Failing to do this may result in a Module not Found Error.
 
 
 ### `node server.js`
 
 Starts server that connects to MongoDB. \
-Failing to do this step will result in a Fail to Fetch error. 
+Failing to do this step will result in a Fail to Fetch Error in the web app . 
 
 ### `npm start`
 

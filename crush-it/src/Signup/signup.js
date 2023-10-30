@@ -4,19 +4,21 @@ import {Box, Heading, FormControl, FormLabel, Input, Button, Text, Link as Chakr
 
 import MainLogo from '../media/mainlogo';
 
-function Login() {
+function Signup() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleLogin = () => {
     // Implement your login logic here
     console.log('Username:', username);
     console.log('Password:', password);
+    console.log('Confirm-Password:', confirmPassword);
   };
 
   return (
     <Box h="100vh" display="flex">
-      <MainLogo />
+        <MainLogo />
       <Box
         flex="1"
         bg="white"
@@ -34,11 +36,11 @@ function Login() {
           <Card boxShadow='2xl'>
             <CardHeader>
               <Heading as="h2" size="lg" mb={4}>
-                Login
+                Sign Up
               </Heading>
             </CardHeader>
             <CardBody>
-              <VStack spacing={4}>
+              <VStack spacing={10} direction='row'>
                 <FormControl id="username" isRequired>
                   <FormLabel>Username</FormLabel>
                   <Input
@@ -57,16 +59,25 @@ function Login() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </FormControl>
+                <FormControl id="confirm-password" isRequired>
+                  <FormLabel>Confirm Password</FormLabel>
+                  <Input
+                    type="password"
+                    placeholder="Enter your password again"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                </FormControl>
                 <NavLink to="/homepage" >
-                  <Button width='200px' colorScheme="brand" onClick={handleLogin}>Login</Button>
+                  <Button colorScheme="brand" onClick={handleLogin}>Sign Up</Button>
                 </NavLink>
               </VStack>
             </CardBody>
             <br/><br/><br/><br/><br/><br/><br/>
-            <CardFooter bg="white" style={{ textAlign: 'center' }}>
+            <CardFooter bg="white" style={{ textAlign: 'center' }} padding-top='100px'>
               <Box w="100%" bg="#F5F7F9" display="inline-block" p={2} rounded="md">
-                <Text display="inline" textAlign="center">Don't Have an Account?</Text>
-                <ChakraLink as={ReactRouterLink} to='/signup' display="inline" color="#6284FF" style={{ marginLeft: '5px', fontWeight: 'bold'}}>Sign up Here!</ChakraLink>
+                <Text display="inline" textAlign="center">Already Have an Account?</Text>
+                <ChakraLink as={ReactRouterLink} to='/' display="inline" color="#6284FF" style={{ marginLeft: '5px', fontWeight: 'bold'}}>Log in Here!</ChakraLink>
               </Box>
             </CardFooter>
           </Card>
@@ -77,4 +88,4 @@ function Login() {
 };
 
 
-export default Login;
+export default Signup;

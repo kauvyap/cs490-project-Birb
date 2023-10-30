@@ -9,7 +9,7 @@ import { Box, VStack, Text, Button, Image} from "@chakra-ui/react";
 export default function Sidebar() {
 
   const location = useLocation()
-  if (location.pathname === "/" ){
+  if (location.pathname === "/" || location.pathname === "/signup"){
       return null;
   }
 
