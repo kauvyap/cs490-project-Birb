@@ -1,4 +1,4 @@
-import {React} from "react";
+import React, { useState, useLayoutEffect, useEffect } from "react";
 import { useNavigate } from "react-router";
 // We import bootstrap to make our application look better.
 import "bootstrap/dist/css/bootstrap.css";
@@ -11,6 +11,35 @@ import userIcon from '../media/userIcon.png';
 export default function Navbar() {
     const location = useLocation();
     const navigate = useNavigate();
+
+    const [user, setUser] = useState(null)
+    const [userData, setUserData] = useState({});
+    console.log(userData);
+
+
+    useLayoutEffect(() => {
+        if (location.pathname !== "/login" && location.pathname !== "/signup") {
+            console.log(localStorage.getItem("token"));
+            fetch("http://localhost:5000/api/auth/getUsername", {
+            headers: {
+                "x-access-token": localStorage.getItem("token")
+            }
+            })
+            .then(res => res.json())
+            .then(data => data.isLoggedIn ? setUser(data.username): navigate('/login'))
+            .catch((err) => alert(err))
+        }
+    }, [location.pathname, navigate])
+        
+
+    useEffect(() => {
+    fetch("http://localhost:5000/api/user/" + user)
+    .then(res => res.json())
+    .then(data => {setUserData(data)})
+    .catch((err) => console.log(err))
+    }, [user])
+
+
 
     const handleLogout = () => {
         localStorage.clear();
@@ -27,11 +56,11 @@ export default function Navbar() {
                 <Spacer></Spacer>
                 <Popover>
                     <PopoverTrigger>
-                        <Button leftIcon={<Image borderRadius='full' boxSize="40px" src={userIcon} display='fixed'/>} variant={"ghost"} colorScheme="linkedin" bg={"white"} color={"black"}>name lastName</Button>
+                        <Button leftIcon={<Image borderRadius='full' boxSize="40px" src={userIcon} display='fixed'/>} variant={"ghost"} colorScheme="linkedin" bg={"white"} color={"black"}>{userData.fname}, {userData.lname}</Button>
                     </PopoverTrigger>
                     <PopoverContent width='180px' height='140px' padding='20px'>
                         <VStack spacing={4}>
-                            <NavLink to="/profile" >
+                            <NavLink to={"/profile/" + user} >
                                 <Button colorScheme="gray">Profile</Button>
                             </NavLink>
 
