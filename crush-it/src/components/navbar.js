@@ -84,7 +84,7 @@ export default function Navbar() {
         </PopoverTrigger>
         <PopoverContent width='180px' height='140px' padding='20px'>
             <VStack spacing={4}>
-                <NavLink to="/profile" >
+                <NavLink to={"/profile/" + user} >
                     <Button colorScheme="gray">Profile</Button>
                 </NavLink>
                 <NavLink to="/">
