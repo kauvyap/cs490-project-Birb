@@ -80,7 +80,7 @@ export default function Navbar() {
     <Spacer></Spacer>
     <Popover>
         <PopoverTrigger>
-            <Button leftIcon={<Image borderRadius='full' boxSize="40px" src={userIcon} display='fixed'/>} variant={"ghost"} colorScheme="linkedin" bg={"white"} color={"black"}>name lastName</Button>
+            <Button leftIcon={<Image borderRadius='full' boxSize="40px" src={userIcon} display='fixed'/>} variant={"ghost"} colorScheme="linkedin" bg={"white"} color={"black"}>{userData.fname} {userData.lname}</Button>
         </PopoverTrigger>
         <PopoverContent width='180px' height='140px' padding='20px'>
             <VStack spacing={4}>
@@ -88,7 +88,7 @@ export default function Navbar() {
                     <Button colorScheme="gray">Profile</Button>
                 </NavLink>
                 <NavLink to="/">
-                    <Button colorScheme="red">Logout</Button>
+                    <Button colorScheme="red" onClick={handleLogout}>Logout</Button>
                 </NavLink>
             </VStack>
         </PopoverContent>
