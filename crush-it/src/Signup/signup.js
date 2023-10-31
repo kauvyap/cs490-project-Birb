@@ -40,10 +40,12 @@ function Signup() {
     // Implement your login logic here
     if (username.length < 6) {
       console.log("Username is not long enough");
+      setUsernameLengthError(true);
       return;
     }
     if (password.length < 8) {
       console.log("Password must be at least 8 characters");
+      setPasswordLengthError(true);
       return;
     }
     if (!specialRegex.test(password) || !lowerRegex.test(password) || !upperRegex.test(password) || !digitRegex.test(password)) {
@@ -74,7 +76,7 @@ function Signup() {
 
 
   useEffect(() => {
-    setUsernameSameError(false);
+    setUsernameLengthError(false);
     if (username.length !== 0 && username.length < 6) {
       setUsernameLengthError(true);
     }
@@ -85,13 +87,10 @@ function Signup() {
 
 
   useEffect(() => {
+    setPasswordLengthError(false)
     if (password.length !== 0 && password.length < 8) {
       setPasswordLengthError(true);
     }
-    else {
-      setPasswordLengthError(false);
-    }
-    console.log(password.match(/^[a-z]+$/) ? false: true)
   }, [password])
 
   useEffect(() => {
