@@ -120,7 +120,7 @@ router.post("/login", async (req, res) => {
 })
 
 
-router.patch("/password", async (req, res) => {
+router.post("/password", async (req, res) => {
 
     if (!req.body) return res.status(404).json({error: "Username does not exist"});
 

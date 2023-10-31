@@ -65,6 +65,25 @@ const deleteUser = async (req, res) => {
 
 // update a user from the database
 const updateUser = async (req, res) => {
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(req.body.password, salt);
+    const updateUser = {username: req.body.username, password: hashPassword, fname: req.body.fname, lname: req.body.lname, pomodoro: req.body.pomodoro};
+
+    const username = req.params.id
+
+        
+    const user = await User.findOneAndUpdate({username: username}, {
+        ...updateUser
+    })
+    
+    if (!user) {
+        return res.status(400).json({error: 'No such user'});
+    }
+            
+    res.status(200).json(user)
+};
+
+const updateOnlyUser = async (req, res) => {
     // const salt = await bcrypt.genSalt(10);
     // const hashpassword = await bcrypt.hash(req.body.password, salt);
     const updateUser = {username: req.body.username, fname: req.body.fname, lname: req.body.lname, pomodoro: req.body.pomodoro};
@@ -101,5 +120,6 @@ module.exports = {
     getUser,
     createUser,
     deleteUser,
-    updateUser
+    updateUser,
+    updateOnlyUser
 };

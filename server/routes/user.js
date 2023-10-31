@@ -5,7 +5,8 @@ const {
   getUser,
   createUser,
   deleteUser,
-  updateUser
+  updateUser,
+  updateOnlyUser
 } = require('../controllers/userController');
 
 const userRoutes = express.Router();
@@ -24,7 +25,9 @@ userRoutes.post('/', createUser);
 userRoutes.delete('/:id', deleteUser);
 
 // UPDATE a record
-userRoutes.put('/:id', updateUser);
+userRoutes.put('/password/:id', updateUser);
+
+userRoutes.put('/:id', updateOnlyUser);
 
 // userRoutes.patch('/:id', updateUser);
 
