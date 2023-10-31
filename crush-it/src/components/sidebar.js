@@ -15,7 +15,7 @@ export default function Sidebar() {
 
       return (
         
-        <VStack align="start" height={"100vh"} width="200px" spacing={4} p={4} bg="#252628" alignItems={"center"}>
+        <VStack align="start" height={"125vh"} width="200px" spacing={4} p={4} bg="#252628" alignItems={"center"}>
           <NavLink to="/">
           <Text fontFamily={"'Fredoka', sans-serif"} fontSize="30px" fontWeight={"400"} textColor={"white"} align={"center"} >Crush It</Text>
           </NavLink>

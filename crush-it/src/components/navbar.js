@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import "bootstrap/dist/css/bootstrap.css";
  // We import NavLink to utilize the react router.
 import { NavLink, useLocation } from "react-router-dom";
-import { Flex, Heading, Spacer, Button, Image, VStack, Popover, PopoverTrigger, PopoverContent} from '@chakra-ui/react';
+import { Flex, Input, Heading, Spacer, Button, Image, VStack, Popover, PopoverTrigger, PopoverContent} from '@chakra-ui/react';
 import userIcon from '../media/userIcon.png';
 
  // Here, we display our Navbar
@@ -50,9 +50,10 @@ export default function Navbar() {
         return null;
     }
 
-    if (location.pathname !== "/profile" ){
+    if (location.pathname !== "/profile/" + user ){
         return (
             <Flex as={"nav"} bg={"white"} width={"100%"} height={"6%" } alignItems={"center"} p={"20px"} >
+                <Input placeholder='What are you looking for?' />
                 <Spacer></Spacer>
                 <Popover>
                     <PopoverTrigger>
