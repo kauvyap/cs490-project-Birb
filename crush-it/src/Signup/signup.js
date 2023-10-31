@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useEffect, useState } from 'react';
 import { useNavigate } from "react-router";
 import { Link as ReactRouterLink } from "react-router-dom";
 import {Box, Heading, FormControl, FormLabel, FormErrorMessage, Input, Button, Text, Link as ChakraLink, Card, CardHeader, CardBody, CardFooter, VStack} from '@chakra-ui/react';
@@ -18,7 +18,6 @@ function Signup() {
 
   useEffect(() => {
     setUsernameSameError(false);
-    console.log(username);
     if (username.length !== 0 && username.length < 6) {
       setUsernameLengthError(true);
     }
@@ -29,7 +28,6 @@ function Signup() {
 
 
   useEffect(() => {
-    console.log(password);
     if (password.length !== 0 && password.length < 6) {
       setPasswordLengthError(true);
     }
@@ -39,7 +37,6 @@ function Signup() {
   }, [password])
 
   useEffect(() => {
-    console.log(confirmPassword);
     if (confirmPassword.length !== 0 && password !== confirmPassword) {
       setPasswordMatchError(true);
     }
@@ -47,6 +44,17 @@ function Signup() {
       setPasswordMatchError(false);
     }
   }, [password, confirmPassword])
+
+  useLayoutEffect(() => {
+    fetch("http://localhost:5000/api/auth/getUsername", {
+      headers: {
+        "x-access-token": localStorage.getItem("token")
+      }
+    })
+    .then(res =>  res.json())
+    .then(data => data.isLoggedIn ? navigate("/"): null)
+    .catch((err) => (err))
+  }, [navigate]);
 
 
   async function onSubmit() {
@@ -64,37 +72,21 @@ function Signup() {
       return;
     }
 
-    const usersResponse = await fetch('http://localhost:5000/api/user');
-    const users = await usersResponse.json();
-    console.log(users);
-    for (const user in Object.keys(users)) {
-      if (username === users[user].username) {
+    const response = await fetch('http://localhost:5000/api/auth/register', {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({username: username, password: password, fname: 'fName', lname: 'lName', pomodoro: {timer: 25, short: 5, long: 15}})
+    })
+    if(!response.ok) {
+      if (response.status === 400) {
         console.log("Username already exists");
         setUsernameSameError(true);
-        return;
       }
-    }
-    console.log({username: username, password: password, fname: 'fName', lname: 'lName', pomodoro: {timer: 25, short: 5, long: 15}});
-    const response = await fetch('http://localhost:5000/api/user', {
-      method: 'POST',
-      body: JSON.stringify({username: username, password: password, fname: 'fName', lname: 'lName', pomodoro: {timer: 25, short: 5, long: 15}}),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-
-    if (!response.ok) {
-      console.log(response);
-      return;
-    }
-    if (response.ok) {
-      console.log(response)
-      navigate("/homepage");
-    }
-
-    console.log('Username:', username);
-    console.log('Password:', password);
-    console.log('Confirm-Password:', confirmPassword);
+    } else {
+        navigate('/login');
+    };
   };
 
   return (

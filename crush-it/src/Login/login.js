@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useEffect, useState } from 'react';
 import { useNavigate } from "react-router";
 import { Link as ReactRouterLink } from "react-router-dom";
 import {Box, Heading, FormControl, FormLabel, FormErrorMessage, Input, Button, Text, Link as ChakraLink, Card, CardHeader, CardBody, CardFooter, VStack} from '@chakra-ui/react';
@@ -13,48 +13,52 @@ function Login() {
   const navigate = useNavigate();
 
 
-  async function onSubmit() {
-    var bcrypt = require('bcryptjs');
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    const response = await fetch('http://localhost:5000/api/user');
-    const users = await response.json();
-    console.log(users);
-  
-    setUsernameError(true);
-    var usernameErr = true;
-
-    for (const user in Object.keys(users)) {
-      if (username === users[user].username) {
-        usernameErr = false;
-        setUsernameError(false);
-        
-        console.log(hashedPassword);
-        console.log(users[user].password);
-        const validPassword = await bcrypt.compare(password, users[user].password)
-        console.log("pass", validPassword);
-        if (validPassword) {
-          navigate("/homepage");
-          return;
-        }
-      }
-    }
-    console.log(usernameErr);
-    if (usernameErr) {
-      console.log("username does not exist");
-      return;
-    }
-    else {
-      setPasswordError(true);
-      console.log("password does not match");
-    }
-  };
 
   useEffect(() => {
     setUsernameError(false);
     setPasswordError(false);
   }, [username, password])
+
+
+  useLayoutEffect(() => {
+    fetch("http://localhost:5000/api/auth/getUsername", {
+      headers: {
+        "x-access-token": localStorage.getItem("token")
+      }
+    })
+    .then(res => res.json())
+    .then(data => data.isLoggedIn ? navigate("/"): null)
+    .catch((err) => console.log(err))
+  }, [navigate])
+
+
+  async function onSubmit() {
+    const user = {
+      username: username,
+      password: password
+    }
+
+    const response = await fetch('http://localhost:5000/api/auth/login', {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(user)
+    })
+    if (!response.ok) {
+      if (response.status === 400) {
+        setPasswordError(true);
+      }
+      if (response.status === 404) {
+        setUsernameError(true);
+      }
+      console.log(response);
+    } else {
+      const tokenHolder = await response.json();
+      localStorage.setItem("token", tokenHolder.token)
+      window.location.reload();
+    }
+  }
 
 
   return (
