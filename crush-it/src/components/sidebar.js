@@ -9,14 +9,14 @@ import { Box, VStack, Text, Button, Image} from "@chakra-ui/react";
 export default function Sidebar() {
 
   const location = useLocation()
-  if (location.pathname === "/" || location.pathname === "/signup"){
+  if (location.pathname === "/login" || location.pathname === "/signup"){
       return null;
   }
 
       return (
         
         <VStack align="start" height={"100vh"} width="200px" spacing={4} p={4} bg="#252628" alignItems={"center"}>
-          <NavLink to="/homepage">
+          <NavLink to="/">
           <Text fontFamily={"'Fredoka', sans-serif"} fontSize="30px" fontWeight={"400"} textColor={"white"} align={"center"} >Crush It</Text>
           </NavLink>
           

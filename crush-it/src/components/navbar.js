@@ -1,4 +1,5 @@
 import {React} from "react";
+import { useNavigate } from "react-router";
 // We import bootstrap to make our application look better.
 import "bootstrap/dist/css/bootstrap.css";
  // We import NavLink to utilize the react router.
@@ -8,10 +9,15 @@ import userIcon from '../media/userIcon.png';
 
  // Here, we display our Navbar
 export default function Navbar() {
-    const location = useLocation()
+    const location = useLocation();
+    const navigate = useNavigate();
 
+    const handleLogout = () => {
+        localStorage.clear();
+        navigate('/login');
+    }
   
-    if (location.pathname === "/" || location.pathname === "/signup"){
+    if (location.pathname === "/login" || location.pathname === "/signup"){
         return null;
     }
 
@@ -28,9 +34,9 @@ export default function Navbar() {
                             <NavLink to="/profile" >
                                 <Button colorScheme="gray">Profile</Button>
                             </NavLink>
-                            <NavLink to="/">
-                                <Button colorScheme="red">Logout</Button>
-                            </NavLink>
+
+                            <Button colorScheme="red" onClick={handleLogout}>Logout</Button>
+
                         </VStack>
                     </PopoverContent>
                 </Popover>

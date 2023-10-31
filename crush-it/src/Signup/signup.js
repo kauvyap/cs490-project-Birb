@@ -1,19 +1,92 @@
-import React, { useState } from 'react';
-import { NavLink, Link as ReactRouterLink } from "react-router-dom";
-import {Box, Heading, FormControl, FormLabel, Input, Button, Text, Link as ChakraLink, Card, CardHeader, CardBody, CardFooter, VStack} from '@chakra-ui/react';
+import React, { useLayoutEffect, useEffect, useState } from 'react';
+import { useNavigate } from "react-router";
+import { Link as ReactRouterLink } from "react-router-dom";
+import {Box, Heading, FormControl, FormLabel, FormErrorMessage, Input, Button, Text, Link as ChakraLink, Card, CardHeader, CardBody, CardFooter, VStack} from '@chakra-ui/react';
 
 import MainLogo from '../media/mainlogo';
 
 function Signup() {
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleLogin = () => {
+  const [usernameLengthError, setUsernameLengthError] = useState(false);
+  const [usernameSameError, setUsernameSameError] = useState(false);
+  const [passwordLengthError, setPasswordLengthError] = useState(false);
+  const [passwordMatchError, setPasswordMatchError] = useState(false);
+
+  useEffect(() => {
+    setUsernameSameError(false);
+    if (username.length !== 0 && username.length < 6) {
+      setUsernameLengthError(true);
+    }
+    else {
+      setUsernameLengthError(false);
+    }
+  }, [username])
+
+
+  useEffect(() => {
+    if (password.length !== 0 && password.length < 6) {
+      setPasswordLengthError(true);
+    }
+    else {
+      setPasswordLengthError(false);
+    }
+  }, [password])
+
+  useEffect(() => {
+    if (confirmPassword.length !== 0 && password !== confirmPassword) {
+      setPasswordMatchError(true);
+    }
+    else {
+      setPasswordMatchError(false);
+    }
+  }, [password, confirmPassword])
+
+  useLayoutEffect(() => {
+    fetch("http://localhost:5000/api/auth/getUsername", {
+      headers: {
+        "x-access-token": localStorage.getItem("token")
+      }
+    })
+    .then(res =>  res.json())
+    .then(data => data.isLoggedIn ? navigate("/"): null)
+    .catch((err) => (err))
+  }, [navigate]);
+
+
+  async function onSubmit() {
     // Implement your login logic here
-    console.log('Username:', username);
-    console.log('Password:', password);
-    console.log('Confirm-Password:', confirmPassword);
+    if (username.length < 6) {
+      console.log("Username is not long enough");
+      return;
+    }
+    if (password.length < 6) {
+      console.log("Password must be at least 6 characters");
+      return;
+    }
+    if (password !== confirmPassword) {
+      console.log("Passwords must match");
+      return;
+    }
+
+    const response = await fetch('http://localhost:5000/api/auth/register', {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({username: username, password: password, fname: 'fName', lname: 'lName', pomodoro: {timer: 25, short: 5, long: 15}})
+    })
+    if(!response.ok) {
+      if (response.status === 400) {
+        console.log("Username already exists");
+        setUsernameSameError(true);
+      }
+    } else {
+        navigate('/login');
+    };
   };
 
   return (
@@ -41,36 +114,48 @@ function Signup() {
             </CardHeader>
             <CardBody>
               <VStack spacing={10} direction='row'>
-                <FormControl id="username" isRequired>
-                  <FormLabel>Username</FormLabel>
-                  <Input
-                    type="text"
-                    placeholder="Enter your username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                </FormControl>
-                <FormControl id="password" isRequired>
-                  <FormLabel>Password</FormLabel>
-                  <Input
-                    type="password"
-                    placeholder="Enter your password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </FormControl>
-                <FormControl id="confirm-password" isRequired>
-                  <FormLabel>Confirm Password</FormLabel>
-                  <Input
-                    type="password"
-                    placeholder="Enter your password again"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                  />
-                </FormControl>
-                <NavLink to="/homepage" >
-                  <Button colorScheme="brand" onClick={handleLogin}>Sign Up</Button>
-                </NavLink>
+                  <FormControl id="username" isInvalid={usernameLengthError || usernameSameError} isRequired>
+                    <FormLabel>Username</FormLabel>
+                    <Input
+                      type="text"
+                      placeholder="Enter your username"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                    />
+                    {usernameLengthError && (
+                        <FormErrorMessage>Username must be at least 6 characters</FormErrorMessage>
+                       )}
+                    {usernameSameError && (
+                        <FormErrorMessage>Username is already taken</FormErrorMessage>
+                       )}
+                  </FormControl>
+                  <FormControl id="password" isInvalid={passwordLengthError} isRequired>
+                    <FormLabel>Password</FormLabel>
+                    <Input
+                      type="password"
+                      placeholder="Enter your password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    {passwordLengthError && (
+                        <FormErrorMessage>Password must be at least 6 characters</FormErrorMessage>
+                       )}
+                  </FormControl>
+                  <FormControl id="confirm-password" isInvalid={passwordMatchError} isRequired>
+                    <FormLabel>Confirm Password</FormLabel>
+                    <Input
+                      type="password"
+                      placeholder="Enter your password again"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                      {passwordMatchError && (
+                        <FormErrorMessage>Passwords must match</FormErrorMessage>
+                       )}
+                    </FormControl>
+
+                  <Button colorScheme="brand" onClick={onSubmit}>Sign Up</Button>
+
               </VStack>
             </CardBody>
             <br/><br/><br/><br/><br/><br/><br/>
