@@ -83,6 +83,19 @@ const updateUser = async (req, res) => {
     res.status(200).json(user)
 };
 
+// const patchPassword = async (req, res) => {
+//     const username = req.params.id;
+
+//     User.findOne({username: username}) 
+//     .then(dbUser => {
+//         dbUser.password = req.body.password
+//         res.json({Passwordchanged: true})
+//     })
+//     .catch(err => res.json({
+//         username: "Username Not Found",
+//     }))
+// }
+
 module.exports = {
     getUsers,
     getUser,

@@ -25,5 +25,9 @@ userRoutes.delete('/:id', deleteUser);
 
 // UPDATE a record
 userRoutes.put('/:id', updateUser);
+
+// userRoutes.patch('/:id', updateUser);
+
+
  
 module.exports = userRoutes;

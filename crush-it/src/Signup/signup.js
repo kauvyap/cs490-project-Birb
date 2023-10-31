@@ -15,6 +15,13 @@ function Signup() {
   const [usernameSameError, setUsernameSameError] = useState(false);
   const [passwordLengthError, setPasswordLengthError] = useState(false);
   const [passwordMatchError, setPasswordMatchError] = useState(false);
+  const [comboError, setComboError] = useState(false)
+
+  const digitRegex = /\d/;
+  const lowerRegex = /[a-z]/;
+  const upperRegex = /[A-Z]/;
+  const specialRegex = /[^a-zA-Z0-9]/;
+
 
   useLayoutEffect(() => {
     fetch("http://localhost:5000/api/auth/getUsername", {
@@ -28,14 +35,19 @@ function Signup() {
   }, [navigate]);
 
 
+
   async function onSubmit() {
     // Implement your login logic here
     if (username.length < 6) {
       console.log("Username is not long enough");
       return;
     }
-    if (password.length < 6) {
-      console.log("Password must be at least 6 characters");
+    if (password.length < 8) {
+      console.log("Password must be at least 8 characters");
+      return;
+    }
+    if (!specialRegex.test(password) || !lowerRegex.test(password) || !upperRegex.test(password) || !digitRegex.test(password)) {
+      console.log("Passwords must contain a mix of uppercase letters, lowercase letters, numbers, and symbols");
       return;
     }
     if (password !== confirmPassword) {
@@ -48,7 +60,7 @@ function Signup() {
       headers: {
         "Content-type": "application/json"
       },
-      body: JSON.stringify({username: username, password: password, fname: 'fName', lname: 'lName', pomodoro: {timer: 25, short: 5, long: 15}})
+      body: JSON.stringify({username: username, password: password, fname: '', lname: '', pomodoro: {timer: 25, short: 5, long: 15}})
     })
     if(!response.ok) {
       if (response.status === 400) {
@@ -73,12 +85,13 @@ function Signup() {
 
 
   useEffect(() => {
-    if (password.length !== 0 && password.length < 6) {
+    if (password.length !== 0 && password.length < 8) {
       setPasswordLengthError(true);
     }
     else {
       setPasswordLengthError(false);
     }
+    console.log(password.match(/^[a-z]+$/) ? false: true)
   }, [password])
 
   useEffect(() => {
@@ -89,6 +102,22 @@ function Signup() {
       setPasswordMatchError(false);
     }
   }, [password, confirmPassword])
+
+
+  useEffect(() => {
+    setComboError(false);
+    const digitRegex = /\d/;
+    const lowerRegex = /[a-z]/;
+    const upperRegex = /[A-Z]/;
+    const specialRegex = /[^a-zA-Z0-9]/;
+
+    if (!passwordLengthError && password.length !== 0) {
+      if (!specialRegex.test(password) || !lowerRegex.test(password) || !upperRegex.test(password) || !digitRegex.test(password)) {
+        console.log("True")
+        setComboError(true)
+      }
+    }
+  }, [password, passwordLengthError])
 
   return (
     <Box h="100vh" display="flex">
@@ -130,7 +159,7 @@ function Signup() {
                         <FormErrorMessage>Username is already taken</FormErrorMessage>
                        )}
                   </FormControl>
-                  <FormControl id="password" isInvalid={passwordLengthError} isRequired>
+                  <FormControl id="password" isInvalid={passwordLengthError || comboError} isRequired>
                     <FormLabel>Password</FormLabel>
                     <Input
                       type="password"
@@ -139,8 +168,11 @@ function Signup() {
                       onChange={(e) => setPassword(e.target.value)}
                     />
                     {passwordLengthError && (
-                        <FormErrorMessage>Password must be at least 6 characters</FormErrorMessage>
+                        <FormErrorMessage>Password must be at least 8 characters</FormErrorMessage>
                        )}
+                       {comboError && !passwordLengthError && (
+                        <FormErrorMessage>Passwords must contain a mix of uppercase letters, lowercase letters, numbers, and symbols</FormErrorMessage>
+                      )}
                   </FormControl>
                   <FormControl id="confirm-password" isInvalid={passwordMatchError} isRequired>
                     <FormLabel>Confirm Password</FormLabel>
