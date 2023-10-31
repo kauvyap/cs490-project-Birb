@@ -35,7 +35,7 @@ const pomodoroSchema = Joi.object({
 
 const registerSchema = Joi.object({
     username: Joi.string().min(6).required(),
-    password: Joi.string().min(6).required(),
+    password: Joi.string().min(8).required(),
     fname: Joi.string(),
     lname: Joi.string(),
     pomodoro: pomodoroSchema
@@ -78,7 +78,7 @@ router.post("/register", async (req, res) => {
 
 const loginSchema = Joi.object({
     username: Joi.string().min(6).required(),
-    password: Joi.string().min(6).required()
+    password: Joi.string().min(8).required()
 })
 
 router.post("/login", async (req, res) => {
@@ -117,6 +117,41 @@ router.post("/login", async (req, res) => {
         }
     })
     
+})
+
+
+router.patch("/password", async (req, res) => {
+
+    if (!req.body) return res.status(404).json({error: "Username does not exist"});
+
+    // const validationError = loginSchema.validate(req.body).error;
+
+    // if (validationError) {
+    //     return res.status(404).json({error: "Username does not exist"});
+    // } else {
+    return User.findOne({ username: req.body.username})
+    .then(dbUser => {
+        if (!dbUser) {
+            return res.status(404).json({error: "Username does not exist"});
+        } else {
+            bcrypt.compare(req.body.password, dbUser.password)
+            .then(isCorrect => {
+                if (isCorrect) {
+                    bcrypt.genSalt(10)
+                    .then(salt => {
+                        bcrypt.hash(req.body.password, salt)
+                        .then(hashedPassword => {
+                            dbUser.password = hashedPassword
+                        }) 
+                    })
+                    return res.json({isValid: true})
+                } else {
+                    return res.status(400).json({error: "Invalid Password"});
+                }
+            })
+        }
+    })
+
 })
 
 module.exports = router;

@@ -4,7 +4,6 @@ import { Box, Heading, VStack, FormControl, FormLabel, FormErrorMessage, Input, 
 import { TimeIcon } from '@chakra-ui/icons'
 import { RiLockPasswordLine } from 'react-icons/ri'
 import {RxPerson} from 'react-icons/rx'
-import bcrypt from 'bcryptjs'
 
 function Profile() {
   const [fname, setFname] = useState('');
@@ -21,6 +20,12 @@ function Profile() {
   const [passwordLengthError, setPasswordLengthError] = useState(false);
   const [passwordMatchError, setPasswordMatchError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [comboError, setComboError] = useState(false)
+
+  const digitRegex = /\d/;
+  const lowerRegex = /[a-z]/;
+  const upperRegex = /[A-Z]/;
+  const specialRegex = /[^a-zA-Z0-9]/;
 
   const navigate = useNavigate();
   const [user, setUser] = useState(null)
@@ -38,6 +43,7 @@ function Profile() {
     .then(data => data.isLoggedIn ? setUser(data.username): navigate('/login'))
     .catch((err) => alert(err))
   }, [navigate])
+
 
   useEffect(() => {
     fetch("http://localhost:5000/api/user/" + user)
@@ -63,76 +69,72 @@ function Profile() {
   }, [pomodoro])
 
 
-  useEffect(() => {
-    setPasswordError(false);
-  }, [password])
-  
-  useEffect(() => {
-    if (newPassword.length !== 0 && newPassword.length < 6) {
-      setPasswordLengthError(true);
-    }
-    else {
-      setPasswordLengthError(false);
-    }
-  }, [newPassword])
-
-  useEffect(() => {
-    if (confirmNewPassword.length !== 0 && newPassword !== confirmNewPassword) {
-      setPasswordMatchError(true);
-    }
-    else {
-      setPasswordMatchError(false);
-    }
-  }, [newPassword, confirmNewPassword])
-
   const handleSave = async () => {
-    var profileSave = {
-      username: user,
-      fname: fname,
-      lname: lname,
-      pomodoro: {timer: timer, short: short, long: long}
-    };
-
-    if (password.length > 0 && password.length < 6) {
+    console.log(password.length);
+    if (password.length > 0 && password.length < 8) {
       console.log("Password is incorrect");
       setPasswordError(true);
       return;
     }
-    if (newPassword.length > 0 && newPassword.length < 6) {
-      console.log("New password must be at least 6 characters");
+    if (newPassword.length > 0 && newPassword.length < 8) {
+      console.log("New password must be at least 8 characters");
       return;
+    }
+    if (newPassword.length > 0) {
+      if (!specialRegex.test(newPassword) || !lowerRegex.test(newPassword) || !upperRegex.test(newPassword) || !digitRegex.test(newPassword)) {
+        console.log("Passwords must contain a mix of uppercase letters, lowercase letters, numbers, and symbols");
+        return;
+      }
     }
     if (newPassword !== confirmNewPassword) {
       console.log("Passwords must match");
       return;
     }
 
-    // if (password.length > 0 && newPassword.length >= 6 && newPassword === confirmNewPassword){
-    //   const compare = await bcrypt.compare(password, userData.password)
-    //   if (compare) {
-    //     console.log("correct")
-    //     var profileSave = {
-    //       username: user,
-    //       fname: fname,
-    //       lname: lname,
-    //       pomodoro: {timer: timer, short: short, long: long}
-    //     };
-    //   }
-    //   else {
-    //     console.log("incorrect")
-    //     setPasswordError(true);
-    //     return;
-    //   }
-    // }
+    if (password.length >= 8) {
+      console.log("Hello")
+      const userInfo = {
+        username: user,
+        password: password
+      }
+      const response = await fetch('http://localhost:5000/api/auth/password', {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify(userInfo)
+      })
+      if (!response.ok) {
+        if (response.status === 400) {
+          setPasswordError(true);
+          return;
+        }
+        if (response.status === 404) {
+          console.log("User does not exist");
+          return;
+        }
+        console.log(response);
+      } else {
+        const validPassword = await response.json();
+        if (validPassword.isValid) {
+          console.log("Password updated")
+        }
+      }
+    }
 
     await fetch('http://localhost:5000/api/user/' + user, {
-      method: "PUT",
-      body: JSON.stringify({...profileSave}),
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    });
-    window.location.reload();
+        method: "PUT",
+        body: JSON.stringify({
+          username: user,
+          fname: fname,
+          lname: lname,
+          pomodoro: {timer: timer, short: short, long: long}
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      window.location.reload();
   }
 
   const handleCancel = () => {
@@ -141,7 +143,46 @@ function Profile() {
     setTimer(userData.pomodoro.timer)
     setShort(userData.pomodoro.short)
     setLong(userData.pomodoro.long)
+    setPassword('');
+    setNewPassword('');
+    setConfirmNewPassword('');
   }
+
+
+  //Error handling
+  useEffect(() => {
+    setPasswordError(false);
+  }, [password])
+  
+  useEffect(() => {
+    setPasswordLengthError(false);
+    if (newPassword.length !== 0 && newPassword.length < 8) {
+      setPasswordLengthError(true);
+    }
+  }, [newPassword])
+
+  useEffect(() => {
+    setPasswordMatchError(false);
+    if (confirmNewPassword.length !== 0 && newPassword !== confirmNewPassword) {
+      setPasswordMatchError(true);
+    }
+  }, [newPassword, confirmNewPassword])
+
+  useEffect(() => {
+    setComboError(false);
+    const digitRegex = /\d/;
+    const lowerRegex = /[a-z]/;
+    const upperRegex = /[A-Z]/;
+    const specialRegex = /[^a-zA-Z0-9]/;
+
+    if (!passwordLengthError && newPassword.length !== 0) {
+      if (!specialRegex.test(newPassword) || !lowerRegex.test(newPassword) || !upperRegex.test(newPassword) || !digitRegex.test(newPassword)) {
+        console.log("True")
+        setComboError(true)
+      }
+    }
+  }, [newPassword, passwordLengthError])
+
 
     return (
     <Box p={5} bg="#F5F7F9">    
@@ -211,7 +252,7 @@ function Profile() {
               <FormErrorMessage>Password is Incorrect</FormErrorMessage>
               )}
           </FormControl>
-          <FormControl id="newPassword" isInvalid={passwordLengthError} flex={1}>
+          <FormControl id="newPassword" isInvalid={passwordLengthError || comboError} flex={1}>
             <Flex spacing={4}>
                 <Icon as={RiLockPasswordLine} color={"#6284FF"}/>
                 <FormLabel ml={2}>New Password</FormLabel>
@@ -223,8 +264,11 @@ function Profile() {
             onChange={(e) => setNewPassword(e.target.value)}
             />
             {passwordLengthError && (
-              <FormErrorMessage>Password must be at least 6 characters</FormErrorMessage>
-              )}
+              <FormErrorMessage>Password must be at least 8 characters</FormErrorMessage>
+            )}
+            {comboError && !passwordLengthError && (
+              <FormErrorMessage>Passwords must contain a mix of uppercase letters, lowercase letters, numbers, and symbols</FormErrorMessage>
+            )}
           </FormControl>
           <FormControl id="confirmPassword" isInvalid={passwordMatchError} flex={1}>
             <Flex spacing={4}>
