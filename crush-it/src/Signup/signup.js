@@ -16,35 +16,6 @@ function Signup() {
   const [passwordLengthError, setPasswordLengthError] = useState(false);
   const [passwordMatchError, setPasswordMatchError] = useState(false);
 
-  useEffect(() => {
-    setUsernameSameError(false);
-    if (username.length !== 0 && username.length < 6) {
-      setUsernameLengthError(true);
-    }
-    else {
-      setUsernameLengthError(false);
-    }
-  }, [username])
-
-
-  useEffect(() => {
-    if (password.length !== 0 && password.length < 6) {
-      setPasswordLengthError(true);
-    }
-    else {
-      setPasswordLengthError(false);
-    }
-  }, [password])
-
-  useEffect(() => {
-    if (confirmPassword.length !== 0 && password !== confirmPassword) {
-      setPasswordMatchError(true);
-    }
-    else {
-      setPasswordMatchError(false);
-    }
-  }, [password, confirmPassword])
-
   useLayoutEffect(() => {
     fetch("http://localhost:5000/api/auth/getUsername", {
       headers: {
@@ -88,6 +59,36 @@ function Signup() {
         navigate('/login');
     };
   };
+
+
+  useEffect(() => {
+    setUsernameSameError(false);
+    if (username.length !== 0 && username.length < 6) {
+      setUsernameLengthError(true);
+    }
+    else {
+      setUsernameLengthError(false);
+    }
+  }, [username])
+
+
+  useEffect(() => {
+    if (password.length !== 0 && password.length < 6) {
+      setPasswordLengthError(true);
+    }
+    else {
+      setPasswordLengthError(false);
+    }
+  }, [password])
+
+  useEffect(() => {
+    if (confirmPassword.length !== 0 && password !== confirmPassword) {
+      setPasswordMatchError(true);
+    }
+    else {
+      setPasswordMatchError(false);
+    }
+  }, [password, confirmPassword])
 
   return (
     <Box h="100vh" display="flex">

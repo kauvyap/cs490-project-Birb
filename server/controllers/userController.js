@@ -10,20 +10,21 @@ const getUsers = async (req, res) => {
 
 // gets a single user from database
 const getUser = async (req, res) => {
-    const { id } = req.params;
+    const username = req.params.id;
 
-    // if user not found in database, return error
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ error: 'No such user' });
-    }
-
-    const user = await User.findById(id);
-
-    if (!user) {
-        return res.status(404).json({ error: 'No such user' });
-    }
-
-    res.status(200).json(user);
+    User.findOne({username: username}) 
+    .then(dbUser => res.json({
+        username: dbUser.username,
+        password: dbUser.password,
+        fname: dbUser.fname,
+        lname: dbUser.lname,
+        pomodoro: dbUser.pomodoro
+    }))
+    .catch(err => res.json({
+        username: "User Not Found",
+        fname: "",
+        lname: ""
+    }))
 };
 
 
@@ -64,25 +65,22 @@ const deleteUser = async (req, res) => {
 
 // update a user from the database
 const updateUser = async (req, res) => {
-    const salt = await bcrypt.genSalt(10);
-    const hashpassword = await bcrypt.hash(req.body.password, salt);
-    const updateUser = {username: req.body.username, password: hashpassword, fname: req.body.fname, lname: req.body.lname, pomodoro: req.body.pomodoro};
+    // const salt = await bcrypt.genSalt(10);
+    // const hashpassword = await bcrypt.hash(req.body.password, salt);
+    const updateUser = {username: req.body.username, fname: req.body.fname, lname: req.body.lname, pomodoro: req.body.pomodoro};
 
-    const { id } = req.params
+    const username = req.params.id
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(400).json({error: 'No such user'});
-        }
         
-        const user = await User.findOneAndUpdate({_id: id}, {
-            ...updateUser
-        })
-        
-        if (!user) {
-            return res.status(400).json({error: 'No such user'});
-        }
+    const user = await User.findOneAndUpdate({username: username}, {
+        ...updateUser
+    })
+    
+    if (!user) {
+        return res.status(400).json({error: 'No such user'});
+    }
             
-        res.status(200).json(user)
+    res.status(200).json(user)
 };
 
 module.exports = {
