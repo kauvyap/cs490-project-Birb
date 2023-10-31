@@ -60,7 +60,7 @@ function Signup() {
       headers: {
         "Content-type": "application/json"
       },
-      body: JSON.stringify({username: username, password: password, fname: '', lname: '', pomodoro: {timer: 25, short: 5, long: 15}})
+      body: JSON.stringify({username: username, password: password, fname: 'First', lname: 'Last', pomodoro: {timer: 25, short: 5, long: 15}})
     })
     if(!response.ok) {
       if (response.status === 400) {
@@ -153,10 +153,10 @@ function Signup() {
                       onChange={(e) => setUsername(e.target.value)}
                     />
                     {usernameLengthError && (
-                        <FormErrorMessage>Username must be at least 6 characters</FormErrorMessage>
+                        <FormErrorMessage>Username must be at least 6 characters.</FormErrorMessage>
                        )}
                     {usernameSameError && (
-                        <FormErrorMessage>Username is already taken</FormErrorMessage>
+                        <FormErrorMessage>Username is already taken.</FormErrorMessage>
                        )}
                   </FormControl>
                   <FormControl id="password" isInvalid={passwordLengthError || comboError} isRequired>
@@ -168,10 +168,10 @@ function Signup() {
                       onChange={(e) => setPassword(e.target.value)}
                     />
                     {passwordLengthError && (
-                        <FormErrorMessage>Password must be at least 8 characters</FormErrorMessage>
+                        <FormErrorMessage>Password must be at least 8 characters.</FormErrorMessage>
                        )}
                        {comboError && !passwordLengthError && (
-                        <FormErrorMessage>Passwords must contain a mix of uppercase letters, lowercase letters, numbers, and symbols</FormErrorMessage>
+                        <FormErrorMessage>Passwords must contain a mix of uppercase letters, lowercase letters, numbers, and symbols.</FormErrorMessage>
                       )}
                   </FormControl>
                   <FormControl id="confirm-password" isInvalid={passwordMatchError} isRequired>
@@ -183,7 +183,7 @@ function Signup() {
                       onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                       {passwordMatchError && (
-                        <FormErrorMessage>Passwords must match</FormErrorMessage>
+                        <FormErrorMessage>Passwords must match.</FormErrorMessage>
                        )}
                     </FormControl>
 

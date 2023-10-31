@@ -95,7 +95,7 @@ function Login() {
                     onChange={(e) => setUsername(e.target.value)}
                   />
                   {usernameError && (
-                        <FormErrorMessage>Username does not exist</FormErrorMessage>
+                        <FormErrorMessage>Username does not exist.</FormErrorMessage>
                        )}
                 </FormControl>
                 <FormControl id="password" isInvalid={passwordError} isRequired>
@@ -107,7 +107,7 @@ function Login() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   {passwordError && (
-                    <FormErrorMessage>Password does not match</FormErrorMessage>
+                    <FormErrorMessage>Password is incorrect.</FormErrorMessage>
                     )}
                 </FormControl>
                   <Button width='200px' colorScheme="brand" onClick={onSubmit}>Login</Button>

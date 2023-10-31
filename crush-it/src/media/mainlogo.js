@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Image } from '@chakra-ui/react';
+import { Box, Image, Text, VStack } from '@chakra-ui/react';
 
 const Logo = () => {
   return (
@@ -11,7 +11,10 @@ const Logo = () => {
       justifyContent="center"
       w="55%"
     >
+      <VStack >
+      <Text fontFamily={"'Fredoka', sans-serif"} fontSize="60px" fontWeight={"400"} textColor={"white"} align={"center"} >Crush It</Text>
       <Image src="/crush-it.png" alt="Logo" />
+      </VStack>
     </Box>
   );
 };

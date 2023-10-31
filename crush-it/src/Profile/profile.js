@@ -67,7 +67,7 @@ function Profile() {
       setLong(userData.pomodoro.long)
     }
   }, [pomodoro])
-
+//userData.pomodoro.timer, userData.pomodoro.short, userData.pomodoro.long
 
   const handleSave = async () => {
     console.log(password.length);
@@ -98,7 +98,7 @@ function Profile() {
         password: password
       }
       const response = await fetch('http://localhost:5000/api/auth/password', {
-        method: "PATCH",
+        method: "POST",
         headers: {
           "Content-type": "application/json"
         },
@@ -118,23 +118,51 @@ function Profile() {
         const validPassword = await response.json();
         if (validPassword.isValid) {
           console.log("Password updated")
+          await fetch('http://localhost:5000/api/user/password/' + user, {
+            method: "PUT",
+            body: JSON.stringify({
+              username: user,
+              password: newPassword,
+              fname: fname,
+              lname: lname,
+              pomodoro: {timer: timer, short: short, long: long}
+            }),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+        }
+        else {
+          await fetch('http://localhost:5000/api/user/' + user, {
+            method: "PUT",
+            body: JSON.stringify({
+              username: user,
+              fname: fname,
+              lname: lname,
+              pomodoro: {timer: timer, short: short, long: long}
+            }),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+          window.location.reload();
+          return;
         }
       }
     }
-
     await fetch('http://localhost:5000/api/user/' + user, {
-        method: "PUT",
-        body: JSON.stringify({
-          username: user,
-          fname: fname,
-          lname: lname,
-          pomodoro: {timer: timer, short: short, long: long}
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      window.location.reload();
+      method: "PUT",
+      body: JSON.stringify({
+        username: user,
+        fname: fname,
+        lname: lname,
+        pomodoro: {timer: timer, short: short, long: long}
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    window.location.reload();
   }
 
   const handleCancel = () => {
