@@ -21,6 +21,8 @@ function Signup() {
   const lowerRegex = /[a-z]/;
   const upperRegex = /[A-Z]/;
   const specialRegex = /[^a-zA-Z0-9]/;
+  // const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 
 
   useLayoutEffect(() => {

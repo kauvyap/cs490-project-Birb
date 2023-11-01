@@ -86,7 +86,7 @@ function Login() {
             </CardHeader>
             <CardBody>
               <VStack spacing={10}>
-                <FormControl id="username" isInvalid={usernameError} isRequired>
+                <FormControl id="username" isInvalid={usernameError || passwordError} isRequired>
                   <FormLabel>Username</FormLabel>
                   <Input
                     type="text"
@@ -97,6 +97,9 @@ function Login() {
                   {usernameError && (
                         <FormErrorMessage>Username does not exist.</FormErrorMessage>
                        )}
+                  {passwordError && !usernameError && (
+                  <FormErrorMessage>Username or password is incorrect.</FormErrorMessage>
+                  )}
                 </FormControl>
                 <FormControl id="password" isInvalid={passwordError} isRequired>
                   <FormLabel>Password</FormLabel>
@@ -107,7 +110,7 @@ function Login() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   {passwordError && (
-                    <FormErrorMessage>Password is incorrect.</FormErrorMessage>
+                    <FormErrorMessage>Username or password is incorrect.</FormErrorMessage>
                     )}
                 </FormControl>
                   <Button width='200px' colorScheme="brand" onClick={onSubmit}>Login</Button>

@@ -369,8 +369,8 @@ function Profile() {
 
         <Box w="100%" display="flex" justifyContent="center">
         <HStack spacing={5}>
-            <Button size='lg' colorScheme="blue" variant='outline' onClick={handleCancel}>Cancel</Button>
-            <Button size='lg' colorScheme="blue" variant='solid' onClick={handleSave}>Save</Button>
+            <Button size='lg' colorScheme="blue" variant='outline' width='200px' onClick={handleCancel}>Cancel</Button>
+            <Button size='lg' colorScheme="blue" variant='solid' width='200px' onClick={handleSave}>Save</Button>
         </HStack>
         </Box>
 
