@@ -1,6 +1,6 @@
 import React, {useLayoutEffect} from "react";
 import { useNavigate } from "react-router";
-import {Box, Heading, Card, Container, Table, Tbody, TableContainer, Tr, Td, VStack, HStack, Center, IconButton, Button, Text} from '@chakra-ui/react';
+import {Box, Heading, Card, Container, Table, Tbody, TableContainer, Tr, Td, VStack, HStack, Center, IconButton, Button, Text, Flex} from '@chakra-ui/react';
 import {
     Menu,
     MenuButton,
@@ -40,10 +40,30 @@ function Homepage(){
             icon={<IoChevronBackCircleSharp />}
         />
         <Menu>
+        <Flex>
         <MenuButton as={Button} variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
             <Text color="black" p={2} mt={3}>Month</Text>
         </MenuButton>
-        <MenuList maxH="230px" overflowY="auto" w="100" overflowX="hidden" fontSize={'xl'}>
+        <MenuList maxH="230px" overflowY="auto" w="auto" overflowX="hidden" fontSize={'xl'}
+                css={`
+                &::-webkit-scrollbar {
+                    width: 8px;
+                    height: 80px;
+                  }
+                  &::-webkit-scrollbar-thumb {
+                    background-color: #6284FF;
+                    border-radius: 8px;
+                  }
+                  &::-webkit-scrollbar-track {
+                    background-color: rgba(98, 132, 255, 0.15);
+                  }
+                  &::-webkit-scrollbar-thumb:hover {
+                    background-color: #405DC9;
+                  }
+                  &::-webkit-scrollbar-thumb:active {
+                    background-color: #1E40AF; // Change the color when clicked
+                  }
+        `}>
             <MenuItem ml={5}>January</MenuItem>
             <MenuItem ml={5}>February</MenuItem>
             <MenuItem ml={5}>March</MenuItem>
@@ -57,6 +77,7 @@ function Homepage(){
             <MenuItem ml={5}>November</MenuItem>
             <MenuItem ml={5}>December</MenuItem>
         </MenuList>
+        </Flex>
         </Menu>
         <IconButton
             variant='outline'
@@ -82,7 +103,26 @@ function Homepage(){
         <MenuButton as={Button} variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
             <Text color="black" p={2} mt={3}>Day</Text>
         </MenuButton>
-        <MenuList maxH="230px" overflowY="auto" w="100" overflowX="hidden" fontSize={'xl'}>
+        <MenuList maxH="230px" overflowY="auto" w="auto" overflowX="hidden" fontSize={'xl'}
+                css={`
+                &::-webkit-scrollbar {
+                    width: 8px;
+                    height: 80px;
+                  }
+                  &::-webkit-scrollbar-thumb {
+                    background-color: #6284FF;
+                    border-radius: 8px;
+                  }
+                  &::-webkit-scrollbar-track {
+                    background-color: rgba(98, 132, 255, 0.15);
+                  }
+                  &::-webkit-scrollbar-thumb:hover {
+                    background-color: #405DC9;
+                  }
+                  &::-webkit-scrollbar-thumb:active {
+                    background-color: #1E40AF; // Change the color when clicked
+                  }
+        `}>
             <MenuItem ml={5}>1</MenuItem>
             <MenuItem ml={5}>2</MenuItem>
             <MenuItem ml={5}>3</MenuItem>
@@ -140,7 +180,26 @@ function Homepage(){
         <MenuButton as={Button} variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
             <Text color="black" p={2} mt={3}>Year</Text>
         </MenuButton>
-        <MenuList maxH="230px" overflowY="auto" w="100" overflowX="hidden" fontSize={'xl'}>
+        <MenuList maxH="230px" overflowY="auto" w="auto" overflowX="hidden" fontSize={'xl'}
+                css={`
+                &::-webkit-scrollbar {
+                    width: 8px;
+                    height: 80px;
+                  }
+                  &::-webkit-scrollbar-thumb {
+                    background-color: #6284FF;
+                    border-radius: 8px;
+                  }
+                  &::-webkit-scrollbar-track {
+                    background-color: rgba(98, 132, 255, 0.15);
+                  }
+                  &::-webkit-scrollbar-thumb:hover {
+                    background-color: #405DC9;
+                  }
+                  &::-webkit-scrollbar-thumb:active {
+                    background-color: #1E40AF; // Change the color when clicked
+                  }
+        `}>
             <MenuItem ml={5}>2023</MenuItem>
             <MenuItem ml={5}>2024</MenuItem>
             <MenuItem ml={5}>2025</MenuItem>
