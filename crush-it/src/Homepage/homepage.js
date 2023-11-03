@@ -43,19 +43,19 @@ function Homepage(){
         <MenuButton as={Button} variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
             <Text color="black" p={2} mt={3}>Month</Text>
         </MenuButton>
-        <MenuList maxH="220px" overflowY="auto" w="200px">
-            <MenuItem ml={5} fontSize={'lg'}>January</MenuItem>
-            <MenuItem ml={5} fontSize={'lg'}>February</MenuItem>
-            <MenuItem ml={5} fontSize={'lg'}>March</MenuItem>
-            <MenuItem ml={5} fontSize={'lg'}>April</MenuItem>
-            <MenuItem ml={5} fontSize={'lg'}>May</MenuItem>
-            <MenuItem ml={5} fontSize={'lg'}>June</MenuItem>
-            <MenuItem ml={5} fontSize={'lg'}>July</MenuItem>
-            <MenuItem ml={5} fontSize={'lg'}>August</MenuItem>
-            <MenuItem ml={5} fontSize={'lg'}>September</MenuItem>
-            <MenuItem ml={5} fontSize={'lg'}>October</MenuItem>
-            <MenuItem ml={5} fontSize={'lg'}>November</MenuItem>
-            <MenuItem ml={5} fontSize={'lg'}>December</MenuItem>
+        <MenuList maxH="230px" overflowY="auto" w="100" overflowX="hidden" fontSize={'xl'}>
+            <MenuItem ml={5}>January</MenuItem>
+            <MenuItem ml={5}>February</MenuItem>
+            <MenuItem ml={5}>March</MenuItem>
+            <MenuItem ml={5}>April</MenuItem>
+            <MenuItem ml={5}>May</MenuItem>
+            <MenuItem ml={5}>June</MenuItem>
+            <MenuItem ml={5}>July</MenuItem>
+            <MenuItem ml={5}>August</MenuItem>
+            <MenuItem ml={5}>September</MenuItem>
+            <MenuItem ml={5}>October</MenuItem>
+            <MenuItem ml={5}>November</MenuItem>
+            <MenuItem ml={5}>December</MenuItem>
         </MenuList>
         </Menu>
         <IconButton
@@ -82,38 +82,38 @@ function Homepage(){
         <MenuButton as={Button} variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
             <Text color="black" p={2} mt={3}>Day</Text>
         </MenuButton>
-        <MenuList>
-            <MenuItem>1</MenuItem>
-            <MenuItem>2</MenuItem>
-            <MenuItem>3</MenuItem>
-            <MenuItem>4</MenuItem>
-            <MenuItem>5</MenuItem>
-            <MenuItem>6</MenuItem>
-            <MenuItem>7</MenuItem>
-            <MenuItem>8</MenuItem>
-            <MenuItem>9</MenuItem>
-            <MenuItem>10</MenuItem>
-            <MenuItem>11</MenuItem>
-            <MenuItem>12</MenuItem>
-            <MenuItem>13</MenuItem>
-            <MenuItem>14</MenuItem>
-            <MenuItem>15</MenuItem>
-            <MenuItem>16</MenuItem>
-            <MenuItem>17</MenuItem>
-            <MenuItem>18</MenuItem>
-            <MenuItem>19</MenuItem>
-            <MenuItem>20</MenuItem>
-            <MenuItem>21</MenuItem>
-            <MenuItem>22</MenuItem>
-            <MenuItem>23</MenuItem>
-            <MenuItem>24</MenuItem>
-            <MenuItem>25</MenuItem>
-            <MenuItem>26</MenuItem>
-            <MenuItem>27</MenuItem>
-            <MenuItem>28</MenuItem>
-            <MenuItem>29</MenuItem>
-            <MenuItem>30</MenuItem>
-            <MenuItem>31</MenuItem>
+        <MenuList maxH="230px" overflowY="auto" w="100" overflowX="hidden" fontSize={'xl'}>
+            <MenuItem ml={5}>1</MenuItem>
+            <MenuItem ml={5}>2</MenuItem>
+            <MenuItem ml={5}>3</MenuItem>
+            <MenuItem ml={5}>4</MenuItem>
+            <MenuItem ml={5}>5</MenuItem>
+            <MenuItem ml={5}>6</MenuItem>
+            <MenuItem ml={5}>7</MenuItem>
+            <MenuItem ml={5}>8</MenuItem>
+            <MenuItem ml={5}>9</MenuItem>
+            <MenuItem ml={5}>10</MenuItem>
+            <MenuItem ml={5}>11</MenuItem>
+            <MenuItem ml={5}>12</MenuItem>
+            <MenuItem ml={5}>13</MenuItem>
+            <MenuItem ml={5}>14</MenuItem>
+            <MenuItem ml={5}>15</MenuItem>
+            <MenuItem ml={5}>16</MenuItem>
+            <MenuItem ml={5}>17</MenuItem>
+            <MenuItem ml={5}>18</MenuItem>
+            <MenuItem ml={5}>19</MenuItem>
+            <MenuItem ml={5}>20</MenuItem>
+            <MenuItem ml={5}>21</MenuItem>
+            <MenuItem ml={5}>22</MenuItem>
+            <MenuItem ml={5}>23</MenuItem>
+            <MenuItem ml={5}>24</MenuItem>
+            <MenuItem ml={5}>25</MenuItem>
+            <MenuItem ml={5}>26</MenuItem>
+            <MenuItem ml={5}>27</MenuItem>
+            <MenuItem ml={5}>28</MenuItem>
+            <MenuItem ml={5}>29</MenuItem>
+            <MenuItem ml={5}>30</MenuItem>
+            <MenuItem ml={5}>31</MenuItem>
         </MenuList>
         </Menu>
         <IconButton
@@ -140,19 +140,19 @@ function Homepage(){
         <MenuButton as={Button} variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
             <Text color="black" p={2} mt={3}>Year</Text>
         </MenuButton>
-        <MenuList>
-            <MenuItem>2023</MenuItem>
-            <MenuItem>2024</MenuItem>
-            <MenuItem>2025</MenuItem>
-            <MenuItem>2026</MenuItem>
-            <MenuItem>2027</MenuItem>
-            <MenuItem>2028</MenuItem>
-            <MenuItem>2029</MenuItem>
-            <MenuItem>2030</MenuItem>
-            <MenuItem>2031</MenuItem>
-            <MenuItem>2032</MenuItem>
-            <MenuItem>2033</MenuItem>
-            <MenuItem>2034</MenuItem>
+        <MenuList maxH="230px" overflowY="auto" w="100" overflowX="hidden" fontSize={'xl'}>
+            <MenuItem ml={5}>2023</MenuItem>
+            <MenuItem ml={5}>2024</MenuItem>
+            <MenuItem ml={5}>2025</MenuItem>
+            <MenuItem ml={5}>2026</MenuItem>
+            <MenuItem ml={5}>2027</MenuItem>
+            <MenuItem ml={5}>2028</MenuItem>
+            <MenuItem ml={5}>2029</MenuItem>
+            <MenuItem ml={5}>2030</MenuItem>
+            <MenuItem ml={5}>2031</MenuItem>
+            <MenuItem ml={5}>2032</MenuItem>
+            <MenuItem ml={5}>2033</MenuItem>
+            <MenuItem ml={5}>2034</MenuItem>
         </MenuList>
         </Menu>
         <IconButton
