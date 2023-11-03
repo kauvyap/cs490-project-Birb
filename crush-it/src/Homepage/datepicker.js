@@ -15,7 +15,11 @@ function DatePicker() {
   
     const handleMonthClick = (month) => {
       setSelectedMonth(month);
-    };
+
+    // Recalculate selectedDate based on the new month
+    const daysInMonth = new Date(currentDate.getFullYear(), months.indexOf(month) + 1, 0).getDate();
+    setSelectedDate((prevDate) => (prevDate <= daysInMonth ? prevDate : '1'));
+    };   
   
     const handleDateClick = (date) => {
       setSelectedDate(date);
@@ -24,9 +28,29 @@ function DatePicker() {
     const handleYearClick = (year) => {
       setSelectedYear(year);
     };
+
+    //leap year calculator
+    const getDaysInMonth = (year, month) => {
+        const monthIndex = months.indexOf(month);
+        if (monthIndex === 1) {
+          // February
+          if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
+            // Leap year
+            return 29;
+          } else {
+            return 28;
+          }
+        } else if ([3, 5, 8, 10].includes(monthIndex)) {
+          // Months with 30 days
+          return 30;
+        } else {
+          // Months with 31 days
+          return 31;
+        }
+      };
   
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    const dates = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
+    const dates = Array.from({ length: getDaysInMonth(selectedYear, selectedMonth) }, (_, i) => (i + 1).toString());
     const years = Array.from({ length: 10 }, (_, i) => (2023 + i).toString());
   
 
