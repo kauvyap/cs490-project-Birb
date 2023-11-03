@@ -1,8 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Center, IconButton, Menu, MenuButton, MenuList, MenuItem, Button, Text} from '@chakra-ui/react';
 import {IoChevronBackCircleSharp, IoChevronForwardCircleSharp, IoChevronDownCircleOutline} from 'react-icons/io5'
 
-const DatePicker = () => {
+function DatePicker() {
+    const currentDate = new Date();
+    const curMonth = currentDate.toLocaleString('default', { month: 'long' });
+    const curDate = currentDate.getDate().toString();
+    const curYear = currentDate.getFullYear().toString();
+
+
+    const [selectedMonth, setSelectedMonth] = useState(curMonth);
+    const [selectedDate, setSelectedDate] = useState(curDate);
+    const [selectedYear, setSelectedYear] = useState(curYear);
+  
+    const handleMonthClick = (month) => {
+      setSelectedMonth(month);
+    };
+  
+    const handleDateClick = (date) => {
+      setSelectedDate(date);
+    };
+  
+    const handleYearClick = (year) => {
+      setSelectedYear(year);
+    };
+  
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const dates = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
+    const years = Array.from({ length: 10 }, (_, i) => (2023 + i).toString());
+  
+
   return (
     <Center w={"93%"} bg="#6284FF26" p={3} ml={5}>
         <IconButton
@@ -16,7 +43,7 @@ const DatePicker = () => {
         />
         <Menu>
         <MenuButton as={Button} variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
-            <Text color="black" p={2} mt={3}>Month</Text>
+            <Text color="black" p={2} mt={3}>{selectedMonth}</Text>
         </MenuButton>
         <MenuList maxH="230px" overflowY="auto" w="auto" overflowX="hidden" fontSize={'xl'}
                 css={`
@@ -38,18 +65,11 @@ const DatePicker = () => {
                     background-color: #1E40AF; // Change the color when clicked
                   }
         `}>
-            <MenuItem ml={5}>January</MenuItem>
-            <MenuItem ml={5}>February</MenuItem>
-            <MenuItem ml={5}>March</MenuItem>
-            <MenuItem ml={5}>April</MenuItem>
-            <MenuItem ml={5}>May</MenuItem>
-            <MenuItem ml={5}>June</MenuItem>
-            <MenuItem ml={5}>July</MenuItem>
-            <MenuItem ml={5}>August</MenuItem>
-            <MenuItem ml={5}>September</MenuItem>
-            <MenuItem ml={5}>October</MenuItem>
-            <MenuItem ml={5}>November</MenuItem>
-            <MenuItem ml={5}>December</MenuItem>
+            {months.map((month) => (
+            <MenuItem key={month} onClick={() => handleMonthClick(month)}>
+              {month}
+            </MenuItem>
+          ))}
         </MenuList>
         </Menu>
         <IconButton
@@ -74,7 +94,7 @@ const DatePicker = () => {
         />
         <Menu>
         <MenuButton as={Button} variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
-            <Text color="black" p={2} mt={3}>Day</Text>
+            <Text color="black" p={2} mt={3}>{selectedDate}</Text>
         </MenuButton>
         <MenuList maxH="230px" overflowY="auto" w="auto" overflowX="hidden" fontSize={'xl'}
                 css={`
@@ -96,37 +116,11 @@ const DatePicker = () => {
                     background-color: #1E40AF; // Change the color when clicked
                   }
         `}>
-            <MenuItem ml={5}>1</MenuItem>
-            <MenuItem ml={5}>2</MenuItem>
-            <MenuItem ml={5}>3</MenuItem>
-            <MenuItem ml={5}>4</MenuItem>
-            <MenuItem ml={5}>5</MenuItem>
-            <MenuItem ml={5}>6</MenuItem>
-            <MenuItem ml={5}>7</MenuItem>
-            <MenuItem ml={5}>8</MenuItem>
-            <MenuItem ml={5}>9</MenuItem>
-            <MenuItem ml={5}>10</MenuItem>
-            <MenuItem ml={5}>11</MenuItem>
-            <MenuItem ml={5}>12</MenuItem>
-            <MenuItem ml={5}>13</MenuItem>
-            <MenuItem ml={5}>14</MenuItem>
-            <MenuItem ml={5}>15</MenuItem>
-            <MenuItem ml={5}>16</MenuItem>
-            <MenuItem ml={5}>17</MenuItem>
-            <MenuItem ml={5}>18</MenuItem>
-            <MenuItem ml={5}>19</MenuItem>
-            <MenuItem ml={5}>20</MenuItem>
-            <MenuItem ml={5}>21</MenuItem>
-            <MenuItem ml={5}>22</MenuItem>
-            <MenuItem ml={5}>23</MenuItem>
-            <MenuItem ml={5}>24</MenuItem>
-            <MenuItem ml={5}>25</MenuItem>
-            <MenuItem ml={5}>26</MenuItem>
-            <MenuItem ml={5}>27</MenuItem>
-            <MenuItem ml={5}>28</MenuItem>
-            <MenuItem ml={5}>29</MenuItem>
-            <MenuItem ml={5}>30</MenuItem>
-            <MenuItem ml={5}>31</MenuItem>
+            {dates.map((date) => (
+            <MenuItem key={date} onClick={() => handleDateClick(date)}>
+              {date}
+            </MenuItem>
+          ))}
         </MenuList>
         </Menu>
         <IconButton
@@ -151,7 +145,7 @@ const DatePicker = () => {
         />
         <Menu>
         <MenuButton as={Button} variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
-            <Text color="black" p={2} mt={3}>Year</Text>
+            <Text color="black" p={2} mt={3}>{selectedYear}</Text>
         </MenuButton>
         <MenuList maxH="230px" overflowY="auto" w="auto" overflowX="hidden" fontSize={'xl'}
                 css={`
@@ -173,18 +167,11 @@ const DatePicker = () => {
                     background-color: #1E40AF; // Change the color when clicked
                   }
         `}>
-            <MenuItem ml={5}>2023</MenuItem>
-            <MenuItem ml={5}>2024</MenuItem>
-            <MenuItem ml={5}>2025</MenuItem>
-            <MenuItem ml={5}>2026</MenuItem>
-            <MenuItem ml={5}>2027</MenuItem>
-            <MenuItem ml={5}>2028</MenuItem>
-            <MenuItem ml={5}>2029</MenuItem>
-            <MenuItem ml={5}>2030</MenuItem>
-            <MenuItem ml={5}>2031</MenuItem>
-            <MenuItem ml={5}>2032</MenuItem>
-            <MenuItem ml={5}>2033</MenuItem>
-            <MenuItem ml={5}>2034</MenuItem>
+            {years.map((year) => (
+            <MenuItem key={year} onClick={() => handleYearClick(year)}>
+              {year}
+            </MenuItem>
+          ))}
         </MenuList>
         </Menu>
         <IconButton
