@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDisclosure } from "@chakra-ui/react";
-import { IconButton, Button, Text, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from '@chakra-ui/react';
+import { IconButton, Button, Text, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, 
+         Box, Input, Textarea, Select, FormControl, FormLabel, VStack, HStack, NumberInput, NumberInputField} from '@chakra-ui/react';
 import { AddIcon } from "@chakra-ui/icons";
 
 function AddTask() {
@@ -15,19 +16,50 @@ function AddTask() {
                         <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
                         <ModalOverlay />
                         <ModalContent>
-                          <ModalHeader>Modal Title</ModalHeader>
+                          <ModalHeader>Add A New Task</ModalHeader>
                           <ModalCloseButton />
                           <ModalBody>
-                            <Text fontWeight='bold' mb='1rem'>
-                              You can scroll the content behind the modal
-                            </Text>
+                          <VStack spacing={4}>
+                            <FormControl>
+                            <FormLabel>Title</FormLabel>
+                            <Input type="text" placeholder="Enter task title" />
+                            </FormControl>
+
+                            <FormControl>
+                            <FormLabel>Description</FormLabel>
+                            <Textarea
+                                placeholder="Enter task description"
+                                rows={3}
+                            />
+                            </FormControl>
+
+                            <HStack w={'100%'}>
+                            <FormControl>
+                            <FormLabel>Priority</FormLabel>
+                            <Select>
+                                <option value="top">Top</option>
+                                <option value="important" selected>
+                                Important
+                                </option>
+                                <option value="other">Other</option>
+                            </Select>
+                            </FormControl>
+  
+                            <FormControl>
+                                <FormLabel># of Pomodoro Timers</FormLabel>
+                                <NumberInput defaultValue={1} min={1}>
+                                    <NumberInputField />
+                                </NumberInput>
+                            </FormControl>
+                            </HStack>
+                            </VStack>
                           </ModalBody>
                 
                           <ModalFooter>
+                            <Button variant='ghost'  onClick={onClose}>Cancel</Button>
                             <Button colorScheme='blue' mr={3} >
                               Save
                             </Button>
-                            <Button variant='ghost'  onClick={onClose}>Cancel</Button>
                           </ModalFooter>
                         </ModalContent>
                       </Modal>
