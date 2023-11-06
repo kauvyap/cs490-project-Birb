@@ -19,10 +19,10 @@ function Homepage(){
 
     return (
       
-      <Box p={5} bg="#F5F7F9" height={"94%"}>
+      <Box p={5} bg="#F5F7F9" height={"94vh"} >
   
-      <HStack justify={"left"} p={5}  H={"96%"} width={ "96%"}>
-          <VStack  H={"100%"} width={"60%" } align="top-left" justify={"left"}>
+      <HStack justify={"left"} p={5}  >
+          <VStack  H={"100%"} width={"60%"} align="top-left" justify={"left"}>
           <Heading>Task</Heading>
   
               <Container bg="#FFFFFF"  minW={"100%"} minH={"700px"} paddingBottom={5} paddingTop={5} >

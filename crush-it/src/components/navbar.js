@@ -52,48 +52,26 @@ export default function Navbar() {
 
     if (location.pathname !== "/profile/" + user ){
         return (
-            <Flex as={"nav"} bg={"white"} width={"100%"} height={"6%" } alignItems={"center"} p={"20px"} >
-                <Input placeholder='What are you looking for?' />
+            <Flex as={"nav"} bg={"white"} width={"100%"} height={"6vh" } alignItems={"center"} p={"20px"} >
+                <Input placeholder='What are you looking for?' width={"100vh"} />
                 <Spacer></Spacer>
-                <Popover>
-                    <PopoverTrigger>
-                        <Button leftIcon={<Image borderRadius='full' boxSize="40px" src={userIcon} display='fixed'/>} variant={"ghost"} colorScheme="linkedin" bg={"white"} color={"black"}>{userData.fname} {userData.lname}</Button>
-                    </PopoverTrigger>
-                    <PopoverContent width='180px' height='140px' padding='20px'>
-                        <VStack spacing={4}>
-                            <NavLink to={"/profile/" + user} >
-                                <Button colorScheme="gray">Profile</Button>
-                            </NavLink>
-
-                            <Button colorScheme="red" onClick={handleLogout}>Logout</Button>
-
-                        </VStack>
-                    </PopoverContent>
-                </Popover>
+                <NavLink to={"/profile/" + user} >
+                    <Button leftIcon={<Image borderRadius='full' boxSize="40px" src={userIcon} display='fixed'/>} variant={"ghost"} colorScheme="linkedin" bg={"white"} color={"black"}>{userData.fname} {userData.lname}</Button>
+                </NavLink>
             </Flex>
         )
     }
  return ( 
     
-    <Flex as={"nav"} bg={"white"} width={"100%"} height={"6%" } alignItems={"center"} p={"20px"}>
+    <Flex as={"nav"} bg={"white"} width={"100%"} height={"6vh" } alignItems={"center"} p={"20px"}>
     <Heading>Profile</Heading>
     <Spacer></Spacer>
-    <Popover>
-        <PopoverTrigger>
+    <NavLink to={"/profile/" + user} >
             <Button leftIcon={<Image borderRadius='full' boxSize="40px" src={userIcon} display='fixed'/>} variant={"ghost"} colorScheme="linkedin" bg={"white"} color={"black"}>{userData.fname} {userData.lname}</Button>
-        </PopoverTrigger>
-        <PopoverContent width='180px' height='140px' padding='20px'>
-            <VStack spacing={4}>
-                <NavLink to="/profile" >
-                    <Button colorScheme="gray">Profile</Button>
-                </NavLink>
-                <NavLink to="/">
-                    <Button colorScheme="red" onClick={handleLogout}>Logout</Button>
-                </NavLink>
-            </VStack>
-        </PopoverContent>
-    </Popover>
-        </Flex>
+    </NavLink>
+            
+                
+    </Flex>
      
  );
 }

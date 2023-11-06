@@ -112,6 +112,7 @@ function Login() {
                 </FormControl>
                   <Button width='200px' colorScheme="brand" onClick={onSubmit}>Login</Button>
               </VStack>
+              <Box height={"15vh"}></Box>
             </CardBody>
             <br/><br/><br/><br/><br/><br/><br/>
             <CardFooter bg="white" style={{ textAlign: 'center' }}>
