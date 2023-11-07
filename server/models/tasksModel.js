@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const subTaskSchema = new Schema({
+const subTasksSchema = new Schema({
     dateAssigned: String,
     title: String,
     description: String,
@@ -11,10 +11,11 @@ const subTaskSchema = new Schema({
     status: String
 })
 
-const taskSchema = new Schema({
+const tasksSchema = new Schema({
     "email": String,
-    "order": [Number],
-    "tasks": [subTaskSchema]
+    "topTasks": [subTasksSchema],
+    "importantTasks": [subTasksSchema],
+    "otherTasks": [subTasksSchema]
 }, {collection: 'task'})
 
-module.exports = mongoose.model('Task', taskSchema);
+module.exports = mongoose.model('Tasks', tasksSchema);
