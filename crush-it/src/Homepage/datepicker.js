@@ -123,7 +123,7 @@ function DatePicker() {
   
 
   return (
-    <Center w={"93%"} bg="#6284FF26" p={3} ml={5}>
+    <Center borderRadius={"10"} w={"93%"} bg="#6284FF26" p={3} ml={5}>
         <IconButton
             variant='outline'
             colorScheme='blue'
@@ -135,7 +135,7 @@ function DatePicker() {
             onClick={() => setPreviousMonth(selectedYear, selectedMonth)}
         />
         <Menu>
-        <MenuButton as={Button} variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
+        <MenuButton as={Button} width='30vh' variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
             <Text color="black" p={2} mt={3}>{selectedMonth}</Text>
         </MenuButton>
         <MenuList maxH="230px" overflowY="auto" w="auto" overflowX="hidden" fontSize={'xl'}
@@ -188,7 +188,7 @@ function DatePicker() {
             onClick={() => setPreviousDate(selectedYear, selectedMonth, selectedDate)}
         />
         <Menu>
-        <MenuButton as={Button} variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
+        <MenuButton as={Button} width='15vh' variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
             <Text color="black" p={2} mt={3}>{selectedDate}</Text>
         </MenuButton>
         <MenuList maxH="230px" overflowY="auto" w="auto" overflowX="hidden" fontSize={'xl'}
@@ -241,7 +241,7 @@ function DatePicker() {
             onClick={() => setPreviousYear(selectedYear)}
         />
         <Menu>
-        <MenuButton as={Button} variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
+        <MenuButton as={Button} width='18vh' variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
             <Text color="black" p={2} mt={3}>{selectedYear}</Text>
         </MenuButton>
         <MenuList maxH="230px" overflowY="auto" w="auto" overflowX="hidden" fontSize={'xl'}
