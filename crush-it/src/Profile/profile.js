@@ -213,7 +213,7 @@ function Profile() {
 
 
     return (
-    <Box p={5} bg="#F5F7F9">    
+    <Box p={5} height={"94vh"} bg="#F5F7F9">    
       <VStack spacing={4} align="start">
         <Box w="100%">
           <Heading as="h2" size="md" mb={2}>
@@ -369,8 +369,8 @@ function Profile() {
 
         <Box w="100%" display="flex" justifyContent="center">
         <HStack spacing={5}>
-            <Button size='lg' colorScheme="blue" variant='outline' width='200px' onClick={handleCancel}>Cancel</Button>
-            <Button size='lg' colorScheme="blue" variant='solid' width='200px' onClick={handleSave}>Save</Button>
+            <Button size='lg' width='200px' colorScheme="blue" variant='outline' onClick={handleCancel}>Cancel</Button>
+            <Button size='lg' width='200px' colorScheme="blue" variant='solid' onClick={handleSave}>Save</Button>
         </HStack>
         </Box>
 

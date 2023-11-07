@@ -24,6 +24,8 @@ function Signup() {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 
+  const emailRegex =/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+
 
   useLayoutEffect(() => {
     fetch("http://localhost:5000/api/auth/getUsername", {
@@ -40,11 +42,15 @@ function Signup() {
 
   async function onSubmit() {
     // Implement your login logic here
+
     if (!emailRegex.test(email)) {
       console.log("Invalid email format")
       setEmailError(true);
+
       return;
     }
+
+    
     if (password.length < 8) {
       console.log("Password must be at least 8 characters");
       setPasswordLengthError(true);

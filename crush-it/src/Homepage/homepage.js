@@ -1,8 +1,12 @@
 import React, {useLayoutEffect} from "react";
 import { useNavigate } from "react-router";
 import {Box, Heading, Card, Container, Table, Tbody, TableContainer, Tr, Td, VStack, HStack} from '@chakra-ui/react';
+import Prio from "./topPriority"
+import Important from "./important"
+import Other from "./Other"
 import DatePicker from './datepicker';
 import AddTask from './addtask';
+
 
 function Homepage(){
   const navigate = useNavigate();
@@ -22,6 +26,7 @@ function Homepage(){
 
     return (
       
+
         <Box p={5} bg="#F5F7F9" height={"94%"}>
 
         <DatePicker />
@@ -33,60 +38,11 @@ function Homepage(){
             </Heading>
             
   
-              <Container bg="#FFFFFF"  minW={"100%"} minH={"700px"} paddingBottom={5} paddingTop={5} >
-                  <Card bg="#F5F7F9" Width={"100%"} height={200} maxH={"200px"} p={5} marginBottom={5} overflowY={"auto"}>
-  
-                      <Heading>
-                          Top Priority
-                      </Heading>
-                      <Card margin={2} padding={3}>
-                          Homework
-                      </Card>
-  
-                  </Card>
-  
-  
-  
-                  <Card bg="#F5F7F9" Width={"100%"} height={200} maxH={"200px"} p={5} marginBottom={5} overflowY={"auto"}>
-                      <Heading>
-                          Important
-                      </Heading>
-                      <Card margin={2} padding={3}>
-                          Homework
-                      </Card>
-                  </Card>
-  
-                  <Card bg="#F5F7F9" Width={"100%"} height={200} maxH={"200px"} p={5} marginBottom={5} overflowY={"auto"}>
-                      <Heading>
-                          Other
-                      </Heading>
-                      <Card margin={2} padding={3}>
-                          Homework
-                      </Card>
-                      <Card margin={2} padding={3}>
-                          Homework
-                      </Card><Card margin={2} padding={3}>
-                          Homework
-                      </Card><Card margin={2} padding={3}>
-                          Homework
-                      </Card><Card margin={2} padding={3}>
-                          Homework
-                      </Card><Card margin={2} padding={3}>
-                          Homework
-                      </Card><Card margin={2} padding={3}>
-                          Homework
-                      </Card><Card margin={2} padding={3}>
-                          Homework
-                      </Card><Card margin={2} padding={3}>
-                          Homework
-                      </Card><Card margin={2} padding={3}>
-                          Homework
-                      </Card><Card margin={2} padding={3}>
-                          Homework
-                      </Card><Card margin={2} padding={3}>
-                          Homework
-                      </Card>
-                  </Card>
+              <Container borderRadius={"10"} bg="#FFFFFF"  minW={"100%"} minH={"700px"} paddingBottom={5} paddingTop={5} >
+                  <Prio></Prio>
+                  <Important></Important>
+                  <Other></Other>
+                
               </Container>
           </VStack>
   
