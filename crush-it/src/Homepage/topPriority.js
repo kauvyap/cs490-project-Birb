@@ -112,7 +112,7 @@ function createCard( elements){
 
         cards.push(
         
-            <Card key={i} margin={2} padding={3}>
+            <Card borderRadius={"8"} key={i} margin={2} padding={3}>
                 <Accordion allowToggle >
                     <AccordionItem>
 
@@ -154,11 +154,6 @@ function createCard( elements){
     )
 }
 
-1
-2
-3
-
-
 
 
 function topPrio() {
@@ -172,7 +167,7 @@ let elements = [["Homework", "This is a hw", 1, "finished" ], ["Homework 2","Thi
 return(
   
              
-    <Card bg="#F5F7F9" Width={"100%"} height={200} maxH={"200px"} p={5} marginBottom={5} overflowY={"auto"}>
+    <Card borderRadius={"8"} bg="#F5F7F9" Width={"100%"} height={200} maxH={"200px"} p={5} marginBottom={5} overflowY={"auto"}>
   
         <Heading>
             Top Priority

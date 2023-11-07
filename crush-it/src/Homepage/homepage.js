@@ -30,7 +30,7 @@ function Homepage(){
           <VStack  H={"100%"} width={"60%"} align="top-left" justify={"left"}>
           <Heading>Task</Heading>
   
-              <Container bg="#FFFFFF"  minW={"100%"} minH={"700px"} paddingBottom={5} paddingTop={5} >
+              <Container borderRadius={"10"} bg="#FFFFFF"  minW={"100%"} minH={"700px"} paddingBottom={5} paddingTop={5} >
                   <Prio></Prio>
                   <Important></Important>
                   <Other></Other>
