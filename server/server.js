@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 
 const userRoutes = require("./routes/user");
 const authRoute = require('./routes/auth');
+const taskRoute = require('./routes/task');
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use('/api/auth', authRoute);
 
 app.use('/api/user', userRoutes);
 
+app.use('/api/task', taskRoutes);
 
 
 mongoose.connect(process.env.ATLAS_URI, {
