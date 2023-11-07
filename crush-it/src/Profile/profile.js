@@ -257,7 +257,7 @@ function Profile() {
         </Box>
         </Box>
 
-        <Divider />
+        <Divider border={"none"} />
 
         <Box w="100%">
         <Heading as="h2" size="md" mb={2}>
@@ -317,7 +317,7 @@ function Profile() {
         </Card>
         </Box>
 
-        <Divider />
+        <Divider border={"none"} />
 
         <Box w="100%">
         <Heading as="h2" size="md" mb={2}>
@@ -365,7 +365,7 @@ function Profile() {
         </Card>
         </Box>
 
-        <Divider />
+        <Divider border={"none"} />
 
         <Box w="100%" display="flex" justifyContent="center">
         <HStack spacing={5}>

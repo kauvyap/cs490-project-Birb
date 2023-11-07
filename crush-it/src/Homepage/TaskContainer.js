@@ -39,14 +39,14 @@ function EditableIcon( txt ){
       return(
         
             currentIcon === 'NS'
-            ? <Icon as={IoIosRadioButtonOff} boxSize={"22"} marginRight={"5px"} _hover={{bg:"#F3F3F3" }} style={{ cursor: 'pointer' }} onClick={toggleIcon}/>
+            ? <Icon as={IoIosRadioButtonOff} boxSize={"22px"} marginRight={"5px"} _hover={{bg:"#F3F3F3" }} style={{ cursor: 'pointer' }} onClick={toggleIcon}/>
             : currentIcon === 'IP'
-            ? <Image src={ip} boxSize={"22"} marginRight={"5px"}  _hover={{bg:"#F3F3F3" }} style={{ cursor: 'pointer' }} onClick={toggleIcon}/>
+            ? <Image src={ip} boxSize={"22px"} marginRight={"5px"}  _hover={{bg:"#F3F3F3" }} style={{ cursor: 'pointer' }} onClick={toggleIcon}/>
             : currentIcon === 'FN'
-            ? <Icon as={IoIosCheckmarkCircleOutline} boxSize={"22"} _hover={{bg:"#F3F3F3" }} style={{ cursor: 'pointer' }} marginRight={"5px"} onClick={toggleIcon}/>
+            ? <Icon as={IoIosCheckmarkCircleOutline} boxSize={"22px"} _hover={{bg:"#F3F3F3" }} style={{ cursor: 'pointer' }} marginRight={"5px"} onClick={toggleIcon}/>
             :currentIcon === 'MO'
-            ? <Icon as={IoSwapHorizontalSharp} boxSize={"22"} _hover={{bg:"#F3F3F3" }} style={{ cursor: 'pointer' }} marginRight={"5px"} onClick={toggleIcon}/>
-            : <Icon as={IoIosCloseCircleOutline} boxSize={"22"} _hover={{bg:"#F3F3F3" }} style={{ cursor: 'pointer' }} marginRight={"5px"} onClick={toggleIcon}/>
+            ? <Icon as={IoSwapHorizontalSharp} boxSize={"22px"} _hover={{bg:"#F3F3F3" }} style={{ cursor: 'pointer' }} marginRight={"5px"} onClick={toggleIcon}/>
+            : <Icon as={IoIosCloseCircleOutline} boxSize={"22px"} _hover={{bg:"#F3F3F3" }} style={{ cursor: 'pointer' }} marginRight={"5px"} onClick={toggleIcon}/>
         
       );
 }
@@ -62,6 +62,9 @@ function EditableNote( txt ) {
     const handleInputChange = (event) => {
       setText(event.target.value);
     };
+
+    
+
     return (
       <div>
          <Flex justifyContent="space-between" marginBottom={"2px"}>
@@ -152,7 +155,7 @@ function createCard( elements){
     // create all card views inside of elements
     let cards = []
 
-    for (let i = elements.length-1; i >= 0; i--){
+    for (let i = 0; i < elements.length; i++){
 
         cards.push(
         
@@ -165,7 +168,7 @@ function createCard( elements){
                             <Flex justifyContent={"center"}>
                             <>
                             <Box as="span" flex='1' textAlign='left'>
-                                <Flex justifyContent={"flex-left"}>
+                                <Flex justifyContent={"flex-left"} alignItems={"top"}>
                                 {EditableIcon(elements[i][3])}<Heading fontWeight={"700"} fontSize={"16px"} textColor={"#6284FF"} fontFamily={"'DM Sans', sans-serif"}>{elements[i][0]}</Heading>
                                 </Flex>
                             </Box>
@@ -183,7 +186,7 @@ function createCard( elements){
                              </Flex>
                              </Flex>
                         <AccordionPanel pb={4}>
-                            <Box height={"1px"} width={"100%"} bg={"#E2EAF1"}></Box>
+                            <Box height={"1px"} width={"100%"} bg={"#E2EAF1"} marginBottom={"2"}></Box>
                             {EditablePomo(elements[i][2])}
                             {EditableNote(elements[i][1])}
                         </AccordionPanel>
@@ -219,15 +222,33 @@ const elements = props.categoryList
 console.log(props)
 
 return(
-  
              
-    <Card bg="#F5F7F9" Width={"100%"} height={200} maxH={"200px"} p={5} marginBottom={5} overflowY={"auto"}>
+    <Card borderRadius={"8"} bg="#F5F7F9" Width={"100%"} height={200} maxH={"200px"} p={5} marginBottom={5} overflowY={"auto"} 
+    css={`
+                &::-webkit-scrollbar {
+                    width: 8px;
+                    height: 80px;
+                  }
+                  &::-webkit-scrollbar-thumb {
+                    background-color: #6284FF;
+                    border-radius: 8px;
+                  }
+                  &::-webkit-scrollbar-track {
+                    background-color: rgba(98, 132, 255, 0.15);
+                  }
+                  &::-webkit-scrollbar-thumb:hover {
+                    background-color: #405DC9;
+                  }
+                  &::-webkit-scrollbar-thumb:active {
+                    background-color: #1E40AF; // Change the color when clicked`
+                  }>
   
-        <Heading>
+        <Heading fontSize={"20px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"}>
             {props.category}
         </Heading>
+        <Box >
         {createCard(elements) }
-  
+        </Box>
     </Card>
 )
 }

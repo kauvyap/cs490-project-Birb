@@ -26,9 +26,9 @@ function Homepage(){
     }, [navigate])
 
     //status is broken into 4 different elements notStarted="NS", Finished="FN", InProgress="IP", Canceled="anything", movedOver="MO" 
-    const topPriorityList = [["Homework", "This is a hw", 1, "FN" ], ["Homework 2","This is a hw", 3, "NS"]]
-    const importantList = [["Homework", "This is a hw", 1, "FN" ], ["Homework 2","This is a hw", 3, "CA"]]
-    const otherList = [["Homework", "This is a hw", 1, "IP" ], ["Homework 2","This is a hw", 3, "MO"]]
+    const topPriorityList = [["Complete Math Homework", "This is a hw", 1, "FN" ], ["Homework 2","This is a hw", 3, "NS"]];
+    const importantList = [["Homework 1", "This is a hw", 4, "FN" ], ["Homework 7","This is a hw", 2, "CA"]];
+    const otherList = [["Homework 4", "", 10, "IP" ], ["Homework 3","", 3, "MO"]];
 
     return (
       
@@ -43,7 +43,7 @@ function Homepage(){
             <AddTask />
             </Heading>
 
-              <Container borderRadius={"10"} bg="#FFFFFF"  minW={"100%"} minH={"700px"} paddingBottom={5} paddingTop={5} >
+              <Container borderRadius={"10"} bg="#FFFFFF"  minW={"100%"} H={"670px"} paddingTop={"5"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"}>
                 <TaskContainer category='Top Priority' categoryList={topPriorityList}/>
                 <TaskContainer category='Important' categoryList={importantList}/>
                 <TaskContainer category='Other' categoryList={otherList}/>
@@ -54,7 +54,25 @@ function Homepage(){
   
           <VStack H={"100%"} width={"40%" } align="left" justify={"left"} >
               <Heading fontSize={"30px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"} marginBottom={3}>Appointments</Heading>
-                  <Box borderRadius={"10"} bg="white" h={"670px"} overflowY={"auto"} >
+                  <Box borderRadius={"10"} bg="white" h={"680px"} overflowY={"auto"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"} 
+                  css={`
+                  &::-webkit-scrollbar {
+                      width: 6px;
+                      height: 80px;
+                    }
+                    &::-webkit-scrollbar-thumb {
+                      background-color: #6284FF;
+                      border-radius: 8px;
+                    }
+                    &::-webkit-scrollbar-track {
+                      background-color: rgba(98, 132, 255, 0.15);
+                    }
+                    &::-webkit-scrollbar-thumb:hover {
+                      background-color: #405DC9;
+                    }
+                    &::-webkit-scrollbar-thumb:active {
+                      background-color: #1E40AF; // Change the color when clicked`
+                    }>
                   <TableContainer>
                       <Table variant='simple'>
   
