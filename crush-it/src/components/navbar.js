@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import "bootstrap/dist/css/bootstrap.css";
  // We import NavLink to utilize the react router.
 import { NavLink, useLocation } from "react-router-dom";
-import { Flex, Input, Heading, Spacer, Button, Image, VStack, Popover, PopoverTrigger, PopoverContent} from '@chakra-ui/react';
+import { Flex, Input, Heading, Spacer, Button, Image} from '@chakra-ui/react';
 import userIcon from '../media/userIcon.png';
 
  // Here, we display our Navbar
@@ -39,12 +39,6 @@ export default function Navbar() {
     .catch((err) => console.log(err))
     }, [user])
 
-
-
-    const handleLogout = () => {
-        localStorage.clear();
-        navigate('/login');
-    }
   
     if (location.pathname === "/login" || location.pathname === "/signup"){
         return null;

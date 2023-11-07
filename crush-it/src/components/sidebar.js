@@ -1,5 +1,5 @@
 // We import bootstrap to make our application look better.
-import React, { useState, useLayoutEffect, useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router";
 import "bootstrap/dist/css/bootstrap.css";
  // We import NavLink to utilize the react router.
@@ -7,7 +7,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import { NavLink,useLocation } from "react-router-dom";
 import { Box, VStack, Text, Button, Image, Spacer} from "@chakra-ui/react";
 import logOutIcon from '../media/logout.png'
-import userIcon from '../media/userIcon.png'
  // Here, we display our Navbar
 export default function Sidebar() {
 
