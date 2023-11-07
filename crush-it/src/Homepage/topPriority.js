@@ -1,11 +1,46 @@
 import React, {useState} from "react";
-import { Heading, Card, Button, Image, Box,Flex, Text,Input ,Spacer, Divider} from '@chakra-ui/react';
+import { Heading, Card, Button, Image, Box,Flex, Text,Input, IconButton} from '@chakra-ui/react';
 import {Accordion,AccordionItem, AccordionButton, AccordionPanel, AccordionIcon} from '@chakra-ui/react'
 import dropD from '../media/arrow-circle-down.svg'
 import editImg from '../media/edit-2.png'
-import saveImg2 from '../media/Vector.svg'
+import saveImg from '../media/Vector.svg'
+import addSqr from '../media/add-square.svg'
+import subSqr from '../media/minus-square.svg'
 
-function EditableElement( txt ) {
+
+//creates a editable note container
+function EditableNote( txt ) {
+    const [isEditing, setIsEditing] = useState(false);
+    const [text, setText] = useState(txt); // Replace with your initial text
+    const handleEditClick = () => {
+        setIsEditing(!isEditing);
+    };
+    const handleInputChange = (event) => {
+      setText(event.target.value);
+    };
+    return (
+      <div>
+         <Flex justifyContent="space-between">
+            <Box fontSize={"12px" }  fontFamily={"'DM Sans', sans-serif"} textColor={"#545454"}>Notes</Box>
+            <Box boxSize="20px" borderRadius={"6"} style={{ cursor: 'pointer' }} onClick={handleEditClick}>
+                {isEditing ? <Image borderRadius={"6"} bg="#6284FF" boxSize="20px"  src={saveImg}></Image> : <Image boxSize="20px" src={editImg}></Image>}
+            </Box>
+        </Flex>
+        {isEditing ? (
+          <Input fontFamily={"'DM Sans', sans-serif"} fontSize={"14px"} textColor={"#1F1F1F"}
+            value={text}
+            onChange={handleInputChange}
+            autoFocus
+          />
+        ) : (
+          <Text fontFamily={"'DM Sans', sans-serif"} fontSize={"14px"} textColor={"#1F1F1F"}>{text}</Text>
+        )}
+      </div>
+    );
+  }
+
+// creates an editable pmodoro timer form
+  function EditablePomo( txt ) {
     const [isEditing, setIsEditing] = useState(false);
     const [text, setText] = useState(txt); // Replace with your initial text
   
@@ -17,41 +52,60 @@ function EditableElement( txt ) {
             setIsEditing(!isEditing);
         }
     };
-  
     const handleInputChange = (event) => {
       setText(event.target.value);
     };
-  
-    return (
-      <div>
-         <Flex justifyContent="space-between">
-            <Box fontSize={"12px" }  fontFamily={"'DM Sans', sans-serif"} textColor={"#545454"}>Notes</Box>
-            <Button variant={"ghost"} onClick={handleEditClick}>
-                {isEditing ? <Box boxSize="20px" borderRadius={"6"} bg="#6284FF" alignItems={"center"}><Image boxSize="20px" src={saveImg2}></Image></Box> : <Image boxSize="20px" src={editImg}></Image>}
-            </Button>
-            
-        </Flex>
-        {isEditing ? (
-          <Input fontFamily={"'DM Sans', sans-serif"} fontSize={"14px"} textColor={"#1F1F1F"}
-            value={text}
-            onChange={handleInputChange}
-            onBlur={handleEditClick}
-            autoFocus
-          />
-        ) : (
-          <Text fontFamily={"'DM Sans', sans-serif"} fontSize={"14px"} textColor={"#1F1F1F"}>{text}</Text>
-        )}
+
+    const handlePClick = () => {
+        const inp = parseInt(text);
+        setText(inp+1)
+    }
+
+    const handleSClick = () => {
+        const inp = parseInt(text);
+        if(inp -1 >= 1){
+            setText(inp-1)
+        }
         
-      </div>
+    }
+   
+    return (
+      <>
+        <Flex alignItems={"center"}>
+         
+            <Box flex={"1"} fontSize={"12px" }  fontFamily={"'DM Sans', sans-serif"} textColor={"#1F1F1F"}>Number of pomodoro timers (30 min each)</Box>
+            <Flex flex={"1"} justifyContent={"flex-end"}>
+            {isEditing ? (
+                <>
+                <Box marginRight={5} boxSize="20px" borderRadius={"6"} style={{ cursor: 'pointer' }} onClick={handleSClick}>
+                    <Image borderRadius={"6"}  boxSize="20px"  src={subSqr}/>
+                </Box>
+                
+                <Text marginRight={5} fontFamily={"'DM Sans', sans-serif"} fontSize={"14px"} textColor={"#FE754D"}
+                    onChange={handleInputChange}
+                >{text}</Text>
+                <Box marginRight={5} boxSize="20px" borderRadius={"6"} style={{ cursor: 'pointer' }} onClick={handlePClick}>
+                    <Image borderRadius={"6"}  boxSize="20px"  src={addSqr}/>
+                </Box>
+                </>
+            ) : (
+                <Box marginRight="5" fontFamily={"'DM Sans', sans-serif"} fontSize={"16px" } textColor={"#FE754D"} >{text}</Box>
+            )}
+
+            <Box boxSize="20px" borderRadius={"6"} style={{ cursor: 'pointer' }} onClick={handleEditClick}>
+                {isEditing ? <Image borderRadius={"6"} bg="#6284FF" boxSize="20px"  src={saveImg}></Image> : <Image boxSize="20px" src={editImg}></Image>}
+            </Box>
+            </Flex>
+        
+        </Flex>
+            
+      </>
     );
   }
 
 
-
-
-
 function createCard( elements){
-    // create all card views inside on elements
+    // create all card views inside of elements
     let cards = []
 
     for (let i = 0; i < elements.length; i++){
@@ -64,8 +118,7 @@ function createCard( elements){
 
                         {({ isExpanded }) => (
                             <>
-                        
-                        <AccordionButton>
+                            <AccordionButton>
                             <Box as="span" flex='1' textAlign='left'>
                                 <Heading fontWeight={"700"} fontSize={"16px"} textColor={"#6284FF"} fontFamily={"'DM Sans', sans-serif"}>{elements[i][0]}</Heading>
                             </Box>
@@ -77,12 +130,8 @@ function createCard( elements){
                         </AccordionButton>
                         <AccordionPanel pb={4}>
                             <Box height={"1px"} width={"100%"} bg={"#E2EAF1"}></Box>
-                            <Flex justifyContent="space-between"  >
-                                <Box fontFamily={"'DM Sans', sans-serif"} fontSize={"12px" } textColor={"#1F1F1F"} >Number of pomodoro timers (30 min each)</Box>
-                                <Box fontFamily={"'DM Sans', sans-serif"} fontSize={"16px" } textColor={"#FE754D"} >{elements[i][2]}</Box>
-                            </Flex>
-                           
-                            {EditableElement(elements[i][1])}
+                            {EditablePomo(elements[i][2])}
+                            {EditableNote(elements[i][1])}
                         </AccordionPanel>
                         </>
                         )}
