@@ -27,10 +27,10 @@ const App = () => {
        <Box flex="1">
          <Navbar />
          <Routes>
-          <Route exact path="/" element={<Login />} />
+          <Route exact path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/homepage" element={<Homepage/>} />
-          <Route path="/profile" element={<Profile/>} />
+          <Route path="/" element={<Homepage/>} />
+          <Route path="/profile/:userId" element={<Profile/>} />
          </Routes>
        </Box>
      </Flex>
