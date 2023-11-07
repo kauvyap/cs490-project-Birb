@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-import { Heading, Card, Button, Image, Box,Flex, Text,Input, IconButton} from '@chakra-ui/react';
-import {Accordion,AccordionItem, AccordionButton, AccordionPanel, AccordionIcon} from '@chakra-ui/react'
+import { Heading, Card, Image, Box,Flex, Text,Input} from '@chakra-ui/react';
+import {Accordion,AccordionItem, AccordionButton, AccordionPanel} from '@chakra-ui/react'
 import dropD from '../media/arrow-circle-down.svg'
 import editImg from '../media/edit-2.png'
 import saveImg from '../media/Vector.svg'

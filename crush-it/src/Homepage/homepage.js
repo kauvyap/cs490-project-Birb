@@ -1,6 +1,6 @@
 import React, {useLayoutEffect} from "react";
 import { useNavigate } from "react-router";
-import {Box, Heading, Card, Container, Table, Tbody, TableContainer, Tr, Td, VStack, HStack} from '@chakra-ui/react';
+import {Box, Heading, Container, Table, Tbody, TableContainer, Tr, Td, VStack, HStack} from '@chakra-ui/react';
 import Prio from "./topPriority"
 import Important from "./important"
 import Other from "./Other"
