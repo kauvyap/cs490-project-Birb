@@ -6,15 +6,13 @@ import "bootstrap/dist/css/bootstrap.css";
  
 import { NavLink,useLocation } from "react-router-dom";
 import { Box, VStack, Text, Button, Image, Spacer} from "@chakra-ui/react";
-
+import logOutIcon from '../media/logout.png'
+import userIcon from '../media/userIcon.png'
  // Here, we display our Navbar
 export default function Sidebar() {
 
   const location = useLocation();
   const navigate = useNavigate();
-
-  const [user, setUser] = useState(null)
-  const [userData, setUserData] = useState({});
 
   const handleLogout = () => {
     localStorage.clear();
@@ -43,7 +41,7 @@ export default function Sidebar() {
           <Button fontFamily={"'DM Sans', sans-serif"} height={"54px"} borderRadius={"14px"} variant="outline" color={"white"} fontSize={"18px"} fontWeight={"700"} width={"160px"}>Plan Day</Button>
           <Spacer></Spacer>
 
-          <Button fontFamily={"'DM Sans', sans-serif"} onClick={handleLogout} borderRadius={"10px"} bg="#252628" variant={"outline"} textColor={"white"} margin={"14"} w="100x" h="38">
+          <Button fontFamily={"'DM Sans', sans-serif"} leftIcon={<Image borderRadius='full' boxSize="24px" src={logOutIcon} display='fixed'/>} onClick={handleLogout} fontSize={"12px"} borderRadius={"10px"} bg="#252628" variant={"outline"} textColor={"white"} margin={"14"} w={"120px"} h="38">
             Log Out
           </Button>
         </VStack>
