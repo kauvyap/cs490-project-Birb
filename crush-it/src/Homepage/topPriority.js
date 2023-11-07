@@ -154,13 +154,19 @@ function createCard( elements){
     )
 }
 
+1
+2
+3
+
+
 
 
 function topPrio() {
 // get all topPriority taks
-
+                //select * from Table where task = "Important" and day=bar
 //split into 2d arrays [ [ Title, description, pomoTimer#, status]]
 //status = notStarted, inProgress, finished
+//status = 1, 2, 3
 let elements = [["Homework", "This is a hw", 1, "finished" ], ["Homework 2","This is a hw", 3, "finished"]]
 
 return(
