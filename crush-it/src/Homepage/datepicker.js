@@ -17,8 +17,8 @@ function DatePicker() {
       setSelectedMonth(month);
 
     // Recalculate selectedDate based on the new month
-    const daysInMonth = new Date(currentDate.getFullYear(), months.indexOf(month) + 1, 0).getDate();
-    setSelectedDate((prevDate) => (prevDate <= daysInMonth ? prevDate : '1'));
+    const daysInMonth = getDaysInMonth(selectedYear, month);
+    setSelectedDate((prevDate) => (prevDate <= daysInMonth ? prevDate : daysInMonth));
     };   
   
     const handleDateClick = (date) => {
@@ -27,6 +27,74 @@ function DatePicker() {
   
     const handleYearClick = (year) => {
       setSelectedYear(year);
+    };
+
+    const setPreviousYear = (year) => {
+      // don't go prior to current year
+      if (year !== curYear) {
+        setSelectedYear((parseInt(year)-1).toString());
+      }
+      return (parseInt(year)-1).toString();
+    };
+
+    const setPreviousMonth = (year, month) => {
+      var monthIndex = months.indexOf(month);
+      if (monthIndex === 0) {
+        setPreviousYear(year);
+        monthIndex = ((year === curYear) ? 0 : 11); // don't go to December if selectedYear is curYear
+      } else {
+        monthIndex--;
+      }
+      handleMonthClick(months[monthIndex]);
+      return months[monthIndex];
+    };
+
+    const setPreviousDate = (year, month, date) => {
+      date = parseInt(date);
+      if (date === 1) {
+        month = setPreviousMonth(year, month);
+        // don't go to 31 if it's January 1st curYear
+        if (year !== curYear || months.indexOf(selectedMonth) !== 0) {
+          setSelectedDate(getDaysInMonth(selectedYear, month)) 
+        }
+      } else {
+        date--;
+        setSelectedDate(date.toString());
+      }
+    };
+    
+    const setNextYear = (year) => {
+      // don't go further than 10 years
+      if (year !== (parseInt(curYear)+9).toString()) {
+        setSelectedYear((parseInt(year)+1).toString());
+      }
+      return (parseInt(year)+1).toString();
+    };
+
+    const setNextMonth = (year, month) => {
+      var monthIndex = months.indexOf(month);
+      if (monthIndex === 11) {
+        setNextYear(year);
+        monthIndex = ((year === (parseInt(curYear)+9).toString()) ? 11 : 0); // don't go to January if selectedYear is curYear+9
+      } else {
+        monthIndex++;
+      }
+      handleMonthClick(months[monthIndex]);
+      return months[monthIndex];
+    };
+
+    const setNextDate = (year, month, date) => {
+      date = parseInt(date);
+      if (date === getDaysInMonth(year, month)) {
+        month = setNextMonth(year, month);
+        // don't go to 31 if it's January 1st curYear
+        if (year !== (parseInt(curYear)+9).toString() || months.indexOf(selectedMonth) !== 11) {
+          setSelectedDate('1') 
+        }
+      } else {
+        date++;
+        setSelectedDate(date.toString());
+      }
     };
 
     //leap year calculator
@@ -51,7 +119,7 @@ function DatePicker() {
   
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const dates = Array.from({ length: getDaysInMonth(selectedYear, selectedMonth) }, (_, i) => (i + 1).toString());
-    const years = Array.from({ length: 10 }, (_, i) => (2023 + i).toString());
+    const years = Array.from({ length: 10 }, (_, i) => (parseInt(curYear) + i).toString());
   
 
   return (
@@ -64,6 +132,7 @@ function DatePicker() {
             size='lg'
             fontSize={'3xl'}
             icon={<IoChevronBackCircleSharp />}
+            onClick={() => setPreviousMonth(selectedYear, selectedMonth)}
         />
         <Menu>
         <MenuButton as={Button} variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
@@ -104,6 +173,7 @@ function DatePicker() {
             size='lg'
             fontSize={'3xl'}
             icon={<IoChevronForwardCircleSharp />}
+            onClick={() => setNextMonth(selectedYear, selectedMonth)}
         />
 
         <IconButton
@@ -115,6 +185,7 @@ function DatePicker() {
             fontSize={'3xl'}
             icon={<IoChevronBackCircleSharp />}
             ml={5}
+            onClick={() => setPreviousDate(selectedYear, selectedMonth, selectedDate)}
         />
         <Menu>
         <MenuButton as={Button} variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
@@ -155,6 +226,7 @@ function DatePicker() {
             size='lg'
             fontSize={'3xl'}
             icon={<IoChevronForwardCircleSharp />}
+            onClick={() => setNextDate(selectedYear, selectedMonth, selectedDate)}
         />
 
         <IconButton
@@ -166,6 +238,7 @@ function DatePicker() {
             fontSize={'3xl'}
             icon={<IoChevronBackCircleSharp />}
             ml={5}
+            onClick={() => setPreviousYear(selectedYear)}
         />
         <Menu>
         <MenuButton as={Button} variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
@@ -206,6 +279,7 @@ function DatePicker() {
             size='lg'
             fontSize={'3xl'}
             icon={<IoChevronForwardCircleSharp />}
+            onClick={() => setNextYear(selectedYear)}
         />
   
         </Center>
