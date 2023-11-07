@@ -7,12 +7,12 @@ import MainLogo from '../media/mainlogo';
 
 function Signup() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const [usernameLengthError, setUsernameLengthError] = useState(false);
-  const [usernameSameError, setUsernameSameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [emailSameError, setEmailSameError] = useState(false);
   const [passwordLengthError, setPasswordLengthError] = useState(false);
   const [passwordMatchError, setPasswordMatchError] = useState(false);
   const [comboError, setComboError] = useState(false)
@@ -21,6 +21,8 @@ function Signup() {
   const lowerRegex = /[a-z]/;
   const upperRegex = /[A-Z]/;
   const specialRegex = /[^a-zA-Z0-9]/;
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 
   const emailRegex =/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
@@ -40,14 +42,18 @@ function Signup() {
 
   async function onSubmit() {
     // Implement your login logic here
-    if (username.length < 6 && !emailRegex.test(username)) {
-      console.log("Username is not long enough or is not an email");
+
+    if (!emailRegex.test(email)) {
+      console.log("Invalid email format")
+      setEmailError(true);
+
       return;
     }
 
     
     if (password.length < 8) {
       console.log("Password must be at least 8 characters");
+      setPasswordLengthError(true);
       return;
     }
     if (!specialRegex.test(password) || !lowerRegex.test(password) || !upperRegex.test(password) || !digitRegex.test(password)) {
@@ -64,12 +70,12 @@ function Signup() {
       headers: {
         "Content-type": "application/json"
       },
-      body: JSON.stringify({username: username, password: password, fname: 'First', lname: 'Last', pomodoro: {timer: 25, short: 5, long: 15}})
+      body: JSON.stringify({username: email, password: password, fname: 'First', lname: 'Last', pomodoro: {timer: 25, short: 5, long: 15}})
     })
     if(!response.ok) {
       if (response.status === 400) {
-        console.log("Username already exists");
-        setUsernameSameError(true);
+        console.log("Email already being used");
+        setEmailSameError(true);
       }
     } else {
         navigate('/login');
@@ -78,24 +84,19 @@ function Signup() {
 
 
   useEffect(() => {
-    setUsernameSameError(false);
-    if (username.length !== 0 && username.length < 6) {
-      setUsernameLengthError(true);
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    setEmailError(false);
+    if (email.length !== 0 && !emailRegex.test(email)) {
+      setEmailError(true);
     }
-    else {
-      setUsernameLengthError(false);
-    }
-  }, [username])
+  }, [email])
 
 
   useEffect(() => {
+    setPasswordLengthError(false)
     if (password.length !== 0 && password.length < 8) {
       setPasswordLengthError(true);
     }
-    else {
-      setPasswordLengthError(false);
-    }
-    console.log(password.match(/^[a-z]+$/) ? false: true)
   }, [password])
 
   useEffect(() => {
@@ -148,19 +149,19 @@ function Signup() {
             </CardHeader>
             <CardBody>
               <VStack spacing={10} direction='row'>
-                  <FormControl id="username" isInvalid={usernameLengthError || usernameSameError} isRequired>
-                    <FormLabel>Username</FormLabel>
+                  <FormControl id="email" isInvalid={emailError || emailSameError} isRequired>
+                    <FormLabel>Email</FormLabel>
                     <Input
                       type="text"
-                      placeholder="Enter your username"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
+                      placeholder="Enter your email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
-                    {usernameLengthError && (
-                        <FormErrorMessage>Username must be at least 6 characters.</FormErrorMessage>
+                    {emailError && (
+                        <FormErrorMessage>Please enter in a valid email.</FormErrorMessage>
                        )}
-                    {usernameSameError && (
-                        <FormErrorMessage>Username is already taken.</FormErrorMessage>
+                    {emailSameError && (
+                        <FormErrorMessage>Email already in use.</FormErrorMessage>
                        )}
                   </FormControl>
                   <FormControl id="password" isInvalid={passwordLengthError || comboError} isRequired>

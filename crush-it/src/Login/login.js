@@ -6,18 +6,18 @@ import {Box, Heading, FormControl, FormLabel, FormErrorMessage, Input, Button, T
 import MainLogo from '../media/mainlogo';
 
 function Login() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [usernameError, setUsernameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const navigate = useNavigate();
 
 
 
   useEffect(() => {
-    setUsernameError(false);
+    setEmailError(false);
     setPasswordError(false);
-  }, [username, password])
+  }, [email, password])
 
 
   useLayoutEffect(() => {
@@ -34,7 +34,7 @@ function Login() {
 
   async function onSubmit() {
     const user = {
-      username: username,
+      username: email,
       password: password
     }
 
@@ -50,7 +50,7 @@ function Login() {
         setPasswordError(true);
       }
       if (response.status === 404) {
-        setUsernameError(true);
+        setEmailError(true);
       }
       console.log(response);
     } else {
@@ -85,18 +85,21 @@ function Login() {
               </Heading>
             </CardHeader>
             <CardBody>
-              <VStack spacing={4}>
-                <FormControl id="username" isInvalid={usernameError} isRequired>
-                  <FormLabel>Username</FormLabel>
+              <VStack spacing={10}>
+                <FormControl id="email" isInvalid={emailError || passwordError} isRequired>
+                  <FormLabel>Email</FormLabel>
                   <Input
                     type="text"
-                    placeholder="Enter your username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
-                  {usernameError && (
-                        <FormErrorMessage>Username does not exist.</FormErrorMessage>
+                  {emailError && (
+                        <FormErrorMessage>Email does not exist.</FormErrorMessage>
                        )}
+                  {passwordError && !emailError && (
+                  <FormErrorMessage>Email or password is incorrect.</FormErrorMessage>
+                  )}
                 </FormControl>
                 <FormControl id="password" isInvalid={passwordError} isRequired>
                   <FormLabel>Password</FormLabel>
@@ -107,7 +110,7 @@ function Login() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   {passwordError && (
-                    <FormErrorMessage>Password is incorrect.</FormErrorMessage>
+                    <FormErrorMessage>Email or password is incorrect.</FormErrorMessage>
                     )}
                 </FormControl>
                   <Button width='200px' colorScheme="brand" onClick={onSubmit}>Login</Button>

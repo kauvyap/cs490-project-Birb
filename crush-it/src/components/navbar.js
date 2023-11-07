@@ -69,9 +69,9 @@ export default function Navbar() {
     <NavLink to={"/profile/" + user} >
             <Button leftIcon={<Image borderRadius='full' boxSize="40px" src={userIcon} display='fixed'/>} variant={"ghost"} colorScheme="linkedin" bg={"white"} color={"black"}>{userData.fname} {userData.lname}</Button>
     </NavLink>
-            
-                
+                     
     </Flex>
+
      
  );
 }
