@@ -24,8 +24,6 @@ function Signup() {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 
-  const emailRegex =/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-
 
   useLayoutEffect(() => {
     fetch("http://localhost:5000/api/auth/getUsername", {

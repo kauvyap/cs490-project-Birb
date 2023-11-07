@@ -168,7 +168,7 @@ return(
              
     <Card bg="#F5F7F9" Width={"100%"} height={200} maxH={"200px"} p={5} marginBottom={5} overflowY={"auto"}>
   
-        <Heading>
+        <Heading fontSize={"20px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"}>
             Other
         </Heading>
         {createCard(elements) }

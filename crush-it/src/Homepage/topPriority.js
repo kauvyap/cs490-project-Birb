@@ -108,7 +108,7 @@ function createCard( elements){
     // create all card views inside of elements
     let cards = []
 
-    for (let i = 0; i < elements.length; i++){
+    for (let i = elements.length-1; i >= 0; i--){
 
         cards.push(
         
@@ -169,7 +169,7 @@ return(
              
     <Card borderRadius={"8"} bg="#F5F7F9" Width={"100%"} height={200} maxH={"200px"} p={5} marginBottom={5} overflowY={"auto"}>
   
-        <Heading>
+        <Heading fontSize={"20px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"}>
             Top Priority
         </Heading>
         {createCard(elements) }

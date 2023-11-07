@@ -27,29 +27,26 @@ function Homepage(){
     return (
       
 
-        <Box p={5} bg="#F5F7F9" height={"94%"}>
+        <Box p={5} bg="#F5F7F9" height={"94vh"}>
 
         <DatePicker />
   
-        <HStack justify={"left"} p={5}  H={"96%"} width={ "96%"}>
-            <VStack  H={"100%"} width={"60%" } align="top-left" justify={"left"}>
-            <Heading>Tasks
+        <HStack justify={"left"} p={5}  H={"90%"} width={ "100%"}>
+            <VStack  H={"100%"} width={"60%" } align="top" justify={"left"} marginBottom={1}>
+            <Heading fontSize={"30px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"}>Tasks
             <AddTask />
             </Heading>
-            
-  
-              <Container borderRadius={"10"} bg="#FFFFFF"  minW={"100%"} minH={"700px"} paddingBottom={5} paddingTop={5} >
+              <Container  align="top" justify={"left"} borderRadius={"10"} bg="#FFFFFF"  minW={"100%"} h={"670px"} paddingBottom={5} paddingTop={4} >
                   <Prio></Prio>
                   <Important></Important>
                   <Other></Other>
-                
               </Container>
+
           </VStack>
   
-          <VStack H={"100%"} width={"40%" } align="left" justify={"left"}>
-              <Heading>Appointments</Heading>
-  
-                  <Box bg="white" minH={"100%"} overflowY={"auto"} maxH={"700px"}>
+          <VStack H={"100%"} width={"40%" } align="left" justify={"left"} >
+              <Heading fontSize={"30px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"} marginBottom={3}>Appointments</Heading>
+                  <Box borderRadius={"10"} bg="white" h={"670px"} overflowY={"auto"} >
                   <TableContainer>
                       <Table variant='simple'>
   
