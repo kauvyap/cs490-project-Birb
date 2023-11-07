@@ -16,7 +16,12 @@ taskRoutes.get('/:id', getTasks);
 taskRoutes.put('/:id', updateTask);
 
 // DELETE a user'srecord
+<<<<<<< HEAD
+userRoutes.delete('/:id', deleteUserTask);
+
+=======
 taskRoutes.delete('/:id', deleteUserTask);
+>>>>>>> f9c315140dd3b23500b67552bc7d25f0485d73fe
 
 
  

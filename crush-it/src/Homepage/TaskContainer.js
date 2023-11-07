@@ -1,11 +1,55 @@
 import React, {useState} from "react";
 import { Heading, Card, Image, Box,Flex, Text,Input} from '@chakra-ui/react';
-import {Accordion,AccordionItem, AccordionButton, AccordionPanel} from '@chakra-ui/react'
-import dropD from '../media/arrow-circle-down.svg'
-import editImg from '../media/edit-2.png'
+import {Accordion,AccordionItem, AccordionButton, AccordionPanel, Icon } from '@chakra-ui/react'
+import {IoChevronDownCircleOutline, IoMove, IoSwapHorizontalSharp} from 'react-icons/io5'
+import {IoIosRadioButtonOff, IoIosCheckmarkCircleOutline, IoIosCloseCircleOutline} from 'react-icons/io'
+import editImg from '../media/edit-2.svg'
+import ip from '../media/fi_7154459.svg'
 import saveImg from '../media/Vector.svg'
 import addSqr from '../media/add-square.svg'
 import subSqr from '../media/minus-square.svg'
+
+
+
+//creates a swapable icon on the left side of the screen
+function EditableIcon( txt ){
+
+    const [currentIcon, setCurrentIcon] = useState(txt);
+
+    
+    const toggleIcon = () => {
+        switch (currentIcon) {
+          case 'NS':
+            setCurrentIcon('IP');
+            break;
+          case 'IP':
+            setCurrentIcon('FN');
+            break;
+          case 'FN':
+            setCurrentIcon('MO');
+            break;
+          case 'MO':
+            setCurrentIcon("default");
+            break;
+          default:
+            setCurrentIcon("NS");
+        }
+      };
+
+      return(
+        
+            currentIcon === 'NS'
+            ? <Icon as={IoIosRadioButtonOff} boxSize={"22"} marginRight={"5px"} _hover={{bg:"#F3F3F3" }} style={{ cursor: 'pointer' }} onClick={toggleIcon}/>
+            : currentIcon === 'IP'
+            ? <Image src={ip} boxSize={"22"} marginRight={"5px"}  _hover={{bg:"#F3F3F3" }} style={{ cursor: 'pointer' }} onClick={toggleIcon}/>
+            : currentIcon === 'FN'
+            ? <Icon as={IoIosCheckmarkCircleOutline} boxSize={"22"} _hover={{bg:"#F3F3F3" }} style={{ cursor: 'pointer' }} marginRight={"5px"} onClick={toggleIcon}/>
+            :currentIcon === 'MO'
+            ? <Icon as={IoSwapHorizontalSharp} boxSize={"22"} _hover={{bg:"#F3F3F3" }} style={{ cursor: 'pointer' }} marginRight={"5px"} onClick={toggleIcon}/>
+            : <Icon as={IoIosCloseCircleOutline} boxSize={"22"} _hover={{bg:"#F3F3F3" }} style={{ cursor: 'pointer' }} marginRight={"5px"} onClick={toggleIcon}/>
+        
+      );
+}
 
 
 //creates a editable note container
@@ -20,10 +64,10 @@ function EditableNote( txt ) {
     };
     return (
       <div>
-         <Flex justifyContent="space-between">
+         <Flex justifyContent="space-between" marginBottom={"2px"}>
             <Box fontSize={"12px" }  fontFamily={"'DM Sans', sans-serif"} textColor={"#545454"}>Notes</Box>
-            <Box boxSize="20px" borderRadius={"6"} style={{ cursor: 'pointer' }} onClick={handleEditClick}>
-                {isEditing ? <Image borderRadius={"6"} bg="#6284FF" boxSize="20px"  src={saveImg}></Image> : <Image boxSize="20px" src={editImg}></Image>}
+            <Box boxSize="20px" borderRadius={"6"} style={{ cursor: 'pointer' }} _hover={{bg:"#F3F3F3" }} onClick={handleEditClick}>
+            {isEditing ? <Image borderRadius={"6"} bg="#6284FF" boxSize="20px"  src={saveImg} />: <Image boxSize="20px" src={editImg}/>}
             </Box>
         </Flex>
         {isEditing ? (
@@ -77,14 +121,14 @@ function EditableNote( txt ) {
             <Flex flex={"1"} justifyContent={"flex-end"}>
             {isEditing ? (
                 <>
-                <Box marginRight={5} boxSize="20px" borderRadius={"6"} style={{ cursor: 'pointer' }} onClick={handleSClick}>
+                <Box marginRight={5} boxSize="20px" _hover={{bg:"#F3F3F3" }} borderRadius={"6"} style={{ cursor: 'pointer' }} onClick={handleSClick}>
                     <Image borderRadius={"6"}  boxSize="20px"  src={subSqr}/>
                 </Box>
                 
                 <Text marginRight={5} fontFamily={"'DM Sans', sans-serif"} fontSize={"14px"} textColor={"#FE754D"}
                     onChange={handleInputChange}
                 >{text}</Text>
-                <Box marginRight={5} boxSize="20px" borderRadius={"6"} style={{ cursor: 'pointer' }} onClick={handlePClick}>
+                <Box marginRight={5} boxSize="20px" _hover={{bg:"#F3F3F3" }} borderRadius={"6"} style={{ cursor: 'pointer' }} onClick={handlePClick}>
                     <Image borderRadius={"6"}  boxSize="20px"  src={addSqr}/>
                 </Box>
                 </>
@@ -92,7 +136,7 @@ function EditableNote( txt ) {
                 <Box marginRight="5" fontFamily={"'DM Sans', sans-serif"} fontSize={"16px" } textColor={"#FE754D"} >{text}</Box>
             )}
 
-            <Box boxSize="20px" borderRadius={"6"} style={{ cursor: 'pointer' }} onClick={handleEditClick}>
+            <Box boxSize="20px" _hover={{bg:"#F3F3F3" }} borderRadius={"6"} style={{ cursor: 'pointer' }} onClick={handleEditClick}>
                 {isEditing ? <Image borderRadius={"6"} bg="#6284FF" boxSize="20px"  src={saveImg}></Image> : <Image boxSize="20px" src={editImg}></Image>}
             </Box>
             </Flex>
@@ -108,26 +152,36 @@ function createCard( elements){
     // create all card views inside of elements
     let cards = []
 
-    for (let i = 0; i < elements.length; i++){
+    for (let i = elements.length-1; i >= 0; i--){
 
         cards.push(
         
-            <Card key={i} margin={2} padding={3}>
+            <Card borderRadius={"8"} key={i} margin={2} padding={3}>
                 <Accordion allowToggle >
-                    <AccordionItem>
+                    <AccordionItem border={"none"}>
 
                         {({ isExpanded }) => (
                             <>
-                            <AccordionButton>
+                            <Flex justifyContent={"center"}>
+                            <>
                             <Box as="span" flex='1' textAlign='left'>
-                                <Heading fontWeight={"700"} fontSize={"16px"} textColor={"#6284FF"} fontFamily={"'DM Sans', sans-serif"}>{elements[i][0]}</Heading>
+                                <Flex justifyContent={"flex-left"}>
+                                {EditableIcon(elements[i][3])}<Heading fontWeight={"700"} fontSize={"16px"} textColor={"#6284FF"} fontFamily={"'DM Sans', sans-serif"}>{elements[i][0]}</Heading>
+                                </Flex>
                             </Box>
+                            </>
+                            <Flex justifyContent={"flex-end"}>
+                            <Icon as={IoMove} marginRight={"4px"} boxSize={"20px"}/>
+                            <AccordionButton w="20px" h="20px" justifyContent={"center"}>
                             {isExpanded ? (
-                                <Image transform="rotate(180deg)" src={dropD}></Image>
+                                <Icon boxSize={"22px"} as={IoChevronDownCircleOutline}/>
                                     ) : (
-                                <Image src={dropD}></Image>
+                                <Icon boxSize={"22px"} transform="rotate(270deg)" as={IoChevronDownCircleOutline}/>
+                                
                              )}
-                        </AccordionButton>
+                             </AccordionButton>
+                             </Flex>
+                             </Flex>
                         <AccordionPanel pb={4}>
                             <Box height={"1px"} width={"100%"} bg={"#E2EAF1"}></Box>
                             {EditablePomo(elements[i][2])}

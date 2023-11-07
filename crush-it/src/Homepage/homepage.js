@@ -25,36 +25,36 @@ function Homepage(){
       .catch((err) => alert(err))
     }, [navigate])
 
-    const topPriorityList = [["Homework", "This is a hw", 1, "finished" ], ["Homework 2","This is a hw", 3, "finished"]]
-    const importantList = [["Homework", "This is a hw", 1, "finished" ], ["Homework 2","This is a hw", 3, "finished"]]
-    const otherList = [["Homework", "This is a hw", 1, "finished" ], ["Homework 2","This is a hw", 3, "finished"]]
+    //status is broken into 4 different elements notStarted="NS", Finished="FN", InProgress="IP", Canceled="anything", movedOver="MO" 
+    const topPriorityList = [["Homework", "This is a hw", 1, "FN" ], ["Homework 2","This is a hw", 3, "NS"]]
+    const importantList = [["Homework", "This is a hw", 1, "FN" ], ["Homework 2","This is a hw", 3, "CA"]]
+    const otherList = [["Homework", "This is a hw", 1, "IP" ], ["Homework 2","This is a hw", 3, "MO"]]
 
     return (
       
 
-        <Box p={5} bg="#F5F7F9" height={"94%"}>
+        <Box p={5} bg="#F5F7F9" height={"94vh"}>
 
         <DatePicker />
   
-        <HStack justify={"left"} p={5}  H={"96%"} width={ "96%"}>
-            <VStack  H={"100%"} width={"60%" } align="top-left" justify={"left"}>
-            <Heading>Tasks
+        <HStack justify={"left"} p={5}  H={"90%"} width={ "100%"}>
+            <VStack  H={"100%"} width={"60%" } align="top" justify={"left"} marginBottom={1}>
+            <Heading fontSize={"30px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"}>Tasks
             <AddTask />
             </Heading>
-            
-  
+
               <Container borderRadius={"10"} bg="#FFFFFF"  minW={"100%"} minH={"700px"} paddingBottom={5} paddingTop={5} >
                 <TaskContainer category='Top Priority' categoryList={topPriorityList}/>
                 <TaskContainer category='Important' categoryList={importantList}/>
                 <TaskContainer category='Other' categoryList={otherList}/>
                 
               </Container>
+
           </VStack>
   
-          <VStack H={"100%"} width={"40%" } align="left" justify={"left"}>
-              <Heading>Appointments</Heading>
-  
-                  <Box bg="white" minH={"100%"} overflowY={"auto"} maxH={"700px"}>
+          <VStack H={"100%"} width={"40%" } align="left" justify={"left"} >
+              <Heading fontSize={"30px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"} marginBottom={3}>Appointments</Heading>
+                  <Box borderRadius={"10"} bg="white" h={"670px"} overflowY={"auto"} >
                   <TableContainer>
                       <Table variant='simple'>
   

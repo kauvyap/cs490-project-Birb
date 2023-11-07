@@ -123,7 +123,8 @@ function DatePicker() {
   
 
   return (
-    <Center borderRadius={"10"} w={"93%"} bg="#6284FF26" p={3} ml={5}>
+    <Center borderRadius={"10"} w={"98%"} bg="#6284FF26" p={3} height={"8vh"} ml={5}>
+
         <IconButton
             variant='outline'
             colorScheme='blue'
