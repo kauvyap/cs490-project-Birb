@@ -1,9 +1,10 @@
 import React, {useLayoutEffect} from "react";
 import { useNavigate } from "react-router";
 import {Box, Heading, Container, Table, Tbody, TableContainer, Tr, Td, VStack, HStack} from '@chakra-ui/react';
-import Prio from "./topPriority"
-import Important from "./important"
-import Other from "./Other"
+// import Prio from "./topPriority"
+// import Important from "./important"
+// import Other from "./Other"
+import TaskContainer from "./TaskContainer"
 import DatePicker from './datepicker';
 import AddTask from './addtask';
 
@@ -24,6 +25,10 @@ function Homepage(){
       .catch((err) => alert(err))
     }, [navigate])
 
+    const topPriorityList = [["Homework", "This is a hw", 1, "finished" ], ["Homework 2","This is a hw", 3, "finished"]]
+    const importantList = [["Homework", "This is a hw", 1, "finished" ], ["Homework 2","This is a hw", 3, "finished"]]
+    const otherList = [["Homework", "This is a hw", 1, "finished" ], ["Homework 2","This is a hw", 3, "finished"]]
+
     return (
       
 
@@ -39,9 +44,9 @@ function Homepage(){
             
   
               <Container borderRadius={"10"} bg="#FFFFFF"  minW={"100%"} minH={"700px"} paddingBottom={5} paddingTop={5} >
-                  <Prio></Prio>
-                  <Important></Important>
-                  <Other></Other>
+                <TaskContainer category='Top Priority' categoryList={topPriorityList}/>
+                <TaskContainer category='Important' categoryList={importantList}/>
+                <TaskContainer category='Other' categoryList={otherList}/>
                 
               </Container>
           </VStack>
