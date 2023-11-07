@@ -6,21 +6,17 @@ const {
     deleteUserTask
 } = require('../controllers/taskController');
 
-const userRoutes = express.Router();
+const taskRoutes = express.Router();
 
 
 // GET a user's records
-userRoutes.get('/:id', getTasks);
+taskRoutes.get('/:id', getTasks);
 
 // Update a user's record
-userRoutes.put('/:id', updateTask);
+taskRoutes.put('/:id', updateTask);
 
 // DELETE a user'srecord
-userRoutes.delete('/:id', deleteUserTask);
-
-
-
-
+taskRoutes.delete('/:id', deleteUserTask);
 
 
  
