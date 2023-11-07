@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 
 const userRoutes = require("./routes/user");
 const authRoute = require('./routes/auth');
-const taskRoute = require('./routes/task');
+const taskRoutes = require('./routes/task');
 
 const app = express();
 

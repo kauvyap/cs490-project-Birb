@@ -114,7 +114,7 @@ function createCard( elements){
         
             <Card key={i} margin={2} padding={3}>
                 <Accordion allowToggle >
-                    <AccordionItem>
+                    <AccordionItem border={"none"}>
 
                         {({ isExpanded }) => (
                             <>
