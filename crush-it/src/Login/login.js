@@ -80,8 +80,10 @@ function Login() {
         >
           <Card boxShadow='2xl'>
             <CardHeader>
-              <Heading as="h2" size="lg" mb={4}>
+              <Heading  as="h2" size="lg" mb={4}>
+                <div data-testid="Login">
                 Login
+                </div>
               </Heading>
             </CardHeader>
             <CardBody>
