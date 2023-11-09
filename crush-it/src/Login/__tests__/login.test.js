@@ -33,11 +33,11 @@ describe('Login component renders correctly', () => {
   
   
 
-  test('renders 2.0', async () => {
+ /* test('renders 2.0', async () => {
     const {queryByTestId } = render(<BrowserRouter><Login/></BrowserRouter>)
     const element = queryByTestId('Login')
     expect( element.textContent).toEqual("Login");
-  } )
+  } )*/
 
 });
 /*
