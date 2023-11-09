@@ -44,7 +44,7 @@ function Homepage(){
 
         <Box p={5} bg="#F5F7F9" height={"94vh"}>
 
-        <DatePicker onDateSlected={handleSelected} />
+        <DatePicker onDateSelected={handleSelected} />
   
         <HStack justify={"left"} p={5}  h={"90%"} width={ "100%"}>
             <VStack  h={"100%"} width={"60%" } align="top" justify={"left"} marginBottom={1}>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {Center, IconButton, Menu, MenuButton, MenuList, MenuItem, Button, Text} from '@chakra-ui/react';
 import {IoChevronBackCircleSharp, IoChevronForwardCircleSharp, IoChevronDownCircleOutline} from 'react-icons/io5'
 
-function DatePicker({onDateSlected}) {
+function DatePicker({onDateSelected}) {
     const currentDate = new Date();
     const curMonth = currentDate.toLocaleString('default', { month: 'long' });
     const curDate = currentDate.getDate().toString();
@@ -14,7 +14,7 @@ function DatePicker({onDateSlected}) {
     const [selectedYear, setSelectedYear] = useState(curYear);
   
     const handleDateSelected = (day, month, year)=> {
-        onDateSlected(day.toString() + "-" + month.toString()+"-"+year.toString());
+        onDateSelected(day.toString() + "-" + month.toString()+"-"+year.toString());
     }
 
     handleDateSelected(selectedDate,selectedMonth,selectedYear)
