@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {Center, IconButton, Menu, MenuButton, MenuList, MenuItem, Button, Text} from '@chakra-ui/react';
 import {IoChevronBackCircleSharp, IoChevronForwardCircleSharp, IoChevronDownCircleOutline} from 'react-icons/io5'
 
-function DatePicker() {
+function DatePicker({onDateSlected}) {
     const currentDate = new Date();
     const curMonth = currentDate.toLocaleString('default', { month: 'long' });
     const curDate = currentDate.getDate().toString();
@@ -13,20 +13,29 @@ function DatePicker() {
     const [selectedDate, setSelectedDate] = useState(curDate);
     const [selectedYear, setSelectedYear] = useState(curYear);
   
+    const handleDateSelected = (day, month, year)=> {
+        onDateSlected(day.toString() + "-" + month.toString()+"-"+year.toString());
+    }
+
+    handleDateSelected(selectedDate,selectedMonth,selectedYear)
+
     const handleMonthClick = (month) => {
       setSelectedMonth(month);
 
     // Recalculate selectedDate based on the new month
     const daysInMonth = getDaysInMonth(selectedYear, month);
     setSelectedDate((prevDate) => (prevDate <= daysInMonth ? prevDate : daysInMonth));
+    handleDateSelected(selectedDate,selectedMonth,selectedYear)
     };   
   
     const handleDateClick = (date) => {
       setSelectedDate(date);
+      handleDateSelected(selectedDate,selectedMonth,selectedYear)
     };
   
     const handleYearClick = (year) => {
       setSelectedYear(year);
+      handleDateSelected(selectedDate,selectedMonth,selectedYear)
     };
 
     const setPreviousYear = (year) => {
