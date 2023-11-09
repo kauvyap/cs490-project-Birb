@@ -1,9 +1,6 @@
 import React, {useLayoutEffect, useState} from "react";
 import { useNavigate } from "react-router";
 import {Box, Heading, Container, Table, Tbody, TableContainer, Tr, Td, VStack, HStack} from '@chakra-ui/react';
-// import Prio from "./topPriority"
-// import Important from "./important"
-// import Other from "./Other"
 import TaskContainer from "./TaskContainer"
 import DatePicker from './datepicker';
 import AddTask from './addtask';
@@ -14,11 +11,12 @@ function Homepage(){
     //selectedDate uses a CallBack function to get the currentDay from DatePicker
     //setting up selectedDate
     const [selectedDate, setSelectedDate] = useState(null);
+    const [username, setUsername] = useState(null)
     //handle the date change
     const handleSelected = (date) => {
         setSelectedDate (date)  
     };
-    //use {slectedDate} anywhere
+    //use {selectedDate} anywhere
 
   const navigate = useNavigate();
 
@@ -30,7 +28,7 @@ function Homepage(){
         }
       })
       .then(res => res.json())
-      .then(data => data.isLoggedIn ? console.log(data.username): navigate('/login'))
+      .then(data => data.isLoggedIn ? setUsername(data.username): navigate('/login'))
       .catch((err) => alert(err))
     }, [navigate])
 
@@ -49,7 +47,7 @@ function Homepage(){
         <HStack justify={"left"} p={5}  h={"90%"} width={ "100%"}>
             <VStack  h={"100%"} width={"60%" } align="top" justify={"left"} marginBottom={1}>
             <Heading fontSize={"30px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"}>Tasks {selectedDate}
-            <AddTask  dateSelected={selectedDate}/>
+            <AddTask  dateSelected={selectedDate} user={username}/>
             </Heading>
 
               <Container borderRadius={"10"} bg="#FFFFFF"  minW={"100%"} h={"670px"} paddingTop={"5"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"}>
