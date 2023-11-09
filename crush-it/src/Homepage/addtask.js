@@ -1,13 +1,14 @@
 import React from 'react';
 import { useDisclosure } from "@chakra-ui/react";
-import { IconButton, Button, Text, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, 
-         Box, Input, Textarea, Select, FormControl, FormLabel, VStack, HStack, NumberInput, NumberInputField} from '@chakra-ui/react';
+import { IconButton, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, 
+          Input, Textarea, Select, FormControl, FormLabel, VStack, HStack, NumberInput, NumberInputField} from '@chakra-ui/react';
 import { AddIcon } from "@chakra-ui/icons";
 
-function AddTask() {
+function AddTask(date) {
+  //use date.dateSelected to get the date selected by the datePicker component.
 
     const { isOpen, onOpen, onClose } = useDisclosure()
-
+    
     return (
         <>
         <IconButton boxSize={39} onClick={onOpen} isRound={true} variant='solid' aria-label='Done' fontSize='15px' fontWeight={"extrabold"} icon={<AddIcon />} ml={4} mb={1.5}
@@ -16,7 +17,7 @@ function AddTask() {
                         <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
                         <ModalOverlay />
                         <ModalContent>
-                          <ModalHeader>Add A New Task</ModalHeader>
+                          <ModalHeader> {date.dateSelected} - Add A New Task</ModalHeader>
                           <ModalCloseButton />
                           <ModalBody>
                           <VStack spacing={4}>
