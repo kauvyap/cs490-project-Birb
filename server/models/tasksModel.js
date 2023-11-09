@@ -12,10 +12,10 @@ const subTasksSchema = new Schema({
 })
 
 const tasksSchema = new Schema({
-    "email": String,
+    "username": String,
     "topTasks": [subTasksSchema],
     "importantTasks": [subTasksSchema],
     "otherTasks": [subTasksSchema]
-}, {collection: 'task'})
+}, {collection: 'tasks'})
 
 module.exports = mongoose.model('Tasks', tasksSchema);

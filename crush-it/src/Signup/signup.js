@@ -76,7 +76,19 @@ function Signup() {
         setEmailSameError(true);
       }
     } else {
-        navigate('/login');
+      const taskResponse = await fetch('http://localhost:5000/api/tasks', {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify({username: email})
+      })
+      if (!taskResponse.ok) {
+        console.log("Error inserting tasks document for user")
+      } else {
+        console.log("Successfully inserted tasks document for user")
+      }
+      navigate('/login');
     };
   };
 

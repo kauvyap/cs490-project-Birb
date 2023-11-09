@@ -25,8 +25,8 @@ const createTasks = async (req, res) => {
     const otherTasks = [null]
 
     try {
-        const user = await User.create({ username:username, topTasks: topTasks, importantTasks: importantTasks, otherTasks: otherTasks });
-        res.status(200).json(user);
+        const task = await Task.create({ username:username, topTasks: topTasks, importantTasks: importantTasks, otherTasks: otherTasks });
+        res.status(200).json(task);
     } catch (error) {
         res.status(400).json({ error: error.message })
     }

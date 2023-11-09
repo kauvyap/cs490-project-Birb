@@ -1,13 +1,32 @@
 {
     "email": "email@gmail.com",
-    "order": [1],
-    "tasks": [
+    "topTasks": [
+        {
+            "dateAssigned": "11-07-2023",
+            "title":"title", 
+            "description":"description", 
+            "pomodoroTimers":1, 
+            "priority":"Top Priority", 
+            "status":"Resolved"
+        }
+    ],
+    "importantTasks": [
         {
             "dateAssigned": "11-07-2023",
             "title":"title", 
             "description":"description", 
             "pomodoroTimers":1, 
             "priority":"Important", 
+            "status":"Resolved"
+        }
+    ],
+    "otherTasks": [
+        {
+            "dateAssigned": "11-07-2023",
+            "title":"title", 
+            "description":"description", 
+            "pomodoroTimers":1, 
+            "priority":"Other", 
             "status":"Resolved"
         }
     ]
