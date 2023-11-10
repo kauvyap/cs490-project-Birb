@@ -7,13 +7,21 @@ function AddTask(props) {
 
   //use date.dateSelected to get the date selected by the datePicker component.
   console.log(props)
-    const { isOpen, onOpen, onClose } = useDisclosure()
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [priority, setPriority] = useState('');
-    const [timers, setTimers] = useState(1);
-    const [priorityError, setPriorityError] = useState(false);
-    const [titleError, setTitleError] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [priority, setPriority] = useState('');
+  const [timers, setTimers] = useState(1);
+  const [priorityError, setPriorityError] = useState(false);
+  const [titleError, setTitleError] = useState(false);
+
+  useEffect(() => {
+    setTitleError(false)
+  }, [title])
+
+  useEffect(() => {
+    setPriorityError(false)
+  }, [priority])
 
   // Delete unsaved task creation values
   useEffect(() => {
@@ -144,7 +152,7 @@ function AddTask(props) {
                                 <NumberInput min={1} value={timers} >
                                   <NumberInputField onChange={(e) => {if (/^\d+$/.test(e.target.value)) {setTimers(e.target.value)}}}/>
                                   <NumberInputStepper>
-                                    <NumberIncrementStepper onClick={() => setTimers(1 + timers)}/>
+                                    <NumberIncrementStepper onClick={() => setTimers(1 + Number(timers))}/>
                                     <NumberDecrementStepper onClick={() => {if (timers > 1) {setTimers(timers - 1)}}}/>
                                   </NumberInputStepper>
                                 </NumberInput>
