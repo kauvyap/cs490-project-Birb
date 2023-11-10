@@ -66,13 +66,13 @@ function Homepage(){
 
         <DatePicker onDateSelected={handleSelected} />
   
-        <HStack justify={"left"} p={5}  h={"90%"} width={ "100%"}>
+        <HStack justify={"left"} p={5}  h={"100%"} width={ "100%"} align={"flex-start"} >
             <VStack  h={"100%"} width={"60%" } align="top" justify={"left"} marginBottom={1}>
             <Heading fontSize={"30px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"}>Tasks {selectedDate}
             <AddTask  dateSelected={selectedDate} user={username} handleTop={handleTop} handleImportant={handleImportant} handleOther={handleOther}/>
             </Heading>
 
-              <Container borderRadius={"10"} bg="#FFFFFF"  minW={"100%"} h={"670px"} paddingTop={"5"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"}>
+              <Container borderRadius={"10"} bg="#FFFFFF"  minW={"100%"} h={"680px"} paddingTop={"5"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"}>
                 <TaskContainer category='Top Priority' categoryList={topTasks} onChange={handleTop}/>
                 <TaskContainer category='Important' categoryList={importantTasks} onChange={handleImportant}/>
                 <TaskContainer category='Other' categoryList={otherTasks} onChange={handleOther}/>
@@ -83,7 +83,7 @@ function Homepage(){
   
           <VStack h={"100%"} width={"40%" } align="left" justify={"left"} >
               <Heading fontSize={"30px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"} marginBottom={3}>Appointments</Heading>
-                  <Box borderRadius={"10"} bg="white" h={"680px"} overflowY={"auto"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"} 
+                  <Box borderRadius={"10"} bg="white" h={"680px"} marginTop={"5px"} overflowY={"auto"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"} 
                   css={`
                   &::-webkit-scrollbar {
                       width: 6px;
