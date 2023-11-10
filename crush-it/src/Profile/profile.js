@@ -33,6 +33,7 @@ function Profile() {
   const themeLabel = isDarkMode ? "Dark Mode" : "Light Mode";
   //assign background colors
   const bg = useColorModeValue('#F5F7F9', '#1A202C')
+  const ic = useColorModeValue("#6284FF", "#90cdf4")
 
   const navigate = useNavigate();
   const [user, setUser] = useState(null)
@@ -248,7 +249,7 @@ function Profile() {
           <HStack spacing={4} align="start">
           <FormControl id="firstName" flex={1}>
             <Flex spacing={4}>
-                <Icon as={RxPerson} color={"#6284FF"}/>
+                <Icon as={RxPerson} color={ic}/>
                 <FormLabel ml={2}>First Name</FormLabel>
             </Flex>
             <Input 
@@ -260,7 +261,7 @@ function Profile() {
           </FormControl>
           <FormControl id="lastName" flex={1}>
             <Flex spacing={4}>
-                <Icon as={RxPerson} color={"#6284FF"}/>
+                <Icon as={RxPerson} color={ic}/>
                 <FormLabel ml={2}>Last Name</FormLabel>
             </Flex>
             <Input 
@@ -285,7 +286,7 @@ function Profile() {
         <HStack spacing={4} align="start">
           <FormControl id="currentPassword" isInvalid={passwordError} flex={1}>
             <Flex spacing={4}>
-                <Icon as={RiLockPasswordLine} color={"#6284FF"}/>
+                <Icon as={RiLockPasswordLine} color={ic}/>
                 <FormLabel ml={2}>Current Password</FormLabel>
             </Flex>
             <Input 
@@ -300,7 +301,7 @@ function Profile() {
           </FormControl>
           <FormControl id="newPassword" isInvalid={passwordLengthError || comboError} flex={1}>
             <Flex spacing={4}>
-                <Icon as={RiLockPasswordLine} color={"#6284FF"}/>
+                <Icon as={RiLockPasswordLine} color={ic}/>
                 <FormLabel ml={2}>New Password</FormLabel>
             </Flex>
             <Input 
@@ -318,7 +319,7 @@ function Profile() {
           </FormControl>
           <FormControl id="confirmPassword" isInvalid={passwordMatchError} flex={1}>
             <Flex spacing={4}>
-                <Icon as={RiLockPasswordLine} color={"#6284FF"}/>
+                <Icon as={RiLockPasswordLine} color={ic}/>
                 <FormLabel ml={2}>Confirm New Password</FormLabel>
             </Flex>
             <Input 
@@ -345,7 +346,7 @@ function Profile() {
         <HStack spacing={4} align="start">
           <FormControl id="pomodoro" flex={1}>
             <Flex spacing={4}>
-                <TimeIcon color={"#6284FF"}/>
+                <TimeIcon color={ic}/>
                 <FormLabel ml={2}>Pomodoro</FormLabel>
             </Flex>
             <Input 
@@ -357,7 +358,7 @@ function Profile() {
           </FormControl>
           <FormControl id="shortBreak" flex={1}>
             <Flex spacing={4}>
-                <TimeIcon color={"#6284FF"}/>
+                <TimeIcon color={ic}/>
                 <FormLabel ml={2}>Short Break</FormLabel>
             </Flex>
             <Input 
@@ -369,7 +370,7 @@ function Profile() {
           </FormControl>
           <FormControl id="longBreak" flex={1}>
           <Flex spacing={4}>
-                <TimeIcon color={"#6284FF"}/>
+                <TimeIcon color={ic}/>
                 <FormLabel ml={2}>Long Break</FormLabel>
             </Flex>
             <Input 
