@@ -1,6 +1,7 @@
 import React, { useState, useLayoutEffect, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { Box, Heading, VStack, FormControl, FormLabel, FormErrorMessage, Input, Button, Divider, Flex, HStack, Card, Icon} from '@chakra-ui/react';
+import { Box, Heading, VStack, FormControl, FormLabel, FormErrorMessage, Input, Button, Divider, Flex, HStack, Card, 
+         Icon, Switch, useColorMode, useColorModeValue } from '@chakra-ui/react';
 import { TimeIcon } from '@chakra-ui/icons'
 import { RiLockPasswordLine } from 'react-icons/ri'
 import {RxPerson} from 'react-icons/rx'
@@ -26,6 +27,12 @@ function Profile() {
   const lowerRegex = /[a-z]/;
   const upperRegex = /[A-Z]/;
   const specialRegex = /[^a-zA-Z0-9]/;
+
+  const { colorMode, toggleColorMode } = useColorMode() //for extra-credit
+  const isDarkMode = colorMode === "dark";
+  const themeLabel = isDarkMode ? "Dark Mode" : "Light Mode";
+  //assign background colors
+  const bg = useColorModeValue('#F5F7F9', '#1A202C')
 
   const navigate = useNavigate();
   const [user, setUser] = useState(null)
@@ -213,15 +220,26 @@ function Profile() {
 
 
     return (
-    <Box p={5} height={"94vh"} bg="#F5F7F9">    
+    <Box p={5} height={"94vh"} bg={bg}>    
       <VStack spacing={4} align="start">
         <Box w="100%">
-          <Heading as="h2" size="md" mb={2}>
+        <Flex justifyContent="space-between" width="100%" mb={2}>
+          <Heading as="h2" size="md">
             User Info
           </Heading>
+          <Flex alignItems="center">
+            <FormLabel mb={0} mr={2}>
+              {themeLabel}
+            </FormLabel>
+            <Switch
+              isChecked={isDarkMode}
+              onChange={toggleColorMode}
+              aria-label="Switch theme"
+            />
+          </Flex>
+        </Flex>
           <Box
           flex="1"
-          bg="white"
           position="relative"
           w="100%"
          

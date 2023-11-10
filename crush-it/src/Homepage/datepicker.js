@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import {Center, IconButton, Menu, MenuButton, MenuList, MenuItem, Button, Text} from '@chakra-ui/react';
+import {Center, IconButton, Menu, MenuButton, MenuList, MenuItem, Button, Text, useColorModeValue} from '@chakra-ui/react';
 import {IoChevronBackCircleSharp, IoChevronForwardCircleSharp, IoChevronDownCircleOutline} from 'react-icons/io5'
 
 function DatePicker() {
+    const text = useColorModeValue('black', 'white')
+
     const currentDate = new Date();
     const curMonth = currentDate.toLocaleString('default', { month: 'long' });
     const curDate = currentDate.getDate().toString();
@@ -137,7 +139,7 @@ function DatePicker() {
         />
         <Menu>
         <MenuButton as={Button} width='30vh' variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
-            <Text color="black" p={2} mt={3}>{selectedMonth}</Text>
+            <Text color={text} p={2} mt={3}>{selectedMonth}</Text>
         </MenuButton>
         <MenuList maxH="230px" overflowY="auto" w="auto" overflowX="hidden" fontSize={'xl'}
                 css={`
@@ -190,7 +192,7 @@ function DatePicker() {
         />
         <Menu>
         <MenuButton as={Button} width='15vh' variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
-            <Text color="black" p={2} mt={3}>{selectedDate}</Text>
+            <Text color={text} p={2} mt={3}>{selectedDate}</Text>
         </MenuButton>
         <MenuList maxH="230px" overflowY="auto" w="auto" overflowX="hidden" fontSize={'xl'}
                 css={`
@@ -242,8 +244,8 @@ function DatePicker() {
             onClick={() => setPreviousYear(selectedYear)}
         />
         <Menu>
-        <MenuButton as={Button} width='18vh' variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
-            <Text color="black" p={2} mt={3}>{selectedYear}</Text>
+        <MenuButton as={Button} width='20vh' variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
+          <Text color={text} p={2} mt={3}> {selectedYear}</Text>
         </MenuButton>
         <MenuList maxH="230px" overflowY="auto" w="auto" overflowX="hidden" fontSize={'xl'}
                 css={`

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Heading, Card, Image, Box,Flex, Text,Input} from '@chakra-ui/react';
+import { Heading, Card, Image, Box,Flex, Text,Input, useColorModeValue} from '@chakra-ui/react';
 import {Accordion,AccordionItem, AccordionButton, AccordionPanel, Icon } from '@chakra-ui/react'
 import {IoChevronDownCircleOutline, IoMove, IoSwapHorizontalSharp} from 'react-icons/io5'
 import {IoIosRadioButtonOff, IoIosCheckmarkCircleOutline, IoIosCloseCircleOutline} from 'react-icons/io'
@@ -216,12 +216,13 @@ function TaskContainer(props) {
 //split into 2d arrays [ [ Title, description, pomoTimer#, status]]
 //status = notStarted, inProgress, finished
 const elements = props.categoryList
+const bg = useColorModeValue('#F5F7F9', '#1A202C')
 console.log(props)
 
 return(
   
              
-    <Card bg="#F5F7F9" Width={"100%"} height={200} maxH={"200px"} p={5} marginBottom={5} overflowY={"auto"}>
+    <Card bg={bg} Width={"100%"} height={200} maxH={"200px"} p={5} marginBottom={5} overflowY={"auto"}>
   
         <Heading>
             {props.category}

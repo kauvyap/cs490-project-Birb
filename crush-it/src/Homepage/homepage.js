@@ -1,6 +1,6 @@
 import React, {useLayoutEffect} from "react";
 import { useNavigate } from "react-router";
-import {Box, Heading, Container, Table, Tbody, TableContainer, Tr, Td, VStack, HStack} from '@chakra-ui/react';
+import {Box, Heading, Container, Table, Tbody, TableContainer, Tr, Td, VStack, HStack, useColorMode, useColorModeValue} from '@chakra-ui/react';
 // import Prio from "./topPriority"
 // import Important from "./important"
 // import Other from "./Other"
@@ -12,6 +12,8 @@ import AddTask from './addtask';
 function Homepage(){
   const navigate = useNavigate();
   // const [username, setUsername] = useState(null)
+  const bg = useColorModeValue('#F5F7F9', '#1A202C')
+  const cont = useColorModeValue("white", "#2d3748")
 
   useLayoutEffect(() => {
       console.log(localStorage.getItem("token"));
@@ -33,7 +35,7 @@ function Homepage(){
     return (
       
 
-        <Box p={5} bg="#F5F7F9" height={"94vh"}>
+        <Box p={5} bg={bg} height={"94vh"}>
 
         <DatePicker />
   
@@ -43,7 +45,7 @@ function Homepage(){
             <AddTask />
             </Heading>
 
-              <Container borderRadius={"10"} bg="#FFFFFF"  minW={"100%"} minH={"700px"} paddingBottom={5} paddingTop={5} >
+              <Container borderRadius={"10"} bg={cont}  minW={"100%"} minH={"700px"} paddingBottom={5} paddingTop={5} >
                 <TaskContainer category='Top Priority' categoryList={topPriorityList}/>
                 <TaskContainer category='Important' categoryList={importantList}/>
                 <TaskContainer category='Other' categoryList={otherList}/>
@@ -52,9 +54,9 @@ function Homepage(){
 
           </VStack>
   
-          <VStack H={"100%"} width={"40%" } align="left" justify={"left"} >
+          <VStack H={"100%"} width={"45%" } align="left" justify={"left"} >
               <Heading fontSize={"30px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"} marginBottom={3}>Appointments</Heading>
-                  <Box borderRadius={"10"} bg="white" h={"670px"} overflowY={"auto"} >
+                  <Box borderRadius={"10"} bg={cont} h={"700px"} overflowY={"auto"} >
                   <TableContainer>
                       <Table variant='simple'>
   
