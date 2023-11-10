@@ -44,7 +44,7 @@ function Homepage(){
 
         <DatePicker onDateSelected={handleSelected} />
   
-        <HStack justify={"left"} p={5}  h={"90%"} width={ "100%"} align={"flex-start"} >
+        <HStack justify={"left"} p={5}  h={"100%"} width={ "100%"} align={"flex-start"} >
             <VStack  h={"100%"} width={"60%" } align="top" justify={"left"} marginBottom={1}>
             <Heading fontSize={"30px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"}>Tasks {selectedDate}
             <AddTask  dateSelected={selectedDate} user={username}/>
@@ -61,7 +61,7 @@ function Homepage(){
   
           <VStack h={"100%"} width={"40%" } align="left" justify={"left"} >
               <Heading fontSize={"30px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"} marginBottom={3}>Appointments</Heading>
-                  <Box borderRadius={"10"} bg="white" h={"100%"} marginTop={"5px"} overflowY={"auto"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"} 
+                  <Box borderRadius={"10"} bg="white" h={"680px"} marginTop={"5px"} overflowY={"auto"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"} 
                   css={`
                   &::-webkit-scrollbar {
                       width: 6px;
