@@ -66,25 +66,25 @@ function Homepage(){
 
         <DatePicker onDateSelected={handleSelected} />
   
-        <HStack justify={"left"} p={5}  h={"90%"} width={ "100%"} align={"flex-start"}>
+        <HStack justify={"left"} p={5}  h={"100%"} width={ "100%"} align={"flex-start"} >
             <VStack  h={"100%"} width={"60%" } align="top" justify={"left"} marginBottom={1}>
-                <Heading fontSize={"30px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"}>Tasks {selectedDate}
-                    <AddTask  dateSelected={selectedDate} user={username}/>
-                </Heading>
+            <Heading fontSize={"30px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"}>Tasks {selectedDate}
+            <AddTask  dateSelected={selectedDate} user={username} handleTop={handleTop} handleImportant={handleImportant} handleOther={handleOther}/>
+            </Heading>
 
-              <Container borderRadius={"10"} bg="#FFFFFF"  minW={"100%"} h={"100%"} paddingTop={"5"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"}>
-                <TaskContainer category='Top Priority' categoryList={topPriorityList}/>
-                <TaskContainer category='Important' categoryList={importantList}/>
-                <TaskContainer category='Other' categoryList={otherList}/>
+              <Container borderRadius={"10"} bg="#FFFFFF"  minW={"100%"} h={"680px"} paddingTop={"5"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"}>
+                <TaskContainer category='Top Priority' categoryList={topTasks} onChange={handleTop}/>
+                <TaskContainer category='Important' categoryList={importantTasks} onChange={handleImportant}/>
+                <TaskContainer category='Other' categoryList={otherTasks} onChange={handleOther}/>
                 
               </Container>
 
-            </VStack>
+          </VStack>
   
-            <VStack h={"105%"} width={"40%" } align="top" justify={"left"} >
-                <Heading fontSize={"30px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"} marginBottom={3}>Appointments</Heading>
-                    <Box borderRadius={"10"} bg="white" h={"90%"} marginTop={"5px"} overflowY={"auto"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"} 
-                    css={`
+          <VStack h={"100%"} width={"40%" } align="left" justify={"left"} >
+              <Heading fontSize={"30px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"} marginBottom={3}>Appointments</Heading>
+                  <Box borderRadius={"10"} bg="white" h={"680px"} marginTop={"5px"} overflowY={"auto"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"} 
+                  css={`
                   &::-webkit-scrollbar {
                       width: 6px;
                       height: 80px;
@@ -102,8 +102,8 @@ function Homepage(){
                     &::-webkit-scrollbar-thumb:active {
                       background-color: #1E40AF; // Change the color when clicked`
                     }>
-                    <TableContainer>
-                        <Table variant='simple'>
+                  <TableContainer>
+                      <Table variant='simple'>
   
                           <Tbody>
                           <Tr>
@@ -203,19 +203,19 @@ function Homepage(){
                           <Tr>
                               <Td>4  AM</Td>
                               <Td></Td>
-                            </Tr>
-                            </Tbody>
+                          </Tr>
+                          </Tbody>
   
-                        </Table>
-                    </TableContainer>
+                      </Table>
+                  </TableContainer>
               </Box>
   
   
-            </VStack>
+          </VStack>
   
-        </HStack>
+      </HStack>
   
-    </Box>
+  </Box>
   )
     
 }
