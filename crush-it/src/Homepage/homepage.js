@@ -1,6 +1,6 @@
 import React, {useLayoutEffect} from "react";
 import { useNavigate } from "react-router";
-import {Box, Heading, Container, Table, Tbody, TableContainer, Tr, Td, VStack, HStack, useColorMode, useColorModeValue} from '@chakra-ui/react';
+import {Box, Heading, Container, Table, Tbody, TableContainer, Tr, Td, VStack, HStack, useColorMode, useColorModeValue, Spacer} from '@chakra-ui/react';
 // import Prio from "./topPriority"
 // import Important from "./important"
 // import Other from "./Other"
@@ -53,6 +53,7 @@ function Homepage(){
               </Container>
 
           </VStack>
+          <Spacer></Spacer>
   
           <VStack H={"100%"} width={"45%" } align="left" justify={"left"} >
               <Heading fontSize={"30px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"} marginBottom={3}>Appointments</Heading>
