@@ -4,6 +4,7 @@ import { IconButton, Button, Modal, ModalOverlay, ModalContent, ModalHeader, Mod
 import { AddIcon } from "@chakra-ui/icons";
 
 function AddTask(props) {
+
   //use date.dateSelected to get the date selected by the datePicker component.
   console.log(props)
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -14,21 +15,18 @@ function AddTask(props) {
     const [priorityError, setPriorityError] = useState(false);
     const [titleError, setTitleError] = useState(false);
 
-    // Delete unsaved task creation values
-    useEffect(() => {
-      setTitle('')
-      setDescription('')
-      setPriority('')
-      setTimers(1)
-    }, [isOpen])
+  // Delete unsaved task creation values
+  useEffect(() => {
+    setTitle('')
+    setDescription('')
+    setPriority('')
+    setTimers(1)
+  }, [isOpen])
 
-    //Bug handling for pomodoro number field
-    useEffect(() => {
-    }, [timers])
+  //Bug handling for pomodoro number field
+  useEffect(() => {
+  }, [timers])
 
-    useEffect(() => {
-
-    }, )
     const onSubmit = async (e) => {
       e.preventDefault();
       setPriorityError(false);
@@ -72,30 +70,38 @@ function AddTask(props) {
         return -1;
       }
 
-      await fetch('http://localhost:5000/api/tasks/' + props.user, {
-        method: "PUT",
-        body: JSON.stringify({
-          username: props.user,
-          topTasks: topTasks,
-          importantTasks: importantTasks,
-          otherTasks: otherTasks,
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      onClose();
-      setTitle('')
-      setDescription('')
-      setPriority('')
-      setTimers(1)
+    const response = await fetch('http://localhost:5000/api/tasks/' + props.user, {
+      method: "PUT",
+      body: JSON.stringify({
+        username: props.user,
+        topTasks: topTasks,
+        importantTasks: importantTasks,
+        otherTasks: otherTasks,
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    if (!response.ok) {
+      console.log(response)
+    } else {
+      props.handleTop(topTasks)
+      props.handleImportant(importantTasks)
+      props.handleOther(otherTasks)
     }
 
+    onClose();
+    setTitle('')
+    setDescription('')
+    setPriority('')
+    setTimers(1)
+  }
 
-    return (
-        <>
-        <IconButton boxSize={39} onClick={onOpen} isRound={true} variant='solid' aria-label='Done' fontSize='15px' fontWeight={"extrabold"} icon={<AddIcon />} ml={4} mb={1.5}
-                        colorScheme="blue" style={{ background: 'linear-gradient(#5D8EFF 100%, #3E6FE1 100%)', color: 'white' }}/>
+
+  return (
+      <>
+      <IconButton boxSize={39} onClick={onOpen} isRound={true} variant='solid' aria-label='Done' fontSize='15px' fontWeight={"extrabold"} icon={<AddIcon />} ml={4} mb={1.5}
+                      colorScheme="blue" style={{ background: 'linear-gradient(#5D8EFF 100%, #3E6FE1 100%)', color: 'white' }}/>
 
                         <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
                         <ModalOverlay />
@@ -108,10 +114,9 @@ function AddTask(props) {
                             <FormLabel>Title</FormLabel>
                             <Input type="text"  placeholder="Enter task title" value={title} onChange={(e) => setTitle(e.target.value)}/>
                             {titleError && (<FormErrorMessage>A title is required</FormErrorMessage>)}
-
                             </FormControl>
-
-                            <FormControl>
+                                            
+                          <FormControl>
                             <FormLabel>Description</FormLabel>
                             <Textarea
                                 placeholder="Enter task description"
@@ -119,7 +124,7 @@ function AddTask(props) {
                                 value={description} 
                                 onChange={(e) => setDescription(e.target.value)}
                             />
-                            </FormControl>
+                          </FormControl>
 
                             <HStack w={'100%'} align={"flex-start"} >
                             <FormControl isInvalid={priorityError} isRequired>
@@ -157,6 +162,7 @@ function AddTask(props) {
                         </ModalContent>
                       </Modal>
         </>  
+
   );
 };
 
