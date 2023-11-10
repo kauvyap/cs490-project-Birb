@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useState} from "react";
+import React, {useLayoutEffect, useState, useEffect} from "react";
 import { useNavigate } from "react-router";
 import {Box, Heading, Container, Table, Tbody, TableContainer, Tr, Td, VStack, HStack} from '@chakra-ui/react';
 import TaskContainer from "./TaskContainer"
@@ -12,30 +12,52 @@ function Homepage(){
     //setting up selectedDate
     const [selectedDate, setSelectedDate] = useState(null);
     const [username, setUsername] = useState(null)
+    const [topTasks, setTopTasks] = useState([])
+    const [importantTasks, setImportantTasks] = useState([])
+    const [otherTasks, setOtherTasks] = useState([])
     //handle the date change
     const handleSelected = (date) => {
         setSelectedDate (date)  
     };
     //use {selectedDate} anywhere
 
-  const navigate = useNavigate();
+    const handleTop = (arr) => {
+        setTopTasks(arr);
+    }
 
-  useLayoutEffect(() => {
-      console.log(localStorage.getItem("token"));
-      fetch("http://localhost:5000/api/auth/getUsername", {
+    const handleImportant = (arr) => {
+        setImportantTasks(arr);
+    }
+
+    const handleOther = (arr) => {
+        setOtherTasks(arr);
+    }
+
+    const navigate = useNavigate();
+
+    useLayoutEffect(() => {
+        console.log(localStorage.getItem("token"));
+        fetch("http://localhost:5000/api/auth/getUsername", {
         headers: {
-          "x-access-token": localStorage.getItem("token")
+            "x-access-token": localStorage.getItem("token")
         }
-      })
-      .then(res => res.json())
-      .then(data => data.isLoggedIn ? setUsername(data.username): navigate('/login'))
-      .catch((err) => alert(err))
+        })
+        .then(res => res.json())
+        .then(data => data.isLoggedIn ? setUsername(data.username): navigate('/login'))
+        .catch((err) => alert(err))
     }, [navigate])
-
+    console.log("other", otherTasks)
     //status is broken into 4 different elements notStarted="NS", Finished="FN", InProgress="IP", Canceled="anything", movedOver="MO" 
-    const topPriorityList = [["Complete Math Homework", "This is a hw", 1, "FN" ], ["Homework 2","This is a hw", 3, "NS"]];
-    const importantList = [["Homework 1", "This is a hw", 4, "FN" ], ["Homework 7","This is a hw", 2, "CA"]];
-    const otherList = [["Homework 4", "", 10, "IP" ], ["Homework 3","", 3, "MO"]];
+    useEffect(() => {
+        fetch('http://localhost:5000/api/tasks/' + username)
+        .then(res => res.json())
+        .then(data => {setTopTasks(data.topTasks); setImportantTasks(data.importantTasks); setOtherTasks(data.otherTasks)})
+        .catch((err) => console.log(err))
+    }, [username])
+    
+    // const topPriorityList = [["Complete Math Homework", "This is a hw", 1, "FN" ], ["Homework 2","This is a hw", 3, "NS"]];
+    // const importantList = [["Homework 1", "This is a hw", 4, "FN" ], ["Homework 7","This is a hw", 2, "CA"]];
+    // const otherList = [["Homework 4", "", 10, "IP" ], ["Homework 3","", 3, "MO"]];
 
     return (
       
@@ -47,13 +69,13 @@ function Homepage(){
         <HStack justify={"left"} p={5}  h={"90%"} width={ "100%"}>
             <VStack  h={"100%"} width={"60%" } align="top" justify={"left"} marginBottom={1}>
             <Heading fontSize={"30px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"}>Tasks {selectedDate}
-            <AddTask  dateSelected={selectedDate} user={username}/>
+            <AddTask  dateSelected={selectedDate} user={username} handleTop={handleTop} handleImportant={handleImportant} handleOther={handleOther}/>
             </Heading>
 
               <Container borderRadius={"10"} bg="#FFFFFF"  minW={"100%"} h={"670px"} paddingTop={"5"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"}>
-                <TaskContainer category='Top Priority' categoryList={topPriorityList}/>
-                <TaskContainer category='Important' categoryList={importantList}/>
-                <TaskContainer category='Other' categoryList={otherList}/>
+                <TaskContainer category='Top Priority' categoryList={topTasks} onChange={handleTop}/>
+                <TaskContainer category='Important' categoryList={importantTasks} onChange={handleImportant}/>
+                <TaskContainer category='Other' categoryList={otherTasks} onChange={handleOther}/>
                 
               </Container>
 

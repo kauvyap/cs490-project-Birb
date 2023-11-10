@@ -153,9 +153,20 @@ function EditableNote( txt ) {
 
 function createCard( elements){
     // create all card views inside of elements
-    let cards = []
+    // [["Complete Math Homework", "This is a hw", 1, "FN"]]
+    var list = []
+    console.log(elements)
+    if (typeof elements !== 'undefined') {
+      if (elements[0] !== null) {
+        Object.keys(elements).map((element) => {
+          list.push([elements[element].title, elements[element].description, elements[element].pomodoroTimers, elements[element].priority])
+        })
+      }
+    }
+    console.log(list)
+    var cards = []
 
-    for (let i = 0; i < elements.length; i++){
+    for (let i = 0; i < list.length; i++){
 
         cards.push(
         
@@ -169,7 +180,7 @@ function createCard( elements){
                             <>
                             <Box as="span" flex='1' textAlign='left'>
                                 <Flex justifyContent={"flex-left"} alignItems={"top"}>
-                                {EditableIcon(elements[i][3])}<Heading fontWeight={"700"} fontSize={"16px"} textColor={"#6284FF"} fontFamily={"'DM Sans', sans-serif"}>{elements[i][0]}</Heading>
+                                {EditableIcon(list[i][3])}<Heading fontWeight={"700"} fontSize={"16px"} textColor={"#6284FF"} fontFamily={"'DM Sans', sans-serif"}>{list[i][0]}</Heading>
                                 </Flex>
                             </Box>
                             </>
@@ -187,8 +198,8 @@ function createCard( elements){
                              </Flex>
                         <AccordionPanel pb={4}>
                             <Box height={"1px"} width={"100%"} bg={"#E2EAF1"} marginBottom={"2"}></Box>
-                            {EditablePomo(elements[i][2])}
-                            {EditableNote(elements[i][1])}
+                            {EditablePomo(list[i][2])}
+                            {EditableNote(list[i][1])}
                         </AccordionPanel>
                         </>
                         )}
