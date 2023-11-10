@@ -27,7 +27,6 @@ function AddTask(props) {
   useEffect(() => {
   }, [timers])
 
-    }, )
     const onSubmit = async (e) => {
       e.preventDefault();
       setPriorityError(false);
