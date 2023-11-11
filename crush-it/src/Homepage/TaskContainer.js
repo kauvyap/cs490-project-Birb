@@ -1,10 +1,12 @@
 import React, {useState} from "react";
-import { Heading, Card, Image, Box,Flex, Text,Input, useColorModeValue} from '@chakra-ui/react';
+import { Heading, Card, Image, Box,Flex, Text,Input, useColorModeValue, useColorMode} from '@chakra-ui/react';
 import {Accordion,AccordionItem, AccordionButton, AccordionPanel, Icon } from '@chakra-ui/react'
 import {IoChevronDownCircleOutline, IoMove, IoSwapHorizontalSharp} from 'react-icons/io5'
 import {IoIosRadioButtonOff, IoIosCheckmarkCircleOutline, IoIosCloseCircleOutline} from 'react-icons/io'
 import editImg from '../media/edit-2.svg'
+import editImgD from '../media/edit-2d.svg'
 import ip from '../media/fi_7154459.svg'
+import ipD from '../media/fi_7154459d.svg'
 import saveImg from '../media/Vector.svg'
 import addSqr from '../media/add-square.svg'
 import subSqr from '../media/minus-square.svg'
@@ -16,6 +18,8 @@ function EditableIcon( txt ){
 
     const [currentIcon, setCurrentIcon] = useState(txt);
     const hv = useColorModeValue("#F3F3F3", "#1a202c");
+    const { colorMode } = useColorMode();
+    const ipSource = colorMode === 'light' ? ip : ipD;
 
     
     const toggleIcon = () => {
@@ -42,7 +46,7 @@ function EditableIcon( txt ){
             currentIcon === 'NS'
             ? <Icon as={IoIosRadioButtonOff} boxSize={"22"} marginRight={"5px"} _hover={{bg:hv}} style={{ cursor: 'pointer' }} onClick={toggleIcon}/>
             : currentIcon === 'IP'
-            ? <Image src={ip} boxSize={"22"} marginRight={"5px"}  _hover={{bg:hv}} style={{ cursor: 'pointer' }} onClick={toggleIcon}/>
+            ? <Image src={ipSource} boxSize={"22"} marginRight={"5px"}  _hover={{bg:hv}} style={{ cursor: 'pointer' }} onClick={toggleIcon}/>
             : currentIcon === 'FN'
             ? <Icon as={IoIosCheckmarkCircleOutline} boxSize={"22"} _hover={{bg:hv}} style={{ cursor: 'pointer' }} marginRight={"5px"} onClick={toggleIcon}/>
             :currentIcon === 'MO'
@@ -68,13 +72,15 @@ function EditableNote( txt ) {
     const tx = useColorModeValue("#1f1f1f", "#CCCCCC");
     const nt = useColorModeValue("#545454", "#999999");
     const hv = useColorModeValue("#F3F3F3", "#1a202c");
+    const { colorMode } = useColorMode();
+    const editImgSource = colorMode === 'light' ? editImg : editImgD;
 
     return (
       <div>
          <Flex justifyContent="space-between" marginBottom={"2px"}>
             <Box fontSize={"12px" }  fontFamily={"'DM Sans', sans-serif"} textColor={nt}>Notes</Box>
             <Box boxSize="20px" borderRadius={"6"} style={{ cursor: 'pointer' }} _hover={{bg:hv}} onClick={handleEditClick}>
-            {isEditing ? <Image borderRadius={"6"} bg={ic} boxSize="20px"  src={saveImg} />: <Image boxSize="20px" src={editImg}/>}
+            {isEditing ? <Image borderRadius={"6"} bg={ic} boxSize="20px"  src={saveImg} />: <Image boxSize="20px" src={editImgSource}/>}
             </Box>
         </Flex>
         {isEditing ? (
@@ -98,6 +104,8 @@ function EditableNote( txt ) {
     const ic = useColorModeValue('#6284FF', '#90cdf4');
     const tx = useColorModeValue("#1f1f1f", "#CCCCCC");
     const hv = useColorModeValue("#F3F3F3", "#1a202c");
+    const { colorMode } = useColorMode();
+    const editImgSource = colorMode === 'light' ? editImg : editImgD;
   
     const handleEditClick = () => {
         if(!isEditing){
@@ -126,29 +134,28 @@ function EditableNote( txt ) {
    
     return (
       <>
-        <Flex alignItems={"center"}>
-         
+        <Flex alignItems={"center"} mt={1}>
             <Box flex={"1"} fontSize={"12px" }  fontFamily={"'DM Sans', sans-serif"} textColor={tx}>Number of pomodoro timers (30 min each)</Box>
-            <Flex flex={"1"} justifyContent={"flex-end"}>
+            <Flex flex={"1"} justifyContent={"flex-end"} mt={2}>
             {isEditing ? (
                 <>
                 <Box marginRight={5} boxSize="20px" _hover={{bg:hv}} borderRadius={"6"} style={{ cursor: 'pointer' }} onClick={handleSClick}>
                     <Image borderRadius={"6"}  boxSize="20px"  src={subSqr}/>
                 </Box>
-                
-                <Text marginRight={5} fontFamily={"'DM Sans', sans-serif"} fontSize={"14px"} textColor={"#FE754D"}
-                    onChange={handleInputChange}
-                >{text}</Text>
+                <Text marginRight={5} fontFamily={"'DM Sans', sans-serif"} fontSize={"14px"} 
+                textColor={"#FE754D"} onChange={handleInputChange}>
+                  {text}
+                </Text>
                 <Box marginRight={5} boxSize="20px" _hover={{bg:hv}} borderRadius={"6"} style={{ cursor: 'pointer' }} onClick={handlePClick}>
                     <Image borderRadius={"6"}  boxSize="20px"  src={addSqr}/>
                 </Box>
                 </>
             ) : (
-                <Box marginRight="5" fontFamily={"'DM Sans', sans-serif"} fontSize={"16px" } textColor={"#FE754D"} >{text}</Box>
+                <Box marginRight="5" fontFamily={"'DM Sans', sans-serif"} fontSize={"16px" } textColor={"#FE754D"}>{text}</Box>
             )}
 
             <Box boxSize="20px" _hover={{bg:hv}} borderRadius={"6"} style={{ cursor: 'pointer' }} onClick={handleEditClick}>
-                {isEditing ? <Image borderRadius={"6"} bg={ic} boxSize="20px"  src={saveImg}></Image> : <Image boxSize="20px" src={editImg}></Image>}
+                {isEditing ? <Image borderRadius={"6"} bg={ic} boxSize="20px"  src={saveImg}></Image> : <Image boxSize="20px" src={editImgSource}></Image>}
             </Box>
             </Flex>
         
