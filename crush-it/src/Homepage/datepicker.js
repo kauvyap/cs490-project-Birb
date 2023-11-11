@@ -4,6 +4,7 @@ import {IoChevronBackCircleSharp, IoChevronForwardCircleSharp, IoChevronDownCirc
 
 function DatePicker() {
     const text = useColorModeValue('black', 'white')
+    const ic = useColorModeValue('#6284FF', '#90cdf4');
 
     const currentDate = new Date();
     const curMonth = currentDate.toLocaleString('default', { month: 'long' });
@@ -130,7 +131,7 @@ function DatePicker() {
         <IconButton
             variant='outline'
             colorScheme='blue'
-            color="#6284FF"
+            color={ic}
             aria-label='previousMonth'
             size='lg'
             fontSize={'3xl'}
@@ -138,7 +139,7 @@ function DatePicker() {
             onClick={() => setPreviousMonth(selectedYear, selectedMonth)}
         />
         <Menu>
-        <MenuButton as={Button} width='30vh' variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
+        <MenuButton as={Button} width='30vh' variant='outline' colorScheme='blue' ml={1} mr={1} color={ic} size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
             <Text color={text} p={2} mt={3}>{selectedMonth}</Text>
         </MenuButton>
         <MenuList maxH="230px" overflowY="auto" w="auto" overflowX="hidden" fontSize={'xl'}
@@ -171,7 +172,7 @@ function DatePicker() {
         <IconButton
             variant='outline'
             colorScheme='blue'
-            color="#6284FF"
+            color={ic}
             aria-label='previousMonth'
             size='lg'
             fontSize={'3xl'}
@@ -182,7 +183,7 @@ function DatePicker() {
         <IconButton
             variant='outline'
             colorScheme='blue'
-            color="#6284FF"
+            color={ic}
             aria-label='previousMonth'
             size='lg'
             fontSize={'3xl'}
@@ -191,7 +192,7 @@ function DatePicker() {
             onClick={() => setPreviousDate(selectedYear, selectedMonth, selectedDate)}
         />
         <Menu>
-        <MenuButton as={Button} width='15vh' variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
+        <MenuButton as={Button} width='15vh' variant='outline' colorScheme='blue' ml={1} mr={1} color={ic} size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
             <Text color={text} p={2} mt={3}>{selectedDate}</Text>
         </MenuButton>
         <MenuList maxH="230px" overflowY="auto" w="auto" overflowX="hidden" fontSize={'xl'}
@@ -224,7 +225,7 @@ function DatePicker() {
         <IconButton
             variant='outline'
             colorScheme='blue'
-            color="#6284FF"
+            color={ic}
             aria-label='previousMonth'
             size='lg'
             fontSize={'3xl'}
@@ -235,7 +236,7 @@ function DatePicker() {
         <IconButton
             variant='outline'
             colorScheme='blue'
-            color="#6284FF"
+            color={ic}
             aria-label='previousMonth'
             size='lg'
             fontSize={'3xl'}
@@ -244,7 +245,7 @@ function DatePicker() {
             onClick={() => setPreviousYear(selectedYear)}
         />
         <Menu>
-        <MenuButton as={Button} width='20vh' variant='outline' colorScheme='blue' ml={1} mr={1} color="#6284FF" size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
+        <MenuButton as={Button} width='20vh' variant='outline' colorScheme='blue' ml={1} mr={1} color={ic} size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
           <Text color={text} p={2} mt={3}> {selectedYear}</Text>
         </MenuButton>
         <MenuList maxH="230px" overflowY="auto" w="auto" overflowX="hidden" fontSize={'xl'}
@@ -277,7 +278,7 @@ function DatePicker() {
         <IconButton
             variant='outline'
             colorScheme='blue'
-            color="#6284FF"
+            color={ic}
             aria-label='previousMonth'
             size='lg'
             fontSize={'3xl'}
