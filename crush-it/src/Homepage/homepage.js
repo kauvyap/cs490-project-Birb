@@ -1,6 +1,6 @@
 import React, {useLayoutEffect, useState, useEffect} from "react";
 import { useNavigate } from "react-router";
-import {Box, Heading, Container, Table, Tbody, TableContainer, Tr, Td, VStack, HStack} from '@chakra-ui/react';
+import {Box, Heading, Container, Table, Tbody, TableContainer, Tr, Td, VStack, HStack, useColorMode, useColorModeValue, Spacer} from '@chakra-ui/react';
 import TaskContainer from "./TaskContainer"
 import DatePicker from './datepicker';
 import AddTask from './addtask';
@@ -10,6 +10,10 @@ function Homepage(){
 
     //selectedDate uses a CallBack function to get the currentDay from DatePicker
     //setting up selectedDate
+
+    const bg = useColorModeValue('#F5F7F9', '#1A202C')
+    const cont = useColorModeValue("white", "#2d3748")
+
     const [selectedDate, setSelectedDate] = useState(null);
     const [username, setUsername] = useState(null)
     const [topTasks, setTopTasks] = useState([])
@@ -62,7 +66,7 @@ function Homepage(){
     return (
       
 
-        <Box p={5} bg="#F5F7F9" height={"94vh"}>
+        <Box p={5} bg={bg} height={"94vh"}>
 
         <DatePicker onDateSelected={handleSelected} />
   
@@ -72,7 +76,7 @@ function Homepage(){
             <AddTask  dateSelected={selectedDate} user={username} handleTop={handleTop} handleImportant={handleImportant} handleOther={handleOther}/>
             </Heading>
 
-              <Container borderRadius={"10"} bg="#FFFFFF"  minW={"100%"} h={"680px"} paddingTop={"5"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"}>
+              <Container borderRadius={"10"} bg={cont} minW={"100%"} h={"680px"} paddingTop={"5"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"}>
                 <TaskContainer category='Top Priority' categoryList={topTasks} onChange={handleTop}/>
                 <TaskContainer category='Important' categoryList={importantTasks} onChange={handleImportant}/>
                 <TaskContainer category='Other' categoryList={otherTasks} onChange={handleOther}/>
@@ -80,10 +84,12 @@ function Homepage(){
               </Container>
 
           </VStack>
+
+          <Spacer></Spacer>
   
-          <VStack h={"100%"} width={"40%" } align="left" justify={"left"} >
+          <VStack h={"100%"} width={"45%" } align="left" justify={"left"} >
               <Heading fontSize={"30px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"} marginBottom={3}>Appointments</Heading>
-                  <Box borderRadius={"10"} bg="white" h={"680px"} marginTop={"5px"} overflowY={"auto"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"} 
+                  <Box borderRadius={"10"} bg={cont} h={"680px"} marginTop={"5px"} overflowY={"auto"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"} 
                   css={`
                   &::-webkit-scrollbar {
                       width: 6px;

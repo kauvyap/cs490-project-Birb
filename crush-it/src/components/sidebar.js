@@ -5,10 +5,12 @@ import "bootstrap/dist/css/bootstrap.css";
  // We import NavLink to utilize the react router.
  
 import { NavLink,useLocation } from "react-router-dom";
-import { Box, VStack, Text, Button, Image, Spacer} from "@chakra-ui/react";
+import { Box, VStack, Text, Button, Image, Spacer, useColorModeValue} from "@chakra-ui/react";
 import logOutIcon from '../media/logout.png'
  // Here, we display our Navbar
 export default function Sidebar() {
+
+  const bg = useColorModeValue('#252628', '#1E1E1E')
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -27,7 +29,7 @@ export default function Sidebar() {
 
 
         
-        <VStack align="start" height={"100vh"} width="200px" spacing={4} p={4} bg="#252628" alignItems={"center"}>
+        <VStack align="start" height={"100vh"} width="200px" spacing={4} p={4} bg={bg} alignItems={"center"}>
           <NavLink to="/">
           <Text fontFamily={"'Fredoka', sans-serif"} fontSize="30px" fontWeight={"400"} textColor={"white"} align={"center"} >Crush It</Text>
           </NavLink>
