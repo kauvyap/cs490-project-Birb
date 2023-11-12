@@ -209,7 +209,7 @@ const createCard = (elements) => {
                           <>
                           <Box as="span" flex='1' textAlign='left'>
                               <Flex justifyContent={"flex-left"} alignItems={"top"}>
-                              {EditableIcon(list[i][3])}<Heading fontWeight={"700"} fontSize={"16px"} textColor={"#6284FF"} fontFamily={"'DM Sans', sans-serif"}>{list[i][0]}</Heading>
+                              {EditableIcon(list[i][3])}<Heading fontWeight={"700"} fontSize={"16px"} textColor={hd} fontFamily={"'DM Sans', sans-serif"}>{list[i][0]}</Heading>
                               </Flex>
                           </Box>
                           </>
