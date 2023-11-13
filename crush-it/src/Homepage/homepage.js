@@ -77,9 +77,9 @@ function Homepage(){
             </Heading>
 
               <Container borderRadius={"10"} bg={cont} minW={"100%"} h={"680px"} paddingTop={"5"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"}>
-                <TaskContainer category='Top Priority' categoryList={topTasks} onChange={handleTop}/>
-                <TaskContainer category='Important' categoryList={importantTasks} onChange={handleImportant}/>
-                <TaskContainer category='Other' categoryList={otherTasks} onChange={handleOther}/>
+                <TaskContainer dateSelected={selectedDate} category='Top Priority' categoryList={topTasks} onChange={handleTop}/>
+                <TaskContainer dateSelected={selectedDate} category='Important' categoryList={importantTasks} onChange={handleImportant}/>
+                <TaskContainer dateSelected={selectedDate} category='Other' categoryList={otherTasks} onChange={handleOther}/>
                 
               </Container>
 

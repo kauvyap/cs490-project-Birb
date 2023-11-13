@@ -188,7 +188,9 @@ const createCard = (elements) => {
   if (typeof elements !== 'undefined') {
     if (elements[0] !== null) {
       Object.keys(elements).map((element) => {
-        list.push([elements[element].title, elements[element].description, elements[element].pomodoroTimers, elements[element].priority])
+        if (props.dateSelected === elements[element].dateAssigned) {
+          list.push([elements[element].title, elements[element].description, elements[element].pomodoroTimers, elements[element].priority])
+        }
       })
     }
   }
