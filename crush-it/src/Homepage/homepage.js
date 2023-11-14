@@ -246,9 +246,9 @@ function Homepage(){
 
         <DatePicker onDateSelected={handleSelected} />
   
-        <HStack justify={"left"} p={5}  h={"100%"} width={ "100%"} align={"flex-start"} >
+        <HStack justify={"left"} p={5}  h={"93%"} width={ "100%"} align={"flex-start"} >
             <VStack  h={"100%"} width={"60%" } align="top" justify={"left"} marginBottom={1}>
-            <Heading fontSize={"30px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"}>Tasks {selectedDate}
+            <Heading fontSize={"30px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"}>Tasks
             <AddTask  dateSelected={selectedDate} user={username} handleTop={handleTop} handleImportant={handleImportant} handleOther={handleOther}/>
             </Heading>
 
