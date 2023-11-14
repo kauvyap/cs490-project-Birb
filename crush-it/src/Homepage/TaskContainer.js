@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Heading, Card, Image, Box,Flex, Text,Input} from '@chakra-ui/react';
+import { Heading, Card, Image, Box,Flex, Text,Input, Textarea} from '@chakra-ui/react';
 import {Accordion,AccordionItem, AccordionButton, AccordionPanel, Icon, useColorMode, useColorModeValue } from '@chakra-ui/react'
 import {IoChevronDownCircleOutline, IoMove, IoSwapHorizontalSharp} from 'react-icons/io5'
 import {IoIosRadioButtonOff, IoIosCheckmarkCircleOutline, IoIosCloseCircleOutline} from 'react-icons/io'
@@ -91,7 +91,7 @@ function EditableNote( txt, handleUpdatedDescription, category, i ) {
           </Box>
         </Flex>
         {isEditing ? (
-          <Input fontFamily={"'DM Sans', sans-serif"} fontSize={"14px"} textColor={tx}
+          <Textarea fontFamily={"'DM Sans', sans-serif"} fontSize={"14px"} textColor={tx}
             value={text}
             onChange={handleInputChange}
             autoFocus
