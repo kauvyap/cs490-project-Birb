@@ -19,6 +19,7 @@ function Homepage(){
     const [topTasks, setTopTasks] = useState([])
     const [importantTasks, setImportantTasks] = useState([])
     const [otherTasks, setOtherTasks] = useState([])
+    
     //handle the date change
     const handleSelected = (date) => {
         setSelectedDate (date)  
@@ -145,9 +146,70 @@ function Homepage(){
         if (!response.ok) {
             console.log(response)
         } else {
-            handleTop(top)
+            setTopTasks(top)
             handleImportant(important)
             handleOther(other)
+        }
+    }
+
+    const handleDrop = async (id, originalCategory, targetCategory) => {      
+        var top = topTasks
+        var important = importantTasks
+        var other = otherTasks
+
+        console.log("original", originalCategory)
+        console.log("id", id)
+        console.log("target", targetCategory)
+        if (targetCategory === 'Top Priority') {
+            if (originalCategory === 'Important') {
+                top.push({dateAssigned: importantTasks[id].dateAssigned, title: importantTasks[id].title, description: importantTasks[id].description, pomodoroTimers: importantTasks[id].pomodoroTimers, priority: 'Top', status: importantTasks[id].status})
+                important.splice(id, 1)
+            }
+            if (originalCategory === 'Other') {
+                top.push({dateAssigned: otherTasks[id].dateAssigned, title: otherTasks[id].title, description: otherTasks[id].description, pomodoroTimers: otherTasks[id].pomodoroTimers, priority: 'Top', status: otherTasks[id].status})
+                other.splice(id, 1)
+            }
+        }
+        if (targetCategory === 'Important') {
+            if (originalCategory === 'Top Priority') {
+                important.push({dateAssigned: topTasks[id].dateAssigned, title: topTasks[id].title, description: topTasks[id].description, pomodoroTimers: topTasks[id].pomodoroTimers, priority: 'Important', status: topTasks[id].status})
+                top.splice(id, 1)
+            }
+            if (originalCategory === 'Other') {
+                important.push({dateAssigned: otherTasks[id].dateAssigned, title: otherTasks[id].title, description: otherTasks[id].description, pomodoroTimers: otherTasks[id].pomodoroTimers, priority: 'Important', status: otherTasks[id].status})
+                other.splice(id, 1)
+            }
+        }
+        if (targetCategory === 'Other') {
+            if (originalCategory === 'Top Priority') {
+                other.push({dateAssigned: topTasks[id].dateAssigned, title: topTasks[id].title, description: topTasks[id].description, pomodoroTimers: topTasks[id].pomodoroTimers, priority: 'Other', status: topTasks[id].status})
+                top.splice(id, 1)
+            }
+            if (originalCategory === 'Important') {
+                other.push({dateAssigned: importantTasks[id].dateAssigned, title: importantTasks[id].title, description: importantTasks[id].description, pomodoroTimers: importantTasks[id].pomodoroTimers, priority: 'Other', status: importantTasks[id].status})
+                important.splice(id, 1)
+            }
+        }
+
+        const response = await fetch('http://localhost:5000/api/tasks/' + username, {
+            method: "PUT",
+            body: JSON.stringify({
+                username: username,
+                topTasks: top,
+                importantTasks: important,
+                otherTasks: other,
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if (!response.ok) {
+            console.log(response)
+        } else {
+            fetch('http://localhost:5000/api/tasks/' + username)
+            .then(res => res.json())
+            .then(data => {setTopTasks(data.topTasks); setImportantTasks(data.importantTasks); setOtherTasks(data.otherTasks)})
+            .catch((err) => console.log(err))
         }
     }
 
@@ -191,9 +253,9 @@ function Homepage(){
             </Heading>
 
               <Container borderRadius={"10"} bg={cont} minW={"100%"} h={"680px"} paddingTop={"5"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"}>
-                <TaskContainer dateSelected={selectedDate} category='Top Priority' categoryList={topTasks} onChange={handleTop} handleUpdatedPomo={handleUpdatedPomo} handleUpdatedDescription={handleUpdatedDescription} handleUpdatedIcon={handleUpdatedIcon}/>
-                <TaskContainer dateSelected={selectedDate} category='Important' categoryList={importantTasks} onChange={handleImportant} handleUpdatedPomo={handleUpdatedPomo} handleUpdatedDescription={handleUpdatedDescription} handleUpdatedIcon={handleUpdatedIcon}/>
-                <TaskContainer dateSelected={selectedDate} category='Other' categoryList={otherTasks} onChange={handleOther} handleUpdatedPomo={handleUpdatedPomo} handleUpdatedDescription={handleUpdatedDescription} handleUpdatedIcon={handleUpdatedIcon}/>
+                <TaskContainer dateSelected={selectedDate} category='Top Priority' categoryList={topTasks} onChange={handleTop} handleUpdatedPomo={handleUpdatedPomo} handleUpdatedDescription={handleUpdatedDescription} handleUpdatedIcon={handleUpdatedIcon} handleDrop={handleDrop}/>
+                <TaskContainer dateSelected={selectedDate} category='Important' categoryList={importantTasks} onChange={handleImportant} handleUpdatedPomo={handleUpdatedPomo} handleUpdatedDescription={handleUpdatedDescription} handleUpdatedIcon={handleUpdatedIcon} handleDrop={handleDrop}/>
+                <TaskContainer dateSelected={selectedDate} category='Other' categoryList={otherTasks} onChange={handleOther} handleUpdatedPomo={handleUpdatedPomo} handleUpdatedDescription={handleUpdatedDescription} handleUpdatedIcon={handleUpdatedIcon} handleDrop={handleDrop}/>
                 
               </Container>
 
