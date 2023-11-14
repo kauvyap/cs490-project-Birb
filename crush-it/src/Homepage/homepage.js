@@ -16,6 +16,7 @@ function Homepage(){
 
     const [selectedDate, setSelectedDate] = useState(null);
     const [username, setUsername] = useState(null)
+    const [timerLength, setTimerLength] = useState(30)
     const [topTasks, setTopTasks] = useState([])
     const [importantTasks, setImportantTasks] = useState([])
     const [otherTasks, setOtherTasks] = useState([])
@@ -234,6 +235,13 @@ function Homepage(){
         .then(data => {setTopTasks(data.topTasks); setImportantTasks(data.importantTasks); setOtherTasks(data.otherTasks)})
         .catch((err) => console.log(err))
     }, [username])
+
+    useEffect(() => {
+        fetch('http://localhost:5000/api/user/' + username)
+        .then(res => res.json())
+        .then(data => {setTimerLength(data.pomodoro.timer)})
+        .catch((err) => console.log(err))
+    }, [username])
     
     // const topPriorityList = [["Complete Math Homework", "This is a hw", 1, "FN" ], ["Homework 2","This is a hw", 3, "NS"]];
     // const importantList = [["Homework 1", "This is a hw", 4, "FN" ], ["Homework 7","This is a hw", 2, "CA"]];
@@ -253,9 +261,9 @@ function Homepage(){
             </Heading>
 
               <Container borderRadius={"10"} bg={cont} minW={"100%"} h={"680px"} paddingTop={"5"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"}>
-                <TaskContainer dateSelected={selectedDate} category='Top Priority' categoryList={topTasks} onChange={handleTop} handleUpdatedPomo={handleUpdatedPomo} handleUpdatedDescription={handleUpdatedDescription} handleUpdatedIcon={handleUpdatedIcon} handleDrop={handleDrop}/>
-                <TaskContainer dateSelected={selectedDate} category='Important' categoryList={importantTasks} onChange={handleImportant} handleUpdatedPomo={handleUpdatedPomo} handleUpdatedDescription={handleUpdatedDescription} handleUpdatedIcon={handleUpdatedIcon} handleDrop={handleDrop}/>
-                <TaskContainer dateSelected={selectedDate} category='Other' categoryList={otherTasks} onChange={handleOther} handleUpdatedPomo={handleUpdatedPomo} handleUpdatedDescription={handleUpdatedDescription} handleUpdatedIcon={handleUpdatedIcon} handleDrop={handleDrop}/>
+                <TaskContainer dateSelected={selectedDate} timerLength={timerLength} category='Top Priority' categoryList={topTasks} onChange={handleTop} handleUpdatedPomo={handleUpdatedPomo} handleUpdatedDescription={handleUpdatedDescription} handleUpdatedIcon={handleUpdatedIcon} handleDrop={handleDrop}/>
+                <TaskContainer dateSelected={selectedDate} timerLength={timerLength} category='Important' categoryList={importantTasks} onChange={handleImportant} handleUpdatedPomo={handleUpdatedPomo} handleUpdatedDescription={handleUpdatedDescription} handleUpdatedIcon={handleUpdatedIcon} handleDrop={handleDrop}/>
+                <TaskContainer dateSelected={selectedDate} timerLength={timerLength} category='Other' categoryList={otherTasks} onChange={handleOther} handleUpdatedPomo={handleUpdatedPomo} handleUpdatedDescription={handleUpdatedDescription} handleUpdatedIcon={handleUpdatedIcon} handleDrop={handleDrop}/>
                 
               </Container>
 

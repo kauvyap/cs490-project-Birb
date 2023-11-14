@@ -104,9 +104,10 @@ function EditableNote( txt, handleUpdatedDescription, category, i ) {
   }
 
 // creates an editable pmodoro timer form
-  function EditablePomo( txt, handleUpdatedPomo, category, i ) {
+  function EditablePomo( txt, timerLength, handleUpdatedPomo, category, i ) {
     const [isEditing, setIsEditing] = useState(false);
     const [text, setText] = useState(txt); // Replace with your initial text
+    const [pomodoroLength, setPomodoroLength] = useState(30)
 
     const ic = useColorModeValue('#6284FF', '#90cdf4');
     const tx = useColorModeValue("#1f1f1f", "#CCCCCC");
@@ -146,7 +147,7 @@ function EditableNote( txt, handleUpdatedDescription, category, i ) {
       <>
         <Flex alignItems={"center"}>
          
-            <Box flex={"1"} fontSize={"12px" }  fontFamily={"'DM Sans', sans-serif"} textColor={tx}>Number of pomodoro timers (30 min each)</Box>
+            <Box flex={"1"} fontSize={"12px" }  fontFamily={"'DM Sans', sans-serif"} textColor={tx}>Number of pomodoro timers ({timerLength} min each)</Box>
             <Flex flex={"1"} justifyContent={"flex-end"}>
             {isEditing ? (
                 <>
@@ -266,7 +267,7 @@ function TaskContainer(props) {
                             </Flex>
                         <AccordionPanel pb={4}>
                             <Box height={"1px"} width={"100%"} bg={"#E2EAF1"} marginBottom={"2"}></Box>
-                            {EditablePomo(list[i][2], props.handleUpdatedPomo, props.category, indices[i])}
+                            {EditablePomo(list[i][2], props.timerLength, props.handleUpdatedPomo, props.category, indices[i])}
                             {EditableNote(list[i][1], props.handleUpdatedDescription, props.category, indices[i])}
                         </AccordionPanel>
                         </>
