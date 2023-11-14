@@ -91,13 +91,14 @@ function Login() {
                 <FormControl id="email" isInvalid={emailError || passwordError} isRequired>
                   <FormLabel>Email</FormLabel>
                   <Input
+                    id="Email"
                     type="text"
                     placeholder="Enter your email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                   {emailError && (
-                        <FormErrorMessage>Email does not exist.</FormErrorMessage>
+                        <FormErrorMessage data-testid="EmailErrorMsg">Email does not exist.</FormErrorMessage>
                        )}
                   {passwordError && !emailError && (
                   <FormErrorMessage>Email or password is incorrect.</FormErrorMessage>
@@ -106,13 +107,14 @@ function Login() {
                 <FormControl id="password" isInvalid={passwordError} isRequired>
                   <FormLabel>Password</FormLabel>
                   <Input
+                    data-testid="Pass"
                     type="password"
                     placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   {passwordError && (
-                    <FormErrorMessage>Email or password is incorrect.</FormErrorMessage>
+                    <FormErrorMessage >Email or password is incorrect.</FormErrorMessage>
                     )}
                 </FormControl>
                   <Button width='200px' colorScheme="brand" onClick={onSubmit}>Login</Button>

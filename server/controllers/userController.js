@@ -20,11 +20,9 @@ const getUser = async (req, res) => {
         lname: dbUser.lname,
         pomodoro: dbUser.pomodoro
     }))
-    .catch(err => res.json({
-        username: "User Not Found",
-        fname: "",
-        lname: ""
-    }))
+    .catch(err => 
+        res.status(400).json({error: 'No such user'})
+    )
 };
 
 
@@ -48,11 +46,11 @@ const createUser = async (req, res) => {
 
 // delete a user from the database
 const deleteUser = async (req, res) => {
-    const username = req.params.username
-
-    if (!mongoose.Types.ObjectId.isValid(username)) {
+    const username = req.params.id
+    //console.log("Deleting user " + username);
+    /*if (!mongoose.Types.ObjectId.isValid(username)) {
         return res.status(404).json({ error: 'No such user' });
-    }
+    }*/
 
     const user = await User.findOneAndDelete({username: username});
 
