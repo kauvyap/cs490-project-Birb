@@ -45,6 +45,9 @@ function DatePicker({onDateSelected}) {
     const setPreviousYear = (year) => {
       // don't go prior to current year
       if (year !== curYear) {
+        if (selectedMonth === 'February' && selectedDate === '29') { // go back to February 28th if current date is February 29th
+          setSelectedDate('28');
+        }
         setSelectedYear((parseInt(year)-1).toString());
       }
       return (parseInt(year)-1).toString();
@@ -68,7 +71,7 @@ function DatePicker({onDateSelected}) {
         month = setPreviousMonth(year, month);
         // don't go to 31 if it's January 1st curYear
         if (year !== curYear || months.indexOf(selectedMonth) !== 0) {
-          setSelectedDate(getDaysInMonth(selectedYear, month)) 
+          setSelectedDate(getDaysInMonth(selectedYear, month).toString()) 
         }
       } else {
         date--;
@@ -79,6 +82,9 @@ function DatePicker({onDateSelected}) {
     const setNextYear = (year) => {
       // don't go further than 10 years
       if (year !== (parseInt(curYear)+9).toString()) {
+        if (selectedMonth === 'February' && selectedDate === '29') { // go back to February 28th if current date is February 29th
+          setSelectedDate('28');
+        }
         setSelectedYear((parseInt(year)+1).toString());
       }
       return (parseInt(year)+1).toString();
