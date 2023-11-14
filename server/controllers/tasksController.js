@@ -25,8 +25,8 @@ const createTasks = async (req, res) => {
     const otherTasks = [null]
 
     try {
-        const user = await User.create({ username:username, topTasks: topTasks, importantTasks: importantTasks, otherTasks: otherTasks });
-        res.status(200).json(user);
+        const task = await Task.create({ username:username, topTasks: topTasks, importantTasks: importantTasks, otherTasks: otherTasks });
+        res.status(200).json(task);
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
@@ -35,7 +35,7 @@ const createTasks = async (req, res) => {
 
 // inserts a task into the database
 const updateTasks = async (req, res) => {
-    const username = req.body.id
+    const username = req.params.id
     taskUpdated = {username:username, topTasks: req.body.topTasks, importantTasks: req.body.importantTasks, otherTasks: req.body.otherTasks}
     const user = await Task.findOneAndUpdate({username: username}, taskUpdated);
 

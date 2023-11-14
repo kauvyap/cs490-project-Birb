@@ -1,8 +1,8 @@
 import React, { useLayoutEffect, useEffect, useState } from 'react';
 import { useNavigate } from "react-router";
 import { Link as ReactRouterLink } from "react-router-dom";
-import {Box, Heading, FormControl, FormLabel, FormErrorMessage, Input, Button, Text, Link as ChakraLink, Card, CardHeader, CardBody, CardFooter, VStack} from '@chakra-ui/react';
-
+import {Box, Heading, FormControl, FormLabel, FormErrorMessage, Input, Button, Text, 
+        Link as ChakraLink, Card, CardHeader, CardBody, CardFooter, VStack, useColorMode} from '@chakra-ui/react';
 import MainLogo from '../media/mainlogo';
 
 function Login() {
@@ -12,7 +12,12 @@ function Login() {
   const [passwordError, setPasswordError] = useState(false);
   const navigate = useNavigate();
 
+  const { colorMode, toggleColorMode } = useColorMode();
 
+  // Set color mode to light
+  if (colorMode !== 'light') {
+    toggleColorMode();
+  }
 
   useEffect(() => {
     setEmailError(false);
