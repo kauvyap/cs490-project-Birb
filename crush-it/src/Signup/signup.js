@@ -1,7 +1,8 @@
 import React, { useLayoutEffect, useEffect, useState } from 'react';
 import { useNavigate } from "react-router";
 import { Link as ReactRouterLink } from "react-router-dom";
-import {Box, Heading, FormControl, FormLabel, FormErrorMessage, Input, Button, Text, Link as ChakraLink, Card, CardHeader, CardBody, CardFooter, VStack} from '@chakra-ui/react';
+import {Box, Heading, FormControl, FormLabel, InputRightElement, InputGroup,FormErrorMessage, Input, Button, Text, Link as ChakraLink, Card, CardHeader, CardBody, CardFooter, VStack} from '@chakra-ui/react';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 import MainLogo from '../media/mainlogo';
 
@@ -10,6 +11,8 @@ function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword1, setShowPassword1] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
 
   const [emailError, setEmailError] = useState(false);
   const [emailSameError, setEmailSameError] = useState(false);
@@ -23,7 +26,12 @@ function Signup() {
   const specialRegex = /[^a-zA-Z0-9]/;
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-
+  const handleTogglePassword1 = () => {
+    setShowPassword1(!showPassword1);
+  };
+  const handleTogglePassword2 = () => {
+    setShowPassword2(!showPassword2);
+  };
 
   useLayoutEffect(() => {
     fetch("http://localhost:5000/api/auth/getUsername", {
@@ -176,12 +184,19 @@ function Signup() {
                   </FormControl>
                   <FormControl id="password" isInvalid={passwordLengthError || comboError} isRequired>
                     <FormLabel>Password</FormLabel>
+                    <InputGroup>
                     <Input
-                      type="password"
+                      type={showPassword1 ? 'text' : 'password'}
                       placeholder="Enter your password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                     />
+                    <InputRightElement width="4.5rem">
+                    <Button h="1.75rem" size="sm" onClick={handleTogglePassword1}>
+                     {showPassword1 ? <ViewOffIcon /> : <ViewIcon />} 
+                     </Button>
+                  </InputRightElement>
+                    </InputGroup>
                     {passwordLengthError && (
                         <FormErrorMessage>Password must be at least 8 characters.</FormErrorMessage>
                        )}
@@ -191,12 +206,20 @@ function Signup() {
                   </FormControl>
                   <FormControl id="confirm-password" isInvalid={passwordMatchError} isRequired>
                     <FormLabel>Confirm Password</FormLabel>
+                    <InputGroup>
                     <Input
-                      type="password"
+                      type={showPassword2 ? 'text' : 'password'}
                       placeholder="Enter your password again"
                       value={confirmPassword}
+                      
                       onChange={(e) => setConfirmPassword(e.target.value)}
                     />
+                    <InputRightElement width="4.5rem">
+                    <Button h="1.75rem" size="sm" onClick={handleTogglePassword2}>
+                     {showPassword2 ? <ViewOffIcon /> : <ViewIcon />} 
+                     </Button>
+                  </InputRightElement>
+                    </InputGroup>
                       {passwordMatchError && (
                         <FormErrorMessage>Passwords must match.</FormErrorMessage>
                        )}
