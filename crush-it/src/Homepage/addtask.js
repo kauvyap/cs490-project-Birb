@@ -6,7 +6,6 @@ import { AddIcon } from "@chakra-ui/icons";
 function AddTask(props) {
 
   //use date.dateSelected to get the date selected by the datePicker component.
-  console.log(props)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');

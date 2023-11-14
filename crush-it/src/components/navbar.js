@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import "bootstrap/dist/css/bootstrap.css";
  // We import NavLink to utilize the react router.
 import { NavLink, useLocation } from "react-router-dom";
-import { Flex, Input, Heading, Spacer, Button, Image} from '@chakra-ui/react';
+import { Flex, Input, Heading, Spacer, Button, Image, useColorModeValue} from '@chakra-ui/react';
 import userIcon from '../media/userIcon.png';
 
  // Here, we display our Navbar
@@ -16,6 +16,8 @@ export default function Navbar() {
     const [userData, setUserData] = useState({});
     console.log(userData);
 
+    const bg = useColorModeValue('white', '#1E1E1E')
+    const text = useColorModeValue('black', 'white')
 
     useLayoutEffect(() => {
         if (location.pathname !== "/login" && location.pathname !== "/signup") {
@@ -46,22 +48,22 @@ export default function Navbar() {
 
     if (location.pathname !== "/profile/" + user ){
         return (
-            <Flex as={"nav"} bg={"white"} width={"100%"} height={"6vh" } alignItems={"center"} p={"20px"} >
-                <Input placeholder='What are you looking for?' width={"100vh"} />
+            <Flex as={"nav"} bg={bg} width={"100%"} height={"6vh" } alignItems={"center"} p={"20px"}>
+                <Input placeholder='What are you looking for?' width={"100vh"} mt={5} mb={5} />
                 <Spacer></Spacer>
                 <NavLink to={"/profile/" + user} >
-                    <Button leftIcon={<Image borderRadius='full' boxSize="40px" src={userIcon} display='fixed'/>} variant={"ghost"} colorScheme="linkedin" bg={"white"} color={"black"}>{userData.fname} {userData.lname}</Button>
+                <Button leftIcon={<Image borderRadius='full' boxSize="40px" src={userIcon} display='fixed'/>} variant={"ghost"} colorScheme="linkedin" bg={bg} color={text}>{userData.fname} {userData.lname}</Button>
                 </NavLink>
             </Flex>
         )
     }
  return ( 
     
-    <Flex as={"nav"} bg={"white"} width={"100%"} height={"6vh" } alignItems={"center"} p={"20px"}>
-    <Heading>Profile</Heading>
+    <Flex as={"nav"} bg={bg} width={"100%"} height={"6vh" } alignItems={"center"} p={"20px"}>
+    <Heading mt={2} mb={3}>Profile</Heading>
     <Spacer></Spacer>
     <NavLink to={"/profile/" + user} >
-            <Button leftIcon={<Image borderRadius='full' boxSize="40px" src={userIcon} display='fixed'/>} variant={"ghost"} colorScheme="linkedin" bg={"white"} color={"black"}>{userData.fname} {userData.lname}</Button>
+        <Button leftIcon={<Image borderRadius='full' boxSize="40px" src={userIcon} display='fixed'/>} variant={"ghost"} colorScheme="linkedin" bg={bg} color={text}>{userData.fname} {userData.lname}</Button>
     </NavLink>
                      
     </Flex>
