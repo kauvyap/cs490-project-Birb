@@ -1,16 +1,23 @@
 import React, { useLayoutEffect, useEffect, useState } from 'react';
 import { useNavigate } from "react-router";
 import { Link as ReactRouterLink } from "react-router-dom";
-import {Box, Heading, FormControl, FormLabel, FormErrorMessage, Input, Button, Text, 
+import {Box, Heading, FormControl, FormLabel, FormErrorMessage, Input, Button, Text,InputRightElement, InputGroup, 
         Link as ChakraLink, Card, CardHeader, CardBody, CardFooter, VStack, useColorMode} from '@chakra-ui/react';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import MainLogo from '../media/mainlogo';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const navigate = useNavigate();
+
+
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const { colorMode, toggleColorMode } = useColorMode();
 
@@ -109,15 +116,22 @@ function Login() {
                   <FormErrorMessage>Email or password is incorrect.</FormErrorMessage>
                   )}
                 </FormControl>
-                <FormControl id="password" isInvalid={passwordError} isRequired>
+                <FormControl id="password" isInvalid={passwordError} isRequired >
                   <FormLabel>Password</FormLabel>
+                  <InputGroup>
                   <Input
                     data-testid="Pass"
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
+                  <InputRightElement width="4.5rem">
+                    <Button h="1.75rem" size="sm" onClick={handleTogglePassword}>
+                     {showPassword ? <ViewOffIcon /> : <ViewIcon />} 
+                     </Button>
+                  </InputRightElement>
+                  </InputGroup>
                   {passwordError && (
                     <FormErrorMessage >Email or password is incorrect.</FormErrorMessage>
                     )}
