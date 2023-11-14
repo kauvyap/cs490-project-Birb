@@ -14,8 +14,7 @@ import subSqr from '../media/minus-square.svg'
 
 
 //creates a swapable icon on the left side of the screen
-function EditableIcon( txt ){
-
+function EditableIcon( txt, handleUpdatedIcon, category, i ){
     const [currentIcon, setCurrentIcon] = useState(txt);
     const hv = useColorModeValue("#F3F3F3", "#1a202c");
 
@@ -24,22 +23,25 @@ function EditableIcon( txt ){
 
     
     const toggleIcon = () => {
+      var newIcon = null
         switch (currentIcon) {
           case 'NS':
-            setCurrentIcon('IP');
+            newIcon = 'IP';
             break;
           case 'IP':
-            setCurrentIcon('FN');
+            newIcon = 'FN';
             break;
           case 'FN':
-            setCurrentIcon('MO');
+            newIcon = 'MO';
             break;
           case 'MO':
-            setCurrentIcon("default");
+            newIcon = "default";
             break;
           default:
-            setCurrentIcon("NS");
+            newIcon = "NS";
         }
+        setCurrentIcon(newIcon)
+        handleUpdatedIcon(newIcon, category, i)
       };
 
       return(
@@ -59,14 +61,17 @@ function EditableIcon( txt ){
 
 
 //creates a editable note container
-function EditableNote( txt ) {
+function EditableNote( txt, handleUpdatedDescription, category, i ) {
     const [isEditing, setIsEditing] = useState(false);
     const [text, setText] = useState(txt); // Replace with your initial text
     const handleEditClick = () => {
         setIsEditing(!isEditing);
+        handleUpdatedDescription(text, category, i);
     };
+    
     const handleInputChange = (event) => {
       setText(event.target.value);
+      
     };
 
     const ic = useColorModeValue('#6284FF', '#90cdf4');
@@ -99,7 +104,7 @@ function EditableNote( txt ) {
   }
 
 // creates an editable pmodoro timer form
-  function EditablePomo( txt ) {
+  function EditablePomo( txt, handleUpdatedPomo, category, i ) {
     const [isEditing, setIsEditing] = useState(false);
     const [text, setText] = useState(txt); // Replace with your initial text
 
@@ -116,10 +121,12 @@ function EditableNote( txt ) {
         }
         else{
             setIsEditing(!isEditing);
+            handleUpdatedPomo(text, category, i);
         }
     };
     const handleInputChange = (event) => {
       setText(event.target.value);
+
     };
 
     const handlePClick = () => {
@@ -178,27 +185,26 @@ function TaskContainer(props) {
 const elements = props.categoryList
 const bg = useColorModeValue('#F5F7F9', '#1A202C')
 const hd = useColorModeValue('#6284FF', '#90cdf4');
-console.log(props)
 
 const createCard = (elements) => {
   // create all card views inside of elements
   // [["Complete Math Homework", "This is a hw", 1, "FN"]]
   var list = []
-  console.log(elements)
+  var indices = []
   if (typeof elements !== 'undefined') {
     if (elements[0] !== null) {
       Object.keys(elements).map((element) => {
         if (props.dateSelected === elements[element].dateAssigned) {
-          list.push([elements[element].title, elements[element].description, elements[element].pomodoroTimers, elements[element].priority])
+          list.push([elements[element].title, elements[element].description, elements[element].pomodoroTimers, elements[element].status])
+          indices.push(element)
         }
+        return null
       })
     }
   }
-  console.log(list)
   var cards = []
 
-  for (let i = 0; i < list.length; i++){
-
+  for (let i = 0; i < indices.length; i++){
       cards.push(
       
           <Card borderRadius={"8"} key={i} margin={2} padding={3}>
@@ -211,7 +217,7 @@ const createCard = (elements) => {
                           <>
                           <Box as="span" flex='1' textAlign='left'>
                               <Flex justifyContent={"flex-left"} alignItems={"top"}>
-                              {EditableIcon(list[i][3])}<Heading fontWeight={"700"} fontSize={"16px"} textColor={hd} fontFamily={"'DM Sans', sans-serif"}>{list[i][0]}</Heading>
+                              {EditableIcon(list[i][3], props.handleUpdatedIcon, props.category, indices[i])}<Heading fontWeight={"700"} fontSize={"16px"} textColor={hd} fontFamily={"'DM Sans', sans-serif"}>{list[i][0]}</Heading>
                               </Flex>
                           </Box>
                           </>
@@ -229,8 +235,8 @@ const createCard = (elements) => {
                           </Flex>
                       <AccordionPanel pb={4}>
                           <Box height={"1px"} width={"100%"} bg={"#E2EAF1"} marginBottom={"2"}></Box>
-                          {EditablePomo(list[i][2])}
-                          {EditableNote(list[i][1])}
+                          {EditablePomo(list[i][2], props.handleUpdatedPomo, props.category, indices[i])}
+                          {EditableNote(list[i][1], props.handleUpdatedDescription, props.category, indices[i])}
                       </AccordionPanel>
                       </>
                       )}
