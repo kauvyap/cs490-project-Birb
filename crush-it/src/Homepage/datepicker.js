@@ -38,6 +38,9 @@ function DatePicker({onDateSelected}) {
     };
   
     const handleYearClick = (year) => {
+      if (getDaysInMonth(year, selectedMonth) != 29 && selectedMonth === 'February' && selectedDate === '29') { // go back to February 28th if current date is February 29th
+        setSelectedDate('28');
+      }
       setSelectedYear(year);
       handleDateSelected(selectedDate,selectedMonth,selectedYear)
     };
