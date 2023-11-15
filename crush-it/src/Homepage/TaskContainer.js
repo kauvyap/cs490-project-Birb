@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Heading, Card, Image, Box,Flex, Text,Input, Textarea} from '@chakra-ui/react';
+import { Heading, Card, Image, Box,Flex, Text, Textarea} from '@chakra-ui/react';
 import {Accordion,AccordionItem, AccordionButton, AccordionPanel, Icon, useColorMode, useColorModeValue } from '@chakra-ui/react'
 import {IoChevronDownCircleOutline, IoMove, IoSwapHorizontalSharp} from 'react-icons/io5'
 import {IoIosRadioButtonOff, IoIosCheckmarkCircleOutline, IoIosCloseCircleOutline} from 'react-icons/io'
@@ -107,7 +107,6 @@ function EditableNote( txt, handleUpdatedDescription, category, i ) {
   function EditablePomo( txt, timerLength, handleUpdatedPomo, category, i ) {
     const [isEditing, setIsEditing] = useState(false);
     const [text, setText] = useState(txt); // Replace with your initial text
-    const [pomodoroLength, setPomodoroLength] = useState(30)
 
     const ic = useColorModeValue('#6284FF', '#90cdf4');
     const tx = useColorModeValue("#1f1f1f", "#CCCCCC");

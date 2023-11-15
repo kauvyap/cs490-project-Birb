@@ -113,7 +113,7 @@ function AddTask(props) {
                         <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
                         <ModalOverlay />
                         <ModalContent>
-                          <ModalHeader> {priority}Add A New Task</ModalHeader>
+                          <ModalHeader>Add A New Task</ModalHeader>
                           <ModalCloseButton />
                           <ModalBody>
                           <VStack spacing={4}>
