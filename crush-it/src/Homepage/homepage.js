@@ -4,6 +4,7 @@ import {Box, Heading, Container, Table, Tbody, TableContainer, Tr, Td, VStack, H
 import TaskContainer from "./TaskContainer"
 import DatePicker from './datepicker';
 import AddTask from './addtask';
+import FocusTime from "./focustime";
 
 
 function Homepage(){
@@ -272,7 +273,9 @@ function Homepage(){
           <Spacer></Spacer>
   
           <VStack h={"100%"} width={"45%" } align="left" justify={"left"} >
-              <Heading fontSize={"30px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"} marginBottom={3}>Appointments</Heading>
+              <Heading fontSize={"30px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"} marginBottom={3}>Appointments
+              <FocusTime></FocusTime>
+              </Heading>
                   <Box borderRadius={"10"} bg={cont} h={"680px"} marginTop={"5px"} overflowY={"auto"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"} 
                   css={`
                   &::-webkit-scrollbar {
