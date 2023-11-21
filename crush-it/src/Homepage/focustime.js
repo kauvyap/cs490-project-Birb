@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState }  from 'react';
 import { HStack, Spacer, useDisclosure } from "@chakra-ui/react";
 import { IconButton, Button, Text, Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton,
          Tab, TabList, TabPanel, TabPanels, Tabs, Flex, useColorModeValue} from '@chakra-ui/react';
@@ -9,6 +9,12 @@ function FocusTime() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const bg = useColorModeValue("#F3F3F3", "#1a202c");
     const blueTxt = useColorModeValue('#6284FF', '#90cdf4');
+
+    const [isPaused, setIsPaused] = useState(true);
+
+    const handleToggle = () => {
+      setIsPaused((prevState) => !prevState);
+    };
 
     return (
         <>
@@ -31,8 +37,8 @@ function FocusTime() {
                               <TabPanel>
                                 <Box bg = {bg} alignContent={"center"} p={10} textAlign={"center"}>
                                   <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>25:00</Text>
-                                  <Button colorScheme="blue" size={"lg"}>
-                                    Start
+                                  <Button colorScheme="blue" size="lg" onClick={handleToggle}>
+                                    {isPaused ? "Start" : "Pause"}
                                   </Button>
                                 </Box>
                                 <Text mt={5} mb={5} fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"20px"}>Task Title</Text>
@@ -64,16 +70,16 @@ function FocusTime() {
                               <TabPanel>
                                   <Box bg = {bg} alignContent={"center"} p={10} textAlign={"center"}>
                                     <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>5:00</Text>
-                                    <Button colorScheme="blue" size={"lg"}>
-                                      Start
+                                    <Button colorScheme="blue" size="lg" onClick={handleToggle}>
+                                      {isPaused ? "Start" : "Pause"}
                                     </Button>
                                   </Box>
                               </TabPanel>
                               <TabPanel>
                                 <Box bg = {bg} alignContent={"center"} p={10} textAlign={"center"}>
                                   <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>15:00</Text>
-                                  <Button colorScheme="blue" size={"lg"}>
-                                    Start
+                                  <Button colorScheme="blue" size="lg" onClick={handleToggle}>
+                                    {isPaused ? "Start" : "Pause"}
                                   </Button>
                                 </Box>
                               </TabPanel>
