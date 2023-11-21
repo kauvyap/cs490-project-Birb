@@ -66,31 +66,6 @@ function FocusTime() {
                                       Start
                                     </Button>
                                   </Box>
-                                  <Text mt={5} mb={5} fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"20px"}>Task Title</Text>
-                                  <Box bg = "#F5F7F9" p={5}>
-                                    <Text fontFamily={"DM Sans"} textColor={"#6284FF"} fontWeight={"bold"} fontSize={"16px"} mb={3}>Notes</Text>
-                                    <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"12px"} mb={3}>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    </Text>
-                                  </Box>
-                                  <Box mt={5} bg="black" p={5}>
-                                    <Flex justifyContent="center" alignItems="center" mt={3}>
-                                      <HStack>
-                                        <Text fontFamily="DM Sans" textColor="white" fontWeight="bold" fontSize="20px">
-                                          Pomos:
-                                        </Text>
-                                        <Text fontFamily="DM Sans" textColor="#6284FF" fontWeight="bold" fontSize="20px">
-                                          0/3
-                                        </Text>
-                                        <Text fontFamily="DM Sans" textColor="white" fontWeight="bold" fontSize="20px" ml={8}>
-                                          Finish At:
-                                        </Text>
-                                        <Text fontFamily="DM Sans" textColor="#6284FF" fontWeight="bold" fontSize="20px">
-                                          19:53 (1.4h)
-                                        </Text>
-                                      </HStack>
-                                    </Flex>
-                                  </Box>
                               </TabPanel>
                               <TabPanel>
                                 <Box bg = "#F5F7F9" alignContent={"center"} p={10} textAlign={"center"}>
@@ -98,31 +73,6 @@ function FocusTime() {
                                   <Button colorScheme="blue" size={"lg"}>
                                     Start
                                   </Button>
-                                </Box>
-                                <Text mt={5} mb={5} fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"20px"}>Task Title</Text>
-                                <Box bg = "#F5F7F9" p={5}>
-                                  <Text fontFamily={"DM Sans"} textColor={"#6284FF"} fontWeight={"bold"} fontSize={"16px"} mb={3}>Notes</Text>
-                                  <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"12px"} mb={3}>
-                                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                  </Text>
-                                </Box>
-                                <Box mt={5} bg="black" p={5}>
-                                  <Flex justifyContent="center" alignItems="center" mt={3}>
-                                    <HStack>
-                                      <Text fontFamily="DM Sans" textColor="white" fontWeight="bold" fontSize="20px">
-                                        Pomos:
-                                      </Text>
-                                      <Text fontFamily="DM Sans" textColor="#6284FF" fontWeight="bold" fontSize="20px">
-                                        0/3
-                                      </Text>
-                                      <Text fontFamily="DM Sans" textColor="white" fontWeight="bold" fontSize="20px" ml={8}>
-                                        Finish At:
-                                      </Text>
-                                      <Text fontFamily="DM Sans" textColor="#6284FF" fontWeight="bold" fontSize="20px">
-                                        19:53 (1.4h)
-                                      </Text>
-                                    </HStack>
-                                  </Flex>
                                 </Box>
                               </TabPanel>
                             </TabPanels>
