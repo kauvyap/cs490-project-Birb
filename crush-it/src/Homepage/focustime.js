@@ -1,4 +1,5 @@
-import React, { useState }  from 'react';
+import React, { useState, useEffect, useLayoutEffect }  from 'react';
+import { useNavigate } from "react-router";
 import { HStack, Spacer, useDisclosure } from "@chakra-ui/react";
 import { IconButton, Button, Text, Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton,
          Tab, TabList, TabPanel, TabPanels, Tabs, Flex, useColorModeValue} from '@chakra-ui/react';
@@ -15,6 +16,60 @@ function FocusTime() {
     const handleToggle = () => {
       setIsPaused((prevState) => !prevState);
     };
+
+    const navigate = useNavigate();
+    const [username, setUsername] = useState(null);
+
+    useLayoutEffect(() => {
+        fetch("http://localhost:5000/api/auth/getUsername", {
+        headers: {
+            "x-access-token": localStorage.getItem("token")
+        }
+        })
+        .then(res => res.json())
+        .then(data => data.isLoggedIn ? setUsername(data.username): navigate('/login'))
+        .catch((err) => alert(err))
+    }, [navigate])
+ 
+    const [pomoLength, setPomoLength] = useState('');
+    const [shortLength, setShortLength] = useState('');
+    const [longLength, setLongLength] = useState('');
+
+    useEffect(() => {
+      fetch('http://localhost:5000/api/user/' + username)
+        .then(res => res.json())
+        .then(userData => {
+          if (userData && userData.pomodoro && userData.pomodoro.timer) {
+            setPomoLength(userData.pomodoro.timer);
+          }
+        })
+        .catch(err => console.log(err));
+    }, [username]);
+
+    useEffect(() => {
+      fetch('http://localhost:5000/api/user/' + username)
+        .then(res => res.json())
+        .then(userData => {
+          if (userData && userData.pomodoro && userData.pomodoro.short) {
+            setShortLength(userData.pomodoro.short);
+          }
+        })
+        .catch(err => console.log(err));
+    }, [username]);
+
+    useEffect(() => {
+      fetch('http://localhost:5000/api/user/' + username)
+        .then(res => res.json())
+        .then(userData => {
+          if (userData && userData.pomodoro && userData.pomodoro.long) {
+            setLongLength(userData.pomodoro.long);
+          }
+        })
+        .catch(err => console.log(err));
+    }, [username]);
+
+
+
 
     return (
         <>
@@ -36,7 +91,7 @@ function FocusTime() {
                             <TabPanels>
                               <TabPanel>
                                 <Box bg = {bg} alignContent={"center"} p={10} textAlign={"center"}>
-                                  <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>25:00</Text>
+                                  <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>{pomoLength}</Text>
                                   <Button colorScheme="blue" size="lg" onClick={handleToggle}>
                                     {isPaused ? "Start" : "Pause"}
                                   </Button>
@@ -69,7 +124,7 @@ function FocusTime() {
                               </TabPanel>
                               <TabPanel>
                                   <Box bg = {bg} alignContent={"center"} p={10} textAlign={"center"}>
-                                    <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>5:00</Text>
+                                    <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>{shortLength}</Text>
                                     <Button colorScheme="blue" size="lg" onClick={handleToggle}>
                                       {isPaused ? "Start" : "Pause"}
                                     </Button>
@@ -77,7 +132,7 @@ function FocusTime() {
                               </TabPanel>
                               <TabPanel>
                                 <Box bg = {bg} alignContent={"center"} p={10} textAlign={"center"}>
-                                  <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>15:00</Text>
+                                  <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>{longLength}</Text>
                                   <Button colorScheme="blue" size="lg" onClick={handleToggle}>
                                     {isPaused ? "Start" : "Pause"}
                                   </Button>
