@@ -68,8 +68,15 @@ function FocusTime() {
         .catch(err => console.log(err));
     }, [username]);
 
-
-
+    function formatTime(totalSeconds) {
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+    
+      const formattedMinutes = String(minutes).padStart(2, '0');
+      const formattedSeconds = String(seconds).padStart(2, '0');
+    
+      return `${formattedMinutes}:${formattedSeconds}`;
+    }
 
     return (
         <>
@@ -91,7 +98,9 @@ function FocusTime() {
                             <TabPanels>
                               <TabPanel>
                                 <Box bg = {bg} alignContent={"center"} p={10} textAlign={"center"}>
-                                  <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>{pomoLength}</Text>
+                                  <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>
+                                    {formatTime(pomoLength * 60)}
+                                  </Text>
                                   <Button colorScheme="blue" size="lg" onClick={handleToggle}>
                                     {isPaused ? "Start" : "Pause"}
                                   </Button>
@@ -124,7 +133,9 @@ function FocusTime() {
                               </TabPanel>
                               <TabPanel>
                                   <Box bg = {bg} alignContent={"center"} p={10} textAlign={"center"}>
-                                    <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>{shortLength}</Text>
+                                    <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>
+                                      {formatTime(shortLength * 60)}
+                                    </Text>
                                     <Button colorScheme="blue" size="lg" onClick={handleToggle}>
                                       {isPaused ? "Start" : "Pause"}
                                     </Button>
@@ -132,7 +143,9 @@ function FocusTime() {
                               </TabPanel>
                               <TabPanel>
                                 <Box bg = {bg} alignContent={"center"} p={10} textAlign={"center"}>
-                                  <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>{longLength}</Text>
+                                  <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>
+                                    {formatTime(longLength * 60)}
+                                  </Text>
                                   <Button colorScheme="blue" size="lg" onClick={handleToggle}>
                                     {isPaused ? "Start" : "Pause"}
                                   </Button>
