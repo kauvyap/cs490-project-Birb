@@ -5,7 +5,7 @@ import { IconButton, Button, Text, Box, Modal, ModalOverlay, ModalContent, Modal
          Tab, TabList, TabPanel, TabPanels, Tabs, Flex, useColorModeValue} from '@chakra-ui/react';
 import { AddIcon } from "@chakra-ui/icons";
 
-function FocusTime({isOpen, onClose}) {
+function FocusTime({isOpen, onClose, title, notes}) {
 
     //const { isOpen, onOpen, onClose } = useDisclosure()
     const bg = useColorModeValue("#F3F3F3", "#1a202c");
@@ -104,11 +104,11 @@ function FocusTime({isOpen, onClose}) {
                                     {isPaused ? "Start" : "Pause"}
                                   </Button>
                                 </Box>
-                                <Text mt={5} mb={5} fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"20px"}>Task Title</Text>
+                                <Text mt={5} mb={5} fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"20px"}>{title}</Text>
                                 <Box bg = {bg} p={5} rounded={8}>
-                                  <Text fontFamily={"DM Sans"} textColor={blueTxt} fontWeight={"bold"} fontSize={"16px"} mb={3}>Notes</Text>
-                                  <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"12px"} mb={3}>
-                                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                  <Text fontFamily={"DM Sans"} textColor={blueTxt} fontWeight={"bold"} fontSize={"16px"} mb={3}>Notes:</Text>
+                                  <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"14px"} mb={3}>
+                                    {notes}
                                   </Text>
                                 </Box>
                                 <Box mt={5} bg="black" p={5} rounded={8}>
@@ -131,21 +131,21 @@ function FocusTime({isOpen, onClose}) {
                                 </Box>
                               </TabPanel>
                               <TabPanel>
-                                  <Box bg = {bg} alignContent={"center"} p={10} textAlign={"center"}>
+                                  <Box bg = {bg} borderRadius={8} alignContent={"center"} p={10} textAlign={"center"}>
                                     <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>
                                       {formatTime(shortLength * 60)}
                                     </Text>
-                                    <Button colorScheme="blue" size="lg" onClick={handleToggle}>
+                                    <Button borderRadius={"16px"} width={"158px"} height={"54"} background="linear-gradient(180deg, #6284FF 0%, #4B6DE9 100%)" textColor={'white'} size="lg" onClick={handleToggle}>
                                       {isPaused ? "Start" : "Pause"}
                                     </Button>
                                   </Box>
                               </TabPanel>
                               <TabPanel>
-                                <Box bg = {bg} alignContent={"center"} p={10} textAlign={"center"}>
+                                <Box bg = {bg} borderRadius={8} alignContent={"center"} p={10} textAlign={"center"}>
                                   <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>
                                     {formatTime(longLength * 60)}
                                   </Text>
-                                  <Button colorScheme="blue" size="lg" onClick={handleToggle}>
+                                  <Button borderRadius={"16px"} width={"158px"} height={"54"} background="linear-gradient(180deg, #6284FF 0%, #4B6DE9 100%)" textColor={'white'} size="lg" onClick={handleToggle}>
                                     {isPaused ? "Start" : "Pause"}
                                   </Button>
                                 </Box>
