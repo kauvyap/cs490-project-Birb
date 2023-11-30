@@ -242,35 +242,36 @@ function TaskContainer(props) {
                 <Accordion allowToggle >
                     <AccordionItem border={"none"}>
 
-                        {({ isExpanded }) => (
+                      {({ isExpanded }) => (
+                        <>
+                          <Flex justifyContent={"center"}>
                             <>
-                            <Flex justifyContent={"center"}>
-                            <>
-                            <Box as="span" flex='1' textAlign='left'>
+                              <Box as="span" flex='1' textAlign='left'>
                                 <Flex justifyContent={"flex-left"} alignItems={"top"}>
-                                {EditableIcon(list[i][3], props.handleUpdatedIcon, props.category, indices[i])}<Heading fontWeight={"700"} fontSize={"16px"} textColor={hd} fontFamily={"'DM Sans', sans-serif"}>{list[i][0]}</Heading>
+                                {EditableIcon(list[i][3], props.handleUpdatedIcon, props.category, indices[i])}
+                                <Heading fontWeight={"700"} fontSize={"16px"} textColor={hd} fontFamily={"'DM Sans', sans-serif"}>{list[i][0]}</Heading>
                                 </Flex>
-                            </Box>
+                              </Box>
                             </>
                             <Flex justifyContent={"flex-end"}>
-                            <Icon as={IoMove} marginRight={"4px"} boxSize={"20px"}/>
-                            <AccordionButton w="20px" h="20px" justifyContent={"center"}>
-                            {isExpanded ? (
-                                <Icon boxSize={"22px"} as={IoChevronDownCircleOutline}/>
-                                    ) : (
-                                <Icon boxSize={"22px"} transform="rotate(270deg)" as={IoChevronDownCircleOutline}/>
-                                
-                            )}
-                            </AccordionButton>
+                              <Icon as={IoMove} marginRight={"4px"} boxSize={"20px"}/>
+                              <AccordionButton w="20px" h="20px" justifyContent={"center"}>
+                              {isExpanded ? (
+                                  <Icon boxSize={"22px"} as={IoChevronDownCircleOutline}/>
+                                      ) : (
+                                  <Icon boxSize={"22px"} transform="rotate(270deg)" as={IoChevronDownCircleOutline}/>
+                                  
+                              )}
+                              </AccordionButton>
                             </Flex>
-                            </Flex>
-                        <AccordionPanel pb={4}>
+                          </Flex>
+                          <AccordionPanel pb={4}>
                             <Box height={"1px"} width={"100%"} bg={"#E2EAF1"} marginBottom={"2"}></Box>
                             {EditablePomo(list[i][2], props.timerLength, props.handleUpdatedPomo, props.category, indices[i])}
                             {EditableNote(list[i][1], props.handleUpdatedDescription, props.category, indices[i])}
-                        </AccordionPanel>
+                          </AccordionPanel>
                         </>
-                        )}
+                      )}
                     </AccordionItem>
 
                 </Accordion>  
