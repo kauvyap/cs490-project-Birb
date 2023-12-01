@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import "bootstrap/dist/css/bootstrap.css";
  // We import NavLink to utilize the react router.
 import { NavLink, useLocation } from "react-router-dom";
-import { Flex, Input, Heading, Spacer, Button, Image, useColorModeValue} from '@chakra-ui/react';
+import { Flex, Input, Heading, Spacer, Button, Image, useColorModeValue, Menu, MenuButton, MenuList, MenuItem} from '@chakra-ui/react';
 import userIcon from '../media/userIcon.png';
 
  // Here, we display our Navbar
@@ -62,9 +62,15 @@ export default function Navbar() {
     <Flex as={"nav"} bg={bg} width={"100%"} height={"6vh" } alignItems={"center"} p={"20px"}>
     <Heading mt={2} mb={3}>Profile</Heading>
     <Spacer></Spacer>
-    <NavLink to={"/profile/" + user} >
-        <Button leftIcon={<Image borderRadius='full' boxSize="40px" src={userIcon} display='fixed'/>} variant={"ghost"} colorScheme="linkedin" bg={bg} color={text}>{userData.fname} {userData.lname}</Button>
-    </NavLink>
+    <Menu>
+        <MenuButton as={Button} leftIcon={<Image borderRadius='full' boxSize="40px" src={userIcon} display='fixed' />} variant={"ghost"} colorScheme="linkedin" bg={bg} color={text}>
+            {userData.fname} {userData.lname}
+        </MenuButton>
+        <MenuList>
+            <MenuItem>Upload Profile Picture</MenuItem>
+            <MenuItem as={NavLink} to={"/profile/" + user}>Profile Settings</MenuItem>
+        </MenuList>
+    </Menu>
                      
     </Flex>
 
