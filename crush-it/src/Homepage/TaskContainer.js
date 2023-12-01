@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from "react";
-import { Heading, Card, Image, Box,Flex, Text, Textarea} from '@chakra-ui/react';
+import { Heading, Card, Image, Box,Flex, Text, Textarea, useDisclosure} from '@chakra-ui/react';
 import {Accordion,AccordionItem, AccordionButton, AccordionPanel, Icon, useColorMode, useColorModeValue } from '@chakra-ui/react'
 import {IoChevronDownCircleOutline, IoMove, IoSwapHorizontalSharp} from 'react-icons/io5'
 import {IoIosRadioButtonOff, IoIosCheckmarkCircleOutline, IoIosCloseCircleOutline} from 'react-icons/io'
+import FocusTime from "./focustime";
 import editImg from '../media/edit-2.svg'
 import editImgD from '../media/edit-2d.svg'
 import ip from '../media/fi_7154459.svg'
@@ -179,6 +180,7 @@ function EditableNote( txt, handleUpdatedDescription, category, i ) {
 
 function TaskContainer(props) {
   // get all topPriority taks
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [elements, setElements] = useState()
   //split into 2d arrays [ [ Title, description, pomoTimer#, status]]
   //status = notStarted, inProgress, finished
@@ -238,7 +240,7 @@ function TaskContainer(props) {
     for (let i = 0; i < indices.length; i++){
         cards.push(
         
-            <Card borderRadius={"8"} key={i} margin={2} padding={3} draggable={true} onDragStart={(e) => onDragStart(e, indices[i], props.category, props.categoryList)}>
+            <Card borderRadius={"8"} key={i} margin={2} padding={3}  draggable={true} onDragStart={(e) => onDragStart(e, indices[i], props.category, props.categoryList)}>
                 <Accordion allowToggle >
                     <AccordionItem border={"none"}>
 
@@ -247,9 +249,9 @@ function TaskContainer(props) {
                           <Flex justifyContent={"center"}>
                             <>
                               <Box as="span" flex='1' textAlign='left'>
-                                <Flex justifyContent={"flex-left"} alignItems={"top"}>
+                                <Flex  justifyContent={"flex-left"} alignItems={"top"}>
                                 {EditableIcon(list[i][3], props.handleUpdatedIcon, props.category, indices[i])}
-                                <Heading fontWeight={"700"} fontSize={"16px"} textColor={hd} fontFamily={"'DM Sans', sans-serif"}>{list[i][0]}</Heading>
+                                <Heading _hover={{bg:"#6284ff14"}} style={{ cursor: 'pointer' }} onClick={onOpen} fontWeight={"700"} fontSize={"16px"} textColor={hd} fontFamily={"'DM Sans', sans-serif"}>{list[i][0]}</Heading>
                                 </Flex>
                               </Box>
                             </>
@@ -274,7 +276,8 @@ function TaskContainer(props) {
                       )}
                     </AccordionItem>
 
-                </Accordion>  
+                </Accordion>
+                <FocusTime isOpen={isOpen} onClose={onClose} title={list[i][0]} notes={list[i][1]} />  
             </Card>
         )
     }
