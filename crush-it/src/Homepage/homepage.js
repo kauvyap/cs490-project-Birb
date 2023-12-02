@@ -1,10 +1,11 @@
 import React, {useLayoutEffect, useState, useEffect} from "react";
 import { useNavigate } from "react-router";
-import {Box, Heading, Container, Table, Tbody, TableContainer, Tr, Td, VStack, HStack, useColorModeValue, Spacer} from '@chakra-ui/react';
+import {Box, Heading, Container, VStack, HStack, useColorModeValue, Spacer} from '@chakra-ui/react';
 import TaskContainer from "./TaskContainer"
 import DatePicker from './datepicker';
 import AddTask from './addtask';
 import FocusTime from "./focustime";
+import Appointment from "./appointments";
 
 
 function Homepage(){
@@ -274,135 +275,10 @@ function Homepage(){
   
           <VStack h={"100%"} width={"45%" } align="left" justify={"left"} >
               <Heading fontSize={"30px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"} marginBottom={3}>Appointments
-              <FocusTime></FocusTime>
+              
               </Heading>
-                  <Box borderRadius={"10"} bg={cont} h={"680px"} marginTop={"5px"} overflowY={"auto"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"} 
-                  css={`
-                  &::-webkit-scrollbar {
-                      width: 6px;
-                      height: 80px;
-                    }
-                    &::-webkit-scrollbar-thumb {
-                      background-color: #6284FF;
-                      border-radius: 8px;
-                    }
-                    &::-webkit-scrollbar-track {
-                      background-color: rgba(98, 132, 255, 0.15);
-                    }
-                    &::-webkit-scrollbar-thumb:hover {
-                      background-color: #405DC9;
-                    }
-                    &::-webkit-scrollbar-thumb:active {
-                      background-color: #1E40AF; // Change the color when clicked`
-                    }>
-                  <TableContainer>
-                      <Table variant='simple'>
-  
-                          <Tbody>
-                          <Tr>
-                              <Td>5  AM</Td>
-                              <Td></Td>
-                          </Tr>
-                          <Tr>
-                              <Td>6  AM</Td>
-                              <Td></Td>
-                          </Tr>
-                          <Tr>
-                              <Td>7  AM</Td>
-                              <Td></Td>
-                          </Tr>
-                          <Tr>
-                              <Td>8  AM</Td>
-                              <Td></Td>
-                          </Tr>
-                          <Tr>
-                              <Td>9  AM</Td>
-                              <Td></Td>
-                          </Tr>
-                          <Tr>
-                              <Td>10 AM</Td>
-                              <Td></Td>
-                          </Tr>
-                          <Tr>
-                              <Td>11 AM</Td>
-                              <Td></Td>
-                          </Tr>
-                          <Tr>
-                              <Td>12 AM</Td>
-                              <Td></Td>
-                          </Tr>
-  
-                          <Tr>
-                              <Td>1  PM</Td>
-                              <Td></Td>
-                          </Tr>
-                          <Tr>
-                              <Td>2  PM</Td>
-                              <Td></Td>
-                          </Tr>
-                          <Tr>
-                              <Td>3  PM</Td>
-                              <Td></Td>
-                          </Tr>
-                          <Tr>
-                              <Td>4  PM</Td>
-                              <Td></Td>
-                          </Tr>
-                          <Tr>
-                              <Td>5  PM</Td>
-                              <Td></Td>
-                          </Tr>
-                          <Tr>
-                              <Td>6  PM</Td>
-                              <Td></Td>
-                          </Tr>
-                          <Tr>
-                              <Td>7  PM</Td>
-                              <Td></Td>
-                          </Tr>
-                          <Tr>
-                              <Td>8  PM</Td>
-                              <Td></Td>
-                          </Tr>
-                          <Tr>
-                              <Td>9  PM</Td>
-                              <Td></Td>
-                          </Tr>
-                          <Tr>
-                              <Td>10 PM</Td>
-                              <Td></Td>
-                          </Tr>
-                          <Tr>
-                              <Td>11 PM</Td>
-                              <Td></Td>
-                          </Tr>
-                          <Tr>
-                              <Td>12 PM</Td>
-                              <Td></Td>
-                          </Tr>
-  
-                          <Tr>
-                              <Td>1  AM</Td>
-                              <Td></Td>
-                          </Tr>
-                          <Tr>
-                              <Td>2  AM</Td>
-                              <Td></Td>
-                          </Tr>
-                          <Tr>
-                              <Td>3  AM</Td>
-                              <Td></Td>
-                          </Tr>
-                          <Tr>
-                              <Td>4  AM</Td>
-                              <Td></Td>
-                          </Tr>
-                          </Tbody>
-  
-                      </Table>
-                  </TableContainer>
-              </Box>
-  
+
+            <Appointment></Appointment>
   
           </VStack>
   
