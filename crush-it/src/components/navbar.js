@@ -59,7 +59,7 @@ export default function Navbar() {
     }
  return ( 
     
-    <Flex as={"nav"} bg={bg} width={"100%"} height={"8vh" } alignItems={"center"} p={"20px"}>
+    <Flex as={"nav"} bg={bg} width={"100%"} height={"6vh" } alignItems={"center"} p={"20px"}>
     <Heading mt={2} mb={3}>Profile</Heading>
     <Spacer></Spacer>
     <NavLink to={"/profile/" + user} >

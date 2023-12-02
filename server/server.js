@@ -43,3 +43,5 @@ mongoose.connect(process.env.ATLAS_URI, {
   .catch((err) => {
     console.log(err);
   });
+
+  module.exports = app;

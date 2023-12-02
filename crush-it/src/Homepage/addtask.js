@@ -6,7 +6,6 @@ import { AddIcon } from "@chakra-ui/icons";
 function AddTask(props) {
 
   //use date.dateSelected to get the date selected by the datePicker component.
-  console.log(props)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -114,7 +113,7 @@ function AddTask(props) {
                         <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
                         <ModalOverlay />
                         <ModalContent>
-                          <ModalHeader> {props.dateSelected} {priority} - Add A New Task</ModalHeader>
+                          <ModalHeader>Add A New Task</ModalHeader>
                           <ModalCloseButton />
                           <ModalBody>
                           <VStack spacing={4}>

@@ -36,7 +36,8 @@ const createTasks = async (req, res) => {
 // inserts a task into the database
 const updateTasks = async (req, res) => {
     const username = req.params.id
-    taskUpdated = {username:username, topTasks: req.body.topTasks, importantTasks: req.body.importantTasks, otherTasks: req.body.otherTasks}
+    console.log(req.params.id);
+    const taskUpdated = {username:username, topTasks: req.body.topTasks, importantTasks: req.body.importantTasks, otherTasks: req.body.otherTasks}
     const user = await Task.findOneAndUpdate({username: username}, taskUpdated);
 
     if (!user) {

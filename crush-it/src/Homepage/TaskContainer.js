@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import { Heading, Card, Image, Box,Flex, Text,Input} from '@chakra-ui/react';
+import React, {useState, useEffect} from "react";
+import { Heading, Card, Image, Box,Flex, Text, Textarea} from '@chakra-ui/react';
 import {Accordion,AccordionItem, AccordionButton, AccordionPanel, Icon, useColorMode, useColorModeValue } from '@chakra-ui/react'
 import {IoChevronDownCircleOutline, IoMove, IoSwapHorizontalSharp} from 'react-icons/io5'
 import {IoIosRadioButtonOff, IoIosCheckmarkCircleOutline, IoIosCloseCircleOutline} from 'react-icons/io'
@@ -14,8 +14,7 @@ import subSqr from '../media/minus-square.svg'
 
 
 //creates a swapable icon on the left side of the screen
-function EditableIcon( txt ){
-
+function EditableIcon( txt, handleUpdatedIcon, category, i ){
     const [currentIcon, setCurrentIcon] = useState(txt);
     const hv = useColorModeValue("#F3F3F3", "#1a202c");
 
@@ -24,22 +23,25 @@ function EditableIcon( txt ){
 
     
     const toggleIcon = () => {
+      var newIcon = null
         switch (currentIcon) {
           case 'NS':
-            setCurrentIcon('IP');
+            newIcon = 'IP';
             break;
           case 'IP':
-            setCurrentIcon('FN');
+            newIcon = 'FN';
             break;
           case 'FN':
-            setCurrentIcon('MO');
+            newIcon = 'MO';
             break;
           case 'MO':
-            setCurrentIcon("default");
+            newIcon = "default";
             break;
           default:
-            setCurrentIcon("NS");
+            newIcon = "NS";
         }
+        setCurrentIcon(newIcon)
+        handleUpdatedIcon(newIcon, category, i)
       };
 
       return(
@@ -59,14 +61,17 @@ function EditableIcon( txt ){
 
 
 //creates a editable note container
-function EditableNote( txt ) {
+function EditableNote( txt, handleUpdatedDescription, category, i ) {
     const [isEditing, setIsEditing] = useState(false);
     const [text, setText] = useState(txt); // Replace with your initial text
     const handleEditClick = () => {
         setIsEditing(!isEditing);
+        handleUpdatedDescription(text, category, i);
     };
+    
     const handleInputChange = (event) => {
       setText(event.target.value);
+      
     };
 
     const ic = useColorModeValue('#6284FF', '#90cdf4');
@@ -86,7 +91,7 @@ function EditableNote( txt ) {
           </Box>
         </Flex>
         {isEditing ? (
-          <Input fontFamily={"'DM Sans', sans-serif"} fontSize={"14px"} textColor={tx}
+          <Textarea fontFamily={"'DM Sans', sans-serif"} fontSize={"14px"} textColor={tx}
             value={text}
             onChange={handleInputChange}
             autoFocus
@@ -99,7 +104,7 @@ function EditableNote( txt ) {
   }
 
 // creates an editable pmodoro timer form
-  function EditablePomo( txt ) {
+  function EditablePomo( txt, timerLength, handleUpdatedPomo, category, i ) {
     const [isEditing, setIsEditing] = useState(false);
     const [text, setText] = useState(txt); // Replace with your initial text
 
@@ -116,10 +121,12 @@ function EditableNote( txt ) {
         }
         else{
             setIsEditing(!isEditing);
+            handleUpdatedPomo(text, category, i);
         }
     };
     const handleInputChange = (event) => {
       setText(event.target.value);
+
     };
 
     const handlePClick = () => {
@@ -139,7 +146,7 @@ function EditableNote( txt ) {
       <>
         <Flex alignItems={"center"}>
          
-            <Box flex={"1"} fontSize={"12px" }  fontFamily={"'DM Sans', sans-serif"} textColor={tx}>Number of pomodoro timers (30 min each)</Box>
+            <Box flex={"1"} fontSize={"12px" }  fontFamily={"'DM Sans', sans-serif"} textColor={tx}>Number of pomodoro timers ({timerLength} min each)</Box>
             <Flex flex={"1"} justifyContent={"flex-end"}>
             {isEditing ? (
                 <>
@@ -171,91 +178,121 @@ function EditableNote( txt ) {
 
 
 function TaskContainer(props) {
-// get all topPriority taks
+  // get all topPriority taks
+  const [elements, setElements] = useState()
+  //split into 2d arrays [ [ Title, description, pomoTimer#, status]]
+  //status = notStarted, inProgress, finished
+  useEffect(() => {
+    setElements(props.categoryList)
+  }, [props.categoryList])
+  console.log("elements", elements)
 
-//split into 2d arrays [ [ Title, description, pomoTimer#, status]]
-//status = notStarted, inProgress, finished
-const elements = props.categoryList
-const bg = useColorModeValue('#F5F7F9', '#1A202C')
-const hd = useColorModeValue('#6284FF', '#90cdf4');
-console.log(props)
+  const bg = useColorModeValue('#F5F7F9', '#1A202C')
+  const hd = useColorModeValue('#6284FF', '#90cdf4');
 
-const createCard = (elements) => {
-  // create all card views inside of elements
-  // [["Complete Math Homework", "This is a hw", 1, "FN"]]
-  var list = []
-  console.log(elements)
-  if (typeof elements !== 'undefined') {
-    if (elements[0] !== null) {
-      Object.keys(elements).map((element) => {
-        if (props.dateSelected === elements[element].dateAssigned) {
-          list.push([elements[element].title, elements[element].description, elements[element].pomodoroTimers, elements[element].priority])
-        }
-      })
+  function onDragOver(e) {
+    e.preventDefault()
+  }
+
+  function onDrop(ev) {
+    let id = ev.dataTransfer.getData("id")
+    let originalCategory = ev.dataTransfer.getData("category")
+    console.log("hello")
+    console.log("target", props.category)
+    console.log("drag", props.categoryList[id])
+    console.log("original", originalCategory)
+    if (originalCategory !== props.category) {
+      props.handleDrop(id, originalCategory, props.category)
     }
   }
-  console.log(list)
-  var cards = []
 
-  for (let i = 0; i < list.length; i++){
 
-      cards.push(
-      
-          <Card borderRadius={"8"} key={i} margin={2} padding={3}>
-              <Accordion allowToggle >
-                  <AccordionItem border={"none"}>
-
-                      {({ isExpanded }) => (
-                          <>
-                          <Flex justifyContent={"center"}>
-                          <>
-                          <Box as="span" flex='1' textAlign='left'>
-                              <Flex justifyContent={"flex-left"} alignItems={"top"}>
-                              {EditableIcon(list[i][3])}<Heading fontWeight={"700"} fontSize={"16px"} textColor={hd} fontFamily={"'DM Sans', sans-serif"}>{list[i][0]}</Heading>
-                              </Flex>
-                          </Box>
-                          </>
-                          <Flex justifyContent={"flex-end"}>
-                          <Icon as={IoMove} marginRight={"4px"} boxSize={"20px"}/>
-                          <AccordionButton w="20px" h="20px" justifyContent={"center"}>
-                          {isExpanded ? (
-                              <Icon boxSize={"22px"} as={IoChevronDownCircleOutline}/>
-                                  ) : (
-                              <Icon boxSize={"22px"} transform="rotate(270deg)" as={IoChevronDownCircleOutline}/>
-                              
-                          )}
-                          </AccordionButton>
-                          </Flex>
-                          </Flex>
-                      <AccordionPanel pb={4}>
-                          <Box height={"1px"} width={"100%"} bg={"#E2EAF1"} marginBottom={"2"}></Box>
-                          {EditablePomo(list[i][2])}
-                          {EditableNote(list[i][1])}
-                      </AccordionPanel>
-                      </>
-                      )}
-                  </AccordionItem>
-
-              </Accordion>  
-          </Card>
-      )
-  }
-
-  return (
-      <div>
-      {
-      cards.map((el, index)=> 
-          <div key={index}>{el}</div>
-      )
-      
+  const createCard = (elements) => {
+    // create all card views inside of elements
+    // [["Complete Math Homework", "This is a hw", 1, "FN"]]
+    console.log("card", elements)
+    var list = []
+    var indices = []
+    if (typeof elements !== 'undefined') {
+      if (elements[0] !== null) {
+        Object.keys(elements).map((element) => {
+          if (props.dateSelected === elements[element].dateAssigned) {
+            list.push([elements[element].title, elements[element].description, elements[element].pomodoroTimers, elements[element].status])
+            indices.push(element)
+          }
+          return null
+        })
       }
-      </div>
-  )
-}
+    }
+    var cards = []
+
+    function onDragStart(ev, i, category, categoryList) {
+      console.log("dragstart", i)
+      ev.dataTransfer.setData("id", i)
+      ev.dataTransfer.setData("category", category)
+      ev.dataTransfer.setData("categoryList", categoryList)
+    }
+
+    
+
+    for (let i = 0; i < indices.length; i++){
+        cards.push(
+        
+            <Card borderRadius={"8"} key={i} margin={2} padding={3} draggable={true} onDragStart={(e) => onDragStart(e, indices[i], props.category, props.categoryList)}>
+                <Accordion allowToggle >
+                    <AccordionItem border={"none"}>
+
+                        {({ isExpanded }) => (
+                            <>
+                            <Flex justifyContent={"center"}>
+                            <>
+                            <Box as="span" flex='1' textAlign='left'>
+                                <Flex justifyContent={"flex-left"} alignItems={"top"}>
+                                {EditableIcon(list[i][3], props.handleUpdatedIcon, props.category, indices[i])}<Heading fontWeight={"700"} fontSize={"16px"} textColor={hd} fontFamily={"'DM Sans', sans-serif"}>{list[i][0]}</Heading>
+                                </Flex>
+                            </Box>
+                            </>
+                            <Flex justifyContent={"flex-end"}>
+                            <Icon as={IoMove} marginRight={"4px"} boxSize={"20px"}/>
+                            <AccordionButton w="20px" h="20px" justifyContent={"center"}>
+                            {isExpanded ? (
+                                <Icon boxSize={"22px"} as={IoChevronDownCircleOutline}/>
+                                    ) : (
+                                <Icon boxSize={"22px"} transform="rotate(270deg)" as={IoChevronDownCircleOutline}/>
+                                
+                            )}
+                            </AccordionButton>
+                            </Flex>
+                            </Flex>
+                        <AccordionPanel pb={4}>
+                            <Box height={"1px"} width={"100%"} bg={"#E2EAF1"} marginBottom={"2"}></Box>
+                            {EditablePomo(list[i][2], props.timerLength, props.handleUpdatedPomo, props.category, indices[i])}
+                            {EditableNote(list[i][1], props.handleUpdatedDescription, props.category, indices[i])}
+                        </AccordionPanel>
+                        </>
+                        )}
+                    </AccordionItem>
+
+                </Accordion>  
+            </Card>
+        )
+    }
+
+    return (
+        <div key={elements}>
+        {
+        cards.map((el, index)=> 
+            <div key={index}>{el}</div>
+        )
+        
+        }
+        </div>
+    )
+  }
 
 return(
              
-    <Card borderRadius={"8"} bg={bg} Width={"100%"} height={200} maxH={"200px"} p={5} marginBottom={5} overflowY={"auto"} 
+    <Card borderRadius={"8"} bg={bg} Width={"100%"} height={200} maxH={"200px"} p={5} marginBottom={5} overflowY={"auto"} onDragOver={(e) => onDragOver(e)} onDrop={(e) => onDrop(e, props.category, props.categoryList)}
     css={`
                 &::-webkit-scrollbar {
                     width: 8px;
