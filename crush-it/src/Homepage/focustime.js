@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useLayoutEffect }  from 'react';
 import { useNavigate } from "react-router";
-import { HStack, useDisclosure } from "@chakra-ui/react";
-import { IconButton, Button, Text, Box, Modal, ModalOverlay, ModalContent, ModalFooter, ModalBody, ModalCloseButton,
-         Tab, TabList, TabPanel, TabPanels, Tabs, Flex, useColorModeValue} from '@chakra-ui/react';
+
+import { HStack, Spacer, useDisclosure } from "@chakra-ui/react";
+import { IconButton, Button, Text, Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton,
+         Tab, TabList, TabPanel, TabPanels, Tabs, TabIndicator, Flex, useColorModeValue} from '@chakra-ui/react';
+
 import { AddIcon } from "@chakra-ui/icons";
 
 function FocusTime({isOpen, onClose, title, notes}) {
@@ -85,15 +87,23 @@ function FocusTime({isOpen, onClose, title, notes}) {
 
                         <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
                         <ModalOverlay />
-                      <ModalContent maxW="600px">
+                      <ModalContent maxW="40%" maxH="80%">
                         <ModalCloseButton />
                         <ModalBody>
-                          <Tabs isFitted variant="enclosed">
-                            <TabList mb="1em">
-                              <Tab>Pomodoro</Tab>
-                              <Tab>Short Break</Tab>
-                              <Tab>Long Break</Tab>
+                          <Tabs position="relative" variant="unstyled">
+                            <TabList mb="0.5em">
+                              <Tab fontFamily="DM Sans" fontWeight="bold" _selected={{ color: blueTxt }} mr="4">Pomodoro</Tab>
+                              <Tab fontFamily="DM Sans" fontWeight="bold" _selected={{ color: blueTxt }} mr="4">Short Break</Tab>
+                              <Tab fontFamily="DM Sans" fontWeight="bold" _selected={{ color: blueTxt }}>Long Break</Tab>
                             </TabList>
+                            <TabIndicator
+                              sx={{
+                                width: "2px",
+                                height: "3px",
+                                backgroundColor: blueTxt,
+                                borderRadius: "3px",
+                              }}
+                            />
                             <TabPanels>
                               <TabPanel>
                                 <Box rounded={8} bg = {bg} alignContent={"center"} p={10} textAlign={"center"}>
