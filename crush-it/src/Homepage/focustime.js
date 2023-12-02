@@ -13,10 +13,26 @@ function FocusTime({isOpen, onClose, title, notes}) {
     const bg = useColorModeValue("#F3F3F3", "#1a202c");
     const blueTxt = useColorModeValue('#6284FF', '#90cdf4');
 
-    const [isPaused, setIsPaused] = useState(true);
+    const [pomoLength, setPomoLength] = useState('');
+    const [shortLength, setShortLength] = useState('');
+    const [longLength, setLongLength] = useState('');
+
+    const [isPaused, setIsPaused] = useState(false);
+    const [timer, setTimer] = useState('');
+    const [flag, setFlag] = useState(true);
 
     const handleToggle = () => {
-      setIsPaused((prevState) => !prevState);
+      console.log(pomoLength*60, timer, isPaused);
+      setIsPaused(!isPaused);
+      console.log(isPaused);
+      if (!isPaused) {
+        console.log('done');
+        clearInterval(intervalId);
+      }
+      if (flag) {
+        // startTimer();
+        setFlag(false);
+      }
     };
 
     const navigate = useNavigate();
@@ -32,10 +48,6 @@ function FocusTime({isOpen, onClose, title, notes}) {
         .then(data => data.isLoggedIn ? setUsername(data.username): navigate('/login'))
         .catch((err) => alert(err))
     }, [navigate])
- 
-    const [pomoLength, setPomoLength] = useState('');
-    const [shortLength, setShortLength] = useState('');
-    const [longLength, setLongLength] = useState('');
 
     useEffect(() => {
       fetch('http://localhost:5000/api/user/' + username)
@@ -43,6 +55,7 @@ function FocusTime({isOpen, onClose, title, notes}) {
         .then(userData => {
           if (userData && userData.pomodoro && userData.pomodoro.timer) {
             setPomoLength(userData.pomodoro.timer);
+            setTimer(userData.pomodoro.timer*60);
           }
         })
         .catch(err => console.log(err));
@@ -70,6 +83,8 @@ function FocusTime({isOpen, onClose, title, notes}) {
         .catch(err => console.log(err));
     }, [username]);
 
+    
+
     function formatTime(totalSeconds) {
       const minutes = Math.floor(totalSeconds / 60);
       const seconds = totalSeconds % 60;
@@ -79,6 +94,47 @@ function FocusTime({isOpen, onClose, title, notes}) {
     
       return `${formattedMinutes}:${formattedSeconds}`;
     }
+
+    let intervalId;
+    function startTimer() {
+      var seconds = pomoLength*60;
+      
+        intervalId = setInterval(() => {
+
+          console.log(isPaused);
+          seconds--;
+
+          setTimer(seconds);
+
+          if (seconds === 0) {
+            clearInterval(intervalId);
+          }
+
+        }, 1000);
+    }
+
+    useEffect(() => {
+      if (!isPaused) {
+        var seconds = pomoLength*60;
+      
+        intervalId = setInterval(() => {
+
+          console.log(isPaused);
+          seconds--;
+
+          setTimer(seconds);
+
+          if (seconds === 0) {
+            clearInterval(intervalId);
+          }
+
+        }, 1000);
+      } else {
+        clearInterval(intervalId);
+      } 
+    }, [isPaused]); // Include isPaused in the dependency array
+
+
 //<IconButton onClick={onOpen} isRound={true} variant='solid' aria-label='Done' fontSize='15px' fontWeight={"extrabold"} icon={<AddIcon />} ml={4} mb={1.5} colorScheme="blue" style={{ background: 'linear-gradient(#5D8EFF 100%, #3E6FE1 100%)', color: 'white' }}/>
     return (
         <>
@@ -108,10 +164,10 @@ function FocusTime({isOpen, onClose, title, notes}) {
                               <TabPanel>
                                 <Box rounded={8} bg = {bg} alignContent={"center"} p={10} textAlign={"center"}>
                                   <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>
-                                    {formatTime(pomoLength * 60)}
+                                    {formatTime(timer)}
                                   </Text>
                                   <Button borderRadius={"16px"} width={"158px"} height={"54"} background="linear-gradient(180deg, #6284FF 0%, #4B6DE9 100%)" textColor={'white'} size="lg" onClick={handleToggle}>
-                                    {isPaused ? "Start" : "Pause"}
+                                    {isPaused ? "Pause" : "Start"}
                                   </Button>
                                 </Box>
                                 <Text mt={5} mb={5} fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"20px"}>{title}</Text>
