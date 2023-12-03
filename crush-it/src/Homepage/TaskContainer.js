@@ -277,7 +277,7 @@ function TaskContainer(props) {
                     </AccordionItem>
 
                 </Accordion>
-                <FocusTime isOpen={isOpen} onClose={onClose} title={list[i][0]} notes={list[i][1]} />  
+                <FocusTime isOpen={isOpen} onClose={onClose} title={list[i][0]} notes={list[i][1]} timers={list[i][2]}/>  
             </Card>
         )
     }

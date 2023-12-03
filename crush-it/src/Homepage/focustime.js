@@ -7,7 +7,7 @@ import { Button, Text, Box, Modal, ModalOverlay, ModalContent, ModalHeader, Moda
 
 import { AddIcon } from "@chakra-ui/icons";
 
-function FocusTime({isOpen, onClose, title, notes}) {
+function FocusTime({isOpen, onClose, title, notes, timers}) {
 
     //const { isOpen, onOpen, onClose } = useDisclosure()
     const bg = useColorModeValue("#F3F3F3", "#1a202c");
@@ -19,29 +19,79 @@ function FocusTime({isOpen, onClose, title, notes}) {
 
     const [isPaused, setIsPaused] = useState(true);
     const [timer, setTimer] = useState('');
+    const [shortTimer, setShortTimer] = useState('');
+    const [longTimer, setLongTimer] = useState('');
 
+    const [currentPomo, setCurrentPomo] = useState(0)
+    const [activeTab, setActiveTab] = useState(0);
+
+    const handleTabChange = (index) => {
+      setActiveTab(index);
+    };
 
     const handleToggle = () => {
       setIsPaused(!isPaused);
     };
-
+    
+    // timer
     useEffect(() => {
       let interval;
   
-      if (!isPaused && timer > 0) {
+      if (!isPaused && timer > 0 && currentPomo < timers) {
         interval = setInterval(() => {
           setTimer(prevTimer => prevTimer - 1);
         }, 1000);
-      } else if (timer === 0) {
+      } else if (timer === 0 && activeTab === 0) {
         // Timer reached 0 seconds
-        setIsPaused(true);
+        setCurrentPomo(prevPomo => prevPomo + 1);
+        if (timers === currentPomo+1) { // pause if it was the last pomo (+1 because it doesn't update immediately)
+          setIsPaused(true);
+        }
+        if ((currentPomo+1) % 3 != 0) {
+          setActiveTab(1) // change tab to short break
+        } else {
+          setActiveTab(2) // change tab to long break
+        }
       }
-      return () => clearInterval(interval); 
+      return () => clearInterval(interval);
 
     }, [isPaused, timer]);
 
+    // short break
+    useEffect(() => {
+      let interval;
+      console.log(currentPomo);
+      if (!isPaused && shortTimer > 0 && timer === 0 && currentPomo % 3 != 0) {
+        interval = setInterval(() => {
+          setShortTimer(prevShortTimer => prevShortTimer - 1);
+        }, 1000);
+      } else if (shortTimer === 0) {
+        // ShortTimer reached 0 seconds
+        setTimer(pomoLength*60);
+        setShortTimer(shortLength*60);
+        setActiveTab(0) //change tab to pomo
+      }
+      return () => clearInterval(interval);
 
+    }, [isPaused, shortTimer]);
+    
+    // long break
+    useEffect(() => {
+      let interval;
+      
+      if (!isPaused && longTimer > 0 && timer === 0 && currentPomo % 3 === 0) {
+        interval = setInterval(() => {
+          setLongTimer(prevLongTimer => prevLongTimer - 1);
+        }, 1000);
+      } else if (longTimer === 0) {
+        // LongTimer reached 0 seconds
+        setTimer(pomoLength*60);
+        setLongTimer(longLength*60);
+        setActiveTab(0) //change tab to pomo
+      }
+      return () => clearInterval(interval);
 
+    }, [isPaused, longTimer]);
 
     const navigate = useNavigate();
     const [username, setUsername] = useState(null);
@@ -75,6 +125,7 @@ function FocusTime({isOpen, onClose, title, notes}) {
         .then(userData => {
           if (userData && userData.pomodoro && userData.pomodoro.short) {
             setShortLength(userData.pomodoro.short);
+            setShortTimer(userData.pomodoro.short*60);
           }
         })
         .catch(err => console.log(err));
@@ -86,12 +137,11 @@ function FocusTime({isOpen, onClose, title, notes}) {
         .then(userData => {
           if (userData && userData.pomodoro && userData.pomodoro.long) {
             setLongLength(userData.pomodoro.long);
+            setLongTimer(userData.pomodoro.long*60);
           }
         })
         .catch(err => console.log(err));
     }, [username]);
-
-    
 
     function formatTime(totalSeconds) {
       const minutes = Math.floor(totalSeconds / 60);
@@ -115,7 +165,7 @@ function FocusTime({isOpen, onClose, title, notes}) {
                       <ModalContent maxW="40%" maxH="80%">
                         <ModalCloseButton />
                         <ModalBody>
-                          <Tabs position="relative" variant="unstyled">
+                          <Tabs position="relative" variant="unstyled" index={activeTab} onChange={handleTabChange}>
                             <TabList mb="0.5em">
                               <Tab fontFamily="DM Sans" fontWeight="bold" _selected={{ color: blueTxt }} mr="4">Pomodoro</Tab>
                               <Tab fontFamily="DM Sans" fontWeight="bold" _selected={{ color: blueTxt }} mr="4">Short Break</Tab>
@@ -153,7 +203,7 @@ function FocusTime({isOpen, onClose, title, notes}) {
                                         Pomos:
                                       </Text>
                                       <Text fontFamily="DM Sans" textColor={blueTxt} fontWeight="bold" fontSize="20px">
-                                        0/3
+                                        {currentPomo}/{timers}
                                       </Text>
                                       <Text fontFamily="DM Sans" textColor="white" fontWeight="bold" fontSize="20px" ml={8}>
                                         Finish At:
@@ -168,7 +218,7 @@ function FocusTime({isOpen, onClose, title, notes}) {
                               <TabPanel>
                                   <Box bg = {bg} borderRadius={8} alignContent={"center"} p={10} textAlign={"center"}>
                                     <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>
-                                      {formatTime(shortLength * 60)}
+                                      {formatTime(shortTimer)}
                                     </Text>
                                     <Button borderRadius={"16px"} width={"158px"} height={"54"} background="linear-gradient(180deg, #6284FF 0%, #4B6DE9 100%)" textColor={'white'} size="lg" onClick={handleToggle}>
                                       {isPaused ? "Start" : "Pause"}
@@ -178,7 +228,7 @@ function FocusTime({isOpen, onClose, title, notes}) {
                               <TabPanel>
                                 <Box bg = {bg} borderRadius={8} alignContent={"center"} p={10} textAlign={"center"}>
                                   <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>
-                                    {formatTime(longLength * 60)}
+                                    {formatTime(longTimer)}
                                   </Text>
                                   <Button borderRadius={"16px"} width={"158px"} height={"54"} background="linear-gradient(180deg, #6284FF 0%, #4B6DE9 100%)" textColor={'white'} size="lg" onClick={handleToggle}>
                                     {isPaused ? "Start" : "Pause"}
