@@ -2,10 +2,8 @@ import React, { useState, useEffect, useLayoutEffect }  from 'react';
 import { useNavigate } from "react-router";
 
 import { HStack } from "@chakra-ui/react";
-import { Button, Text, Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton,
+import { Button, Text, Box, Modal, ModalOverlay, ModalContent, ModalFooter, ModalBody, ModalCloseButton,
          Tab, TabList, TabPanel, TabPanels, Tabs, TabIndicator, Flex, useColorModeValue} from '@chakra-ui/react';
-
-import { AddIcon } from "@chakra-ui/icons";
 
 function FocusTime({isOpen, onClose, title, notes}) {
 

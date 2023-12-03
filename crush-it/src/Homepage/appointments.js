@@ -1,9 +1,9 @@
-import React, {useLayoutEffect, useState, useEffect} from "react";
+import React from "react";
 import {Box, Table, Tbody, TableContainer, Tr, Td, useColorModeValue} from '@chakra-ui/react';
 import AppointmentContainer from "./appointmentContainer";
 
 function Appointment(){
-    const bg = useColorModeValue('#F5F7F9', '#1A202C')
+    // const bg = useColorModeValue('#F5F7F9', '#1A202C')
     const cont = useColorModeValue("white", "#2d3748")
     //fill list with tasks to do today (do not use 0, use military time (1-24) and the function will convert to regular time)
     //title = string, isFocus = bool,
@@ -76,7 +76,7 @@ function createTable(list){
                 child.push(
                     <Tr>
                         <Td padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}>{i-12}  PM</Td>
-                        <AppointmentContainer title={list[i][0]} notes={list[i][2]} remaining={list[i][3]} total={list[i][4]} />
+                        <AppointmentContainer title={list[i][0]} notes={list[i][2]} remaining={list[i][3]} total={list[i][4]}/>
                     </Tr>
                 )
             }

@@ -1,7 +1,7 @@
 import React, { useState, useLayoutEffect, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Box, Heading, VStack, FormControl, FormLabel, FormErrorMessage, Input, Button, Divider, 
-         Flex, HStack, Card, Icon, useColorMode, useColorModeValue, Switch, Image} from '@chakra-ui/react';
+         Flex, HStack, Card, Icon, useColorMode, useColorModeValue, Switch} from '@chakra-ui/react';
 import { TimeIcon } from '@chakra-ui/icons'
 import { RiLockPasswordLine } from 'react-icons/ri'
 import {RxPerson} from 'react-icons/rx'
