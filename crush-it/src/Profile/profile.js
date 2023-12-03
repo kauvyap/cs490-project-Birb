@@ -1,10 +1,11 @@
 import React, { useState, useLayoutEffect, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Box, Heading, VStack, FormControl, FormLabel, FormErrorMessage, Input, Button, Divider, 
-         Flex, HStack, Card, Icon, useColorMode, useColorModeValue, Switch} from '@chakra-ui/react';
+         Flex, HStack, Card, Icon, useColorMode, useColorModeValue, Switch, Image} from '@chakra-ui/react';
 import { TimeIcon } from '@chakra-ui/icons'
 import { RiLockPasswordLine } from 'react-icons/ri'
 import {RxPerson} from 'react-icons/rx'
+import UploadAvatar from './uploadAvatar';
 
 function Profile() {
   const [fname, setFname] = useState('');
@@ -223,7 +224,11 @@ function Profile() {
     return (
     <Box p={5} height={"94vh"} bg={bg}>    
       <VStack spacing={4} align="start">
-        <Box w="100%">
+        <Box mt={5} >
+          <UploadAvatar></UploadAvatar>
+        </Box>
+
+        <Box w="100%" mt={10}>
         <Flex justifyContent="space-between" width="100%" mb={2}>
           <Heading as="h2" size="md">
             User Info
