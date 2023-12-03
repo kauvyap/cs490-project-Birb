@@ -75,7 +75,7 @@ function Profile() {
       setShort(userData.pomodoro.short)
       setLong(userData.pomodoro.long)
     }
-  }, [pomodoro])
+  }, [pomodoro, userData])
 //userData.pomodoro.timer, userData.pomodoro.short, userData.pomodoro.long
 
   const handleSave = async () => {
