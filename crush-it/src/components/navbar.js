@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import "bootstrap/dist/css/bootstrap.css";
  // We import NavLink to utilize the react router.
 import { NavLink, useLocation } from "react-router-dom";
-import { Flex, Input, Heading, Spacer, Button, Image, useColorModeValue} from '@chakra-ui/react';
+import { Flex, Input, Heading, Spacer, Button, Image, useColorModeValue, Menu, MenuButton, MenuList, MenuItem} from '@chakra-ui/react';
 import userIcon from '../media/userIcon.png';
 
  // Here, we display our Navbar

@@ -1,9 +1,10 @@
-import React, {useLayoutEffect, useState, useEffect} from "react";
-import {Box,   Center,   Spacer,  Td, useColorModeValue, useDisclosure} from '@chakra-ui/react';
-import { Heading, Card, Flex, } from '@chakra-ui/react';
-import {Accordion,AccordionItem, AccordionButton, AccordionPanel, Icon } from '@chakra-ui/react'
+import React from "react";
+import {Box,  Spacer,  Td, useDisclosure} from '@chakra-ui/react';
+// import {Box,  Spacer,  Td, useColorModeValue, useDisclosure} from '@chakra-ui/react';
+import { Heading, Flex } from '@chakra-ui/react';
+import {Icon } from '@chakra-ui/react'
 import {IoHourglassOutline, IoChevronDownCircleOutline} from 'react-icons/io5'
-import {IoIosRadioButtonOff, IoIosCheckmarkCircleOutline, IoIosCloseCircleOutline} from 'react-icons/io'
+// import {IoIosRadioButtonOff, IoIosCheckmarkCircleOutline, IoIosCloseCircleOutline} from 'react-icons/io'
 import FocusTime from "./focustime";
 
 
@@ -17,8 +18,8 @@ function AppointmentContainer(props){
     
 
     
-    const bg = useColorModeValue('#F5F7F9', '#1A202C')
-    const cont = useColorModeValue("white", "#2d3748")
+    // const bg = useColorModeValue('#F5F7F9', '#1A202C')
+    // const cont = useColorModeValue("white", "#2d3748")
 
     return (
              <Td padding={0} width={"88%"}>
