@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useLayoutEffect }  from 'react';
 import { useNavigate } from "react-router";
 
-import { HStack, Spacer, useDisclosure } from "@chakra-ui/react";
-import { IconButton, Button, Text, Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton,
+import { HStack } from "@chakra-ui/react";
+import { Button, Text, Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton,
          Tab, TabList, TabPanel, TabPanels, Tabs, TabIndicator, Flex, useColorModeValue} from '@chakra-ui/react';
 
 import { AddIcon } from "@chakra-ui/icons";
@@ -13,11 +13,35 @@ function FocusTime({isOpen, onClose, title, notes}) {
     const bg = useColorModeValue("#F3F3F3", "#1a202c");
     const blueTxt = useColorModeValue('#6284FF', '#90cdf4');
 
+    const [pomoLength, setPomoLength] = useState('');
+    const [shortLength, setShortLength] = useState('');
+    const [longLength, setLongLength] = useState('');
+
     const [isPaused, setIsPaused] = useState(true);
+    const [timer, setTimer] = useState('');
+
 
     const handleToggle = () => {
-      setIsPaused((prevState) => !prevState);
+      setIsPaused(!isPaused);
     };
+
+    useEffect(() => {
+      let interval;
+  
+      if (!isPaused && timer > 0) {
+        interval = setInterval(() => {
+          setTimer(prevTimer => prevTimer - 1);
+        }, 1000);
+      } else if (timer === 0) {
+        // Timer reached 0 seconds
+        setIsPaused(true);
+      }
+      return () => clearInterval(interval); 
+
+    }, [isPaused, timer]);
+
+
+
 
     const navigate = useNavigate();
     const [username, setUsername] = useState(null);
@@ -32,10 +56,6 @@ function FocusTime({isOpen, onClose, title, notes}) {
         .then(data => data.isLoggedIn ? setUsername(data.username): navigate('/login'))
         .catch((err) => alert(err))
     }, [navigate])
- 
-    const [pomoLength, setPomoLength] = useState('');
-    const [shortLength, setShortLength] = useState('');
-    const [longLength, setLongLength] = useState('');
 
     useEffect(() => {
       fetch('http://localhost:5000/api/user/' + username)
@@ -43,6 +63,7 @@ function FocusTime({isOpen, onClose, title, notes}) {
         .then(userData => {
           if (userData && userData.pomodoro && userData.pomodoro.timer) {
             setPomoLength(userData.pomodoro.timer);
+            setTimer(userData.pomodoro.timer*60);
           }
         })
         .catch(err => console.log(err));
@@ -70,6 +91,8 @@ function FocusTime({isOpen, onClose, title, notes}) {
         .catch(err => console.log(err));
     }, [username]);
 
+    
+
     function formatTime(totalSeconds) {
       const minutes = Math.floor(totalSeconds / 60);
       const seconds = totalSeconds % 60;
@@ -79,6 +102,8 @@ function FocusTime({isOpen, onClose, title, notes}) {
     
       return `${formattedMinutes}:${formattedSeconds}`;
     }
+
+
 //<IconButton onClick={onOpen} isRound={true} variant='solid' aria-label='Done' fontSize='15px' fontWeight={"extrabold"} icon={<AddIcon />} ml={4} mb={1.5} colorScheme="blue" style={{ background: 'linear-gradient(#5D8EFF 100%, #3E6FE1 100%)', color: 'white' }}/>
     return (
         <>
@@ -108,7 +133,7 @@ function FocusTime({isOpen, onClose, title, notes}) {
                               <TabPanel>
                                 <Box rounded={8} bg = {bg} alignContent={"center"} p={10} textAlign={"center"}>
                                   <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>
-                                    {formatTime(pomoLength * 60)}
+                                    {formatTime(timer)}
                                   </Text>
                                   <Button borderRadius={"16px"} width={"158px"} height={"54"} background="linear-gradient(180deg, #6284FF 0%, #4B6DE9 100%)" textColor={'white'} size="lg" onClick={handleToggle}>
                                     {isPaused ? "Start" : "Pause"}
