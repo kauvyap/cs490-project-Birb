@@ -64,7 +64,7 @@ function Login() {
       if (response.status === 404) {
         setEmailError(true);
       }
-      console.log(response);
+      //console.log(response);
     } else {
       const tokenHolder = await response.json();
       localStorage.setItem("token", tokenHolder.token)

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
 import { ChakraProvider } from '@chakra-ui/react';
@@ -12,8 +12,8 @@ jest.mock('react-router-dom', () => ({
   useNavigate: () => jest.fn(),
 }));
 
-describe('Login Component', () => {
-  test('renders error messages for invalid login', async () => {
+describe('Task Container', () => {
+  test('renders sample task', async () => {
     // Render the Login component within the BrowserRouter and ChakraProvider
     const props = [["Hw","ahdiowah", 1,"NS"], ["Hw2","ahdiowaha", 4,"IP"]]
     const { getByPlaceholderText, getByText, getByTestId, getByRole } = render(
