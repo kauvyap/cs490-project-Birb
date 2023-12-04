@@ -296,7 +296,7 @@ function TaskContainer(props) {
 
 return(
              
-    <Card borderRadius={"8"} bg={bg} Width={"100%"} height={200} maxH={"200px"} p={5} marginBottom={5} overflowY={"auto"} onDragOver={(e) => onDragOver(e)} onDrop={(e) => onDrop(e, props.category, props.categoryList)}
+    <Card borderRadius={"8"} bg={bg} width={"100%"} height={200} maxH={"200px"} p={5} marginBottom={5} overflowY={"auto"} onDragOver={(e) => onDragOver(e)} onDrop={(e) => onDrop(e, props.category, props.categoryList)}
     css={`
                 &::-webkit-scrollbar {
                     width: 8px;

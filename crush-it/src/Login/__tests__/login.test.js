@@ -1,3 +1,7 @@
+
+
+
+
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
@@ -10,7 +14,7 @@ global.fetch = jest.fn((url, options) => {
   //console.log("in Fetch")
   if(url === "http://localhost:5000/api/auth/getUsername"){
     return Promise.resolve({
-      json: () => Promise.resolve({ data:{isLoggedIn:false} }),
+      json: () => Promise.resolve({ data:{isLoggedIn:false, token:123456} }),
     });
   }
   if (url === "http://localhost:5000/api/auth/login" && options.method === "POST") {
@@ -162,6 +166,13 @@ describe('Login Component', () => {
         </ChakraProvider>
       </BrowserRouter>
     );
+    delete window.location;
+    window.location = { ...window.location, reload: reloadMock };
+    const reloadMock = jest.fn();
+    Object.defineProperty(window.location, 'reload', {
+      configurable: true,
+      value: reloadMock,
+    });
     // Interact with Chakra UI form elements using placeholder text
     const emailInput = getByPlaceholderText('Enter your email');
     const passwordInput = getByPlaceholderText('Enter your password');
