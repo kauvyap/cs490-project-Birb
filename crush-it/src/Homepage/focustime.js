@@ -58,7 +58,7 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
     // short break
     useEffect(() => {
       let interval;
-      console.log(currentPomo);
+      //console.log(currentPomo);
       if (!isPaused && shortTimer > 0 && timer === 0 && currentPomo % 3 !== 0) {
         interval = setInterval(() => {
           setShortTimer(prevShortTimer => prevShortTimer - 1);

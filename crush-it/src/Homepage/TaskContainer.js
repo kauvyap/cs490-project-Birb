@@ -187,7 +187,7 @@ function TaskContainer(props) {
   useEffect(() => {
     setElements(props.categoryList)
   }, [props.categoryList])
-  console.log("elements", elements)
+  //console.log("elements", elements)
 
   const bg = useColorModeValue('#F5F7F9', '#1A202C')
   const hd = useColorModeValue('#6284FF', '#90cdf4');
@@ -199,10 +199,10 @@ function TaskContainer(props) {
   function onDrop(ev) {
     let id = ev.dataTransfer.getData("id")
     let originalCategory = ev.dataTransfer.getData("category")
-    console.log("hello")
-    console.log("target", props.category)
-    console.log("drag", props.categoryList[id])
-    console.log("original", originalCategory)
+    //console.log("hello")
+    //console.log("target", props.category)
+    //console.log("drag", props.categoryList[id])
+    //console.log("original", originalCategory)
     if (originalCategory !== props.category) {
       props.handleDrop(id, originalCategory, props.category)
     }
@@ -212,7 +212,7 @@ function TaskContainer(props) {
   const createCard = (elements) => {
     // create all card views inside of elements
     // [["Complete Math Homework", "This is a hw", 1, "FN"]]
-    console.log("card", elements)
+    //console.log("card", elements)
     var list = []
     var indices = []
     if (typeof elements !== 'undefined') {
@@ -229,7 +229,7 @@ function TaskContainer(props) {
     var cards = []
 
     function onDragStart(ev, i, category, categoryList) {
-      console.log("dragstart", i)
+      //console.log("dragstart", i)
       ev.dataTransfer.setData("id", i)
       ev.dataTransfer.setData("category", category)
       ev.dataTransfer.setData("categoryList", categoryList)

@@ -1,44 +1,38 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
-
+import { fireEvent, render, waitFor, act } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
 import { ChakraProvider } from '@chakra-ui/react';
 import Task from '../TaskContainer.js';
+global.fetch = jest.fn((url, options) => {
+  //console.log("in Fetch")
+  if(url === "http://localhost:5000/api/user/null"){
+    return Promise.resolve({
+      json: () => Promise.resolve({isLoggedIn:true,username:"valid@gmail.com" , token:123456} ),
+    });
+  }
+  if(url === "http://localhost:5000/api/auth/getUsername"){
+    return Promise.resolve({
+      json: () => Promise.resolve( {isLoggedIn:true,username:"valid@gmail.com", token:123456}),
+    });
+  }
+  if(url === "http://localhost:5000/api/user/valid@gmail.com"){
+    return Promise.resolve({
+      json: () => Promise.resolve({isLoggedIn:true,username:"valid@gmail.com" , token:123456} ),
+    });
+  }
+  return Promise.reject(new Error(`Unexpected request to ${url}`));
+})
 
+
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => jest.fn(),
+}));
 
 describe('Task Container', () => {
-  /*test('renders sample task', async () => {
-    // Render the Login component within the BrowserRouter and ChakraProvider
-    var topTasks = 
-    [
-    {dateAssigned : "3-December-2023", description: "dwadwada", pomodoroTimers : 1, priority : "Top", status : "NS", title : "adwjkdkwadhw", _id : "656d573aacecfeb589ec6481"},
-    //{dateAssigned : "3-December-2023", description: "test2", pomodoroTimers : 1, priority : "Top", status : "NS", title : "test2", _id : "656d75bdacecfeb589ec6621"},
-    //{dateAssigned : "3-December-2023", description: "test3", pomodoroTimers : 1, priority : "Top", status : "NS", title : "tes3", _id : "656d75bdacecfeb589ec6622"},
-    //{dateAssigned : "3-December-2023", description: "test4", pomodoroTimers : 1, priority : "Top", status : "NS", title : "test4", _id : "656d75bdacecfeb589ec6621"}
-    ]
-    const { getByPlaceholderText, getByText, getByTestId, getByRole } = render(
-      
-        <ChakraProvider>
-          <Task category='Top Priority' categoryList={topTasks} dateSelected={'3-December-2023'} timerLength={1} />
-        </ChakraProvider>
-      
-    );
-
-    // Interact with Chakra UI form elements using placeholder text
-    const Title = getByText('Hw');
-    const Description = getByText('ahdiowah');
-
-
-    // Simulate button click and wait for login to complete
-    await waitFor(() => {
-      // Assertions for error messages
-      expect(Title).toBeInTheDocument();
-      expect(Description).toBeInTheDocument();
-    });
-  });*/
-
-
-  test('renders sample task', async () => {
+  test('Renders Task container', async () => {
     // Render the Login component within the BrowserRouter and ChakraProvider
     const { getByPlaceholderText, getByText, getByTestId, getByRole } = render(
       
@@ -49,9 +43,55 @@ describe('Task Container', () => {
     );
 
     // Interact with Chakra UI form elements using placeholder text
-    await waitFor(() => {
+    await act(() => {
       // Assertions for error messages
       expect(getByText("Top Priority")).toBeInTheDocument();
+    });
+  });
+
+  test('Renders sample task', async () => {
+    // Render the Login component within the BrowserRouter and ChakraProvider
+    var topTasks = 
+    [
+    {dateAssigned : "3-December-2023", description: "dwadwada", pomodoroTimers : 1, priority : "Top", status : "NS", title : "adwjkdkwadhw", _id : "656d573aacecfeb589ec6481"},
+    ]
+    const { getByPlaceholderText, getByText, getByTestId, getByRole } = render(
+      <BrowserRouter>
+        <ChakraProvider>
+          <Task category='Top Priority' categoryList={topTasks} dateSelected={'3-December-2023'} timerLength={1} />
+        </ChakraProvider>
+      </BrowserRouter>
+    );
+    // Simulate button click and wait for login to complete
+    await act(() => {
+      // Assertions for error messages
+      expect(getByText("adwjkdkwadhw")).toBeInTheDocument();
+      //expect(Description).toBeInTheDocument();
+    });
+  });
+
+  test('Renders description and pomo# sample task', async () => {
+    // Render the Login component within the BrowserRouter and ChakraProvider
+    var topTasks = 
+    [
+    {dateAssigned : "3-December-2023", description: "dwadwada", pomodoroTimers : 1, priority : "Top", status : "NS", title : "adwjkdkwadhw", _id : "656d573aacecfeb589ec6481"},
+    ]
+
+    const {  getByText, getAllByText, getByRole } = render(
+      <BrowserRouter>
+        <ChakraProvider>
+          <Task category='Top Priority' categoryList={topTasks} dateSelected={'3-December-2023'} timerLength={1} />
+        </ChakraProvider>
+      </BrowserRouter>
+    );
+    // Simulate button click and wait for login to complete
+
+
+    await act(() => {
+      // Assertions for error messages
+      //expect(getAllByText("1")[1]).toBeInTheDocument();
+      expect(getByText("dwadwada")).toBeInTheDocument();
+      //expect(Description).toBeInTheDocument();
     });
   });
 

@@ -67,7 +67,7 @@ function Login() {
       //console.log(response);
     } else {
       const tokenHolder = await response.json();
-      console.log("token holder", ""+JSON.stringify( tokenHolder))
+      //console.log("token holder", ""+JSON.stringify( tokenHolder))
       localStorage.setItem("token", tokenHolder.token)
       window.location.reload();
     }
