@@ -88,10 +88,7 @@ describe('Task Container', () => {
 
 
     await act(() => {
-      // Assertions for error messages
-      //expect(getAllByText("1")[1]).toBeInTheDocument();
       expect(getByText("dwadwada")).toBeInTheDocument();
-      //expect(Description).toBeInTheDocument();
     });
   });
 
