@@ -55,7 +55,7 @@ describe('Signup Component', () => {
 
   test('Log Out logs out', async () => {
     // Render the Login component within the BrowserRouter and ChakraProvider
-    const { getByTestId, getByText } = render(
+    const { getByTestId, queryByText } = render(
       <BrowserRouter>
         <ChakraProvider>
           <Sidebar />
@@ -67,9 +67,9 @@ describe('Signup Component', () => {
     await waitFor(() => {
       // Assertions for error messages
       fireEvent.click(logBtn)
-      expect(getByText('Crush It')).toBeInTheDocument();
-      expect(getByText("It's time to plan your day!")).toBeInTheDocument();
-      expect(getByText("Log Out")).toBeInTheDocument();
+      expect(queryByText('Crush It')).toBeNull();
+      expect(queryByText("It's time to plan your day!")).toBeNull();
+      expect(queryByText("Log Out")).toBeNull();
     });
   });
 
