@@ -27,10 +27,10 @@ function Appointment(props){
     //fill list with tasks to do today (do not use 0, use military time (1-24) and the function will convert to regular time)
     //title = string, isFocus = bool,
 
-    var list= [[],["Hello1", true, "many", 0, 4],["Hello", false],["Hell", false],["Hel",true, "notes", 0, 4],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],["Hello1", true, "many", 0, 4],["Hello", false],["Hell", false],["Hel",true, "notes", 0, 4],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
+    var list= [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
 
     useEffect(() => {
-        if (props.username !== null && props.selectedDate !== null && data === null) {
+        if (props.username !== null && props.selectedDate !== null) {
             const dateString = props.selectedDate
             const parsedDate = parse(dateString, "d-MMMM-yyyy", new Date());
             const endOfDayParsed = addDays(parsedDate, 1)
@@ -53,7 +53,7 @@ function Appointment(props){
             
             console.log(data)
         }
-    }, [props.username, props.selectedDate, data])
+    }, [props.username, props.selectedDate])
     
 
 
@@ -97,7 +97,7 @@ function Appointment(props){
                     }>
         <TableContainer>
            
-                {createTable(list)}
+                {createTable(list, events)}
                 
             
         </TableContainer>
@@ -108,36 +108,120 @@ function Appointment(props){
 }
 
 
-function createTable(list){
+function createTable(list, events){
 
     var child = []
 
+    if(events !== null){
+        for(var i = 0; i < events.length; i++){
+            //is event at 30 min mark or more?
+            if(events[i][4]>=30){
+                list[parseInt( events[i][3],10)*2] = events[i]
+            }
+            else{//if not mark as starting at the hour
+                list[parseInt( events[i][3],10)*2-1] = events[i]
+                list[parseInt( events[i][3],10)*2] = events[i]
+            }
+            var x = parseInt( events[i][3],10)+1
+            // mark both hour and minute until it reaches the event
+            while(x <= events[i][5]){
+                if(x == parseInt(events[i][5],10) && parseInt(events[i][6],10) <= 30){
+                }
+                else{
+                    list[x*2] = events[i];
+                }
+                if(x == parseInt(events[i][5],10) && parseInt(events[i][6],10) == 0){
+                }else{
+                    list[x*2-1] = events[i];
+                }
+                
+                x+=1;
+            }
+        }
+
+    }
+
+    
+
     console.log(list)
-    console.log(list[0])
+    var boolIsEnd = false;
+    var boolIsCont = false;
+    var lastT = "";
     for( var i=5; i < 25; i++){
-        if(i <= 12){
-            if(list[i].length >= 1){
+        if(i <= 12){//hours before 12 AM
+            if(list[i*2-1].length >= 1){//insert hours
+                if(lastT !== list[i*2-1][0]){//check if it is a continuation
+                    child.push(
+                        <Tr>
+                            <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}>{i}  AM</Td>
+                            <AppointmentContainer title={list[i*2-1][0]} isFocus={list[i*2-1][1]} notes={list[i*2-1][2]} isCont={false}/>
+                        </Tr>
+                        
+                    )
+                    boolIsCont = true
+                    
+                }
+                else{// if it is a cont
+                    if(list[i*2].length < 1 || lastT !== list[i*2][0] ){//It is the end
+                    child.push(
+                        <Tr>
+                            <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}>{i}  AM</Td>
+                            <AppointmentContainer title={""} isFocus={list[i*2-1][1]} notes={list[i*2-1][2]} isCont={true} isEnd={true}/>
+                        </Tr>
+                        
+                    )
+                    }
+                    else{//It is not the end
+                        child.push(
+                        <Tr>
+                            <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}>{i}  AM</Td>
+                            <AppointmentContainer title={""} isFocus={list[i*2-1][1]} notes={list[i*2-1][2]} isCont={true} isEnd={false}/>
+                        </Tr>)
+                    }
+                }
+                
+                lastT = "" + list[i*2-1][0];
+                
+            }
+            else{//no tasks
                 child.push(
                     <Tr>
                         <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}>{i}  AM</Td>
-                        <AppointmentContainer title={list[i][0]} isFocus={list[i][1]} notes={list[i][2]}/>
-                    </Tr>
-                    
-                )
-                child.push(
-                    <Tr>
-                        <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}></Td>
-                        <AppointmentContainer title={list[i][0]} isFocus={list[i][1]} notes={list[i][2]}/>
                     </Tr>
                 )
             }
+            if(list[i*2].length >= 1){//check 30 minute for task
+                
+                if(lastT !== list[i*2][0]){
+                    child.push(
+                        <Tr>
+                            <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}></Td>
+                            <AppointmentContainer title={list[i*2][0]} isFocus={list[i*2][1]} notes={list[i*2][2]} isCont={false}/>
+                        </Tr>
+                        
+                    )
+                    boolIsCont = true;
+                }
+                else{
+                    if(list[i*2+1].length < 1 || lastT !== list[i*2][0] ){
+                    child.push(
+                        <Tr>
+                            <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}></Td>
+                            <AppointmentContainer title={""} isFocus={list[i*2][1]} notes={list[i*2][2]} isCont={true} isEnd={true}/>
+                        </Tr>
+                    )}
+                    else{
+                        child.push(
+                        <Tr>
+                            <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}></Td>
+                            <AppointmentContainer title={""} isFocus={list[i*2][1]} notes={list[i*2][2]} isCont={true} isEnd={false}/>
+                        </Tr>)
+                    }
+                }
+                
+                lastT = "" + list[i*2][0];
+            }
             else{
-                child.push(
-                    <Tr>
-                        <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}>{i}  AM</Td>
-    
-                    </Tr>
-                )
                 child.push(
                     <Tr>
                         <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}></Td>
@@ -149,19 +233,36 @@ function createTable(list){
             }
         }
         else{
-            if(list[i].length >= 1){
-                child.push(
-                    <Tr>
-                        <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}>{i-12}  PM</Td>
-                        <AppointmentContainer title={list[i][0]} notes={list[i][2]} remaining={list[i][3]} total={list[i][4]}/>
-                    </Tr>
-                )
-                child.push(
-                    <Tr>
-                        <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}></Td>
-                        <AppointmentContainer title={list[i][0]} notes={list[i][2]} remaining={list[i][3]} total={list[i][4]}/>
-                    </Tr>
-                )
+            if(list[i*2-1].length >= 1){// if it is an Hour
+                if(lastT !== list[i*2-1][0]){//check if it is a cont
+                    child.push(
+                        <Tr>
+                            <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}>{i-12}  PM</Td>
+                            <AppointmentContainer title={list[i*2-1][0]} notes={list[i*2-1][2]} remaining={list[i*2-1][3]} total={list[i][4]} isCont={false}/>
+                        </Tr>
+                    )
+                    boolIsCont = true
+                }
+                else{//if is cont
+                    if(list[i*2].length < 1 || lastT !== list[i*2][0] ){//check if it is the end
+                    child.push(
+                        <Tr>
+                            <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}>{i-12}  PM</Td>
+                            <AppointmentContainer title={""} notes={list[i*2-1][2]} remaining={list[i*2-1][3]} total={list[i*2-1][4]} isCont={true} isEnd={true}/>
+                        </Tr>
+                    )
+                    }
+                    else{
+                        child.push(
+                            <Tr>
+                                <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}>{i-12}  PM</Td>
+                                <AppointmentContainer title={""} notes={list[i*2-1][2]} remaining={list[i*2-1][3]} total={list[i*2-1][4]} isCont={true} isEnd={false}/>
+                            </Tr>
+                        )
+                    }
+                }
+                lastT=list[i*2-1][0]
+                
             }
             else{
                 child.push(
@@ -170,17 +271,48 @@ function createTable(list){
         
                     </Tr>
                 )
+            }
+            if(list[i*2].length >= 1){//it is min
+                if(lastT !==list[i*2][0] ){//check if last insert was ==
+                    boolIsCont = true
+                    child.push(
+                        <Tr>
+                            <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}></Td>
+                            <AppointmentContainer title={list[i*2][0]} notes={list[i*2][2]} remaining={list[i*2][3]} total={list[i*2][4]} isCont={false}/>
+                        </Tr>
+                    )
+                }
+                else{// if it is
+                    if(list[i*2+1].length < 1 || lastT !== list[i*2][0] ){//check if next is also equal
+                    child.push(
+                        <Tr>
+                            <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}></Td>
+                            <AppointmentContainer title={""} notes={list[i*2][2]} remaining={list[i*2][3]} total={list[i*2][4]} isCont={true} isEnd={true}/>
+                        </Tr>
+                    )}
+                    else{
+                        child.push(
+                            <Tr>
+                                <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}></Td>
+                                <AppointmentContainer title={""} notes={list[i*2][2]} remaining={list[i*2][3]} total={list[i*2][4]} isCont={true} isEnd={false}/>
+                            </Tr>
+                        )
+                    }
+                }
+                lastT = "" + list[i*2][0];
+                
+            }
+            else{
                 child.push(
-                    <Tr>
+                <Tr>
                         <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}></Td>
-        
-                    </Tr>
+                </Tr>
                 )
             }
             if(i===24){
                 i=0;
             }
-        } 
+        }
     }
 
     return(

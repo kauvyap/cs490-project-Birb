@@ -43,7 +43,7 @@ describe('Task Container', () => {
     );
 
     // Interact with Chakra UI form elements using placeholder text
-    await act(() => {
+    await act( async() => {
       // Assertions for error messages
       expect(getByText("Top Priority")).toBeInTheDocument();
     });
@@ -63,7 +63,7 @@ describe('Task Container', () => {
       </BrowserRouter>
     );
     // Simulate button click and wait for login to complete
-    await act(() => {
+    await act( async () => {
       // Assertions for error messages
       expect(getByText("adwjkdkwadhw")).toBeInTheDocument();
       //expect(Description).toBeInTheDocument();
@@ -87,7 +87,7 @@ describe('Task Container', () => {
     // Simulate button click and wait for login to complete
 
 
-    await act(() => {
+    await act(async () => {
       expect(getByText("dwadwada")).toBeInTheDocument();
     });
   });

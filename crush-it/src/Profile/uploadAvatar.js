@@ -35,9 +35,10 @@ function UploadAvatar(){
 
     return (
         <>
-        <Box
+        <Box marginLeft={5}
             position="relative"
             display="inline-block"
+            
             _hover={{
                 '&::before': {
                 content: '""',
@@ -48,7 +49,8 @@ function UploadAvatar(){
                 height: '100%',
                 background: 'rgba(0, 0, 0, 0.5)',
                 zIndex: 1,
-                pointerEvents: 'none'
+                pointerEvents: 'none',
+                
                 },
                 '& .edit-icon': {
                 opacity: 1,
@@ -60,7 +62,7 @@ function UploadAvatar(){
                 onClick={openModal}
                 icon={<Image src={userIcon} alt="Profile Icon" h="100%" />}
                 isRound
-                h={"100px"}
+                h={"75px"}
             />
             <Icon
                 className="edit-icon"
