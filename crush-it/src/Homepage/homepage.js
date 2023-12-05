@@ -205,11 +205,11 @@ function Homepage(){
         console.log("target", targetCategory)
         if (targetCategory === 'Top Priority') {
             if (originalCategory === 'Important') {
-                top.push({dateAssigned: importantTasks[id].dateAssigned, title: importantTasks[id].title, description: importantTasks[id].description, pomodoroTimers: importantTasks[id].pomodoroTimers, completedPomodoroTimers:topTasks[id].completedPomodoroTimers, priority: 'Top', status: importantTasks[id].status})
+                top.push({dateAssigned: importantTasks[id].dateAssigned, title: importantTasks[id].title, description: importantTasks[id].description, pomodoroTimers: importantTasks[id].pomodoroTimers, completedPomodoroTimers:importantTasks[id].completedPomodoroTimers, priority: 'Top', status: importantTasks[id].status})
                 important.splice(id, 1)
             }
             if (originalCategory === 'Other') {
-                top.push({dateAssigned: otherTasks[id].dateAssigned, title: otherTasks[id].title, description: otherTasks[id].description, pomodoroTimers: otherTasks[id].pomodoroTimers, completedPomodoroTimers:topTasks[id].completedPomodoroTimers, priority: 'Top', status: otherTasks[id].status})
+                top.push({dateAssigned: otherTasks[id].dateAssigned, title: otherTasks[id].title, description: otherTasks[id].description, pomodoroTimers: otherTasks[id].pomodoroTimers, completedPomodoroTimers:otherTasks[id].completedPomodoroTimers, priority: 'Top', status: otherTasks[id].status})
                 other.splice(id, 1)
             }
         }
@@ -219,7 +219,7 @@ function Homepage(){
                 top.splice(id, 1)
             }
             if (originalCategory === 'Other') {
-                important.push({dateAssigned: otherTasks[id].dateAssigned, title: otherTasks[id].title, description: otherTasks[id].description, pomodoroTimers: otherTasks[id].pomodoroTimers, completedPomodoroTimers:topTasks[id].completedPomodoroTimers, priority: 'Important', status: otherTasks[id].status})
+                important.push({dateAssigned: otherTasks[id].dateAssigned, title: otherTasks[id].title, description: otherTasks[id].description, pomodoroTimers: otherTasks[id].pomodoroTimers, completedPomodoroTimers:importantTasks[id].completedPomodoroTimers, priority: 'Important', status: otherTasks[id].status})
                 other.splice(id, 1)
             }
         }
@@ -229,7 +229,7 @@ function Homepage(){
                 top.splice(id, 1)
             }
             if (originalCategory === 'Important') {
-                other.push({dateAssigned: importantTasks[id].dateAssigned, title: importantTasks[id].title, description: importantTasks[id].description, pomodoroTimers: importantTasks[id].pomodoroTimers, completedPomodoroTimers:topTasks[id].completedPomodoroTimers, priority: 'Other', status: importantTasks[id].status})
+                other.push({dateAssigned: importantTasks[id].dateAssigned, title: importantTasks[id].title, description: importantTasks[id].description, pomodoroTimers: importantTasks[id].pomodoroTimers, completedPomodoroTimers:importantTasks[id].completedPomodoroTimers, priority: 'Other', status: importantTasks[id].status})
                 important.splice(id, 1)
             }
         }
