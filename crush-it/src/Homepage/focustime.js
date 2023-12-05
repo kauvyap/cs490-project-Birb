@@ -269,6 +269,24 @@ function FocusTime({isOpen, onClose, title, notes, timers, completedTimers, hand
                                       {isPaused ? "Start" : "Pause"}
                                     </Button>
                                   </Box>
+                                  <Box mt={5} bg="black" p={5} rounded={8}>
+                                  <Flex justifyContent="center" alignItems="center" mt={3}>
+                                    <HStack>
+                                      <Text fontFamily="DM Sans" textColor="white" fontWeight="bold" fontSize="20px">
+                                        Pomos:
+                                      </Text>
+                                      <Text data-testid="pomoLeft" fontFamily="DM Sans" textColor={blueTxt} fontWeight="bold" fontSize="20px">
+                                        {currentPomo}/{timers}
+                                      </Text>
+                                      <Text fontFamily="DM Sans" textColor="white" fontWeight="bold" fontSize="20px" ml={8}>
+                                        Finish At:
+                                      </Text>
+                                      <Text fontFamily="DM Sans" textColor={blueTxt} fontWeight="bold" fontSize="20px">
+                                        {finishAt}
+                                      </Text>
+                                    </HStack>
+                                  </Flex>
+                                </Box>
                               </TabPanel>
                               <TabPanel>
                                 <Box bg = {bg} borderRadius={8} alignContent={"center"} p={10} textAlign={"center"}>
@@ -278,6 +296,24 @@ function FocusTime({isOpen, onClose, title, notes, timers, completedTimers, hand
                                   <Button data-testid="longStart" borderRadius={"16px"} width={"158px"} height={"54"} background="linear-gradient(180deg, #6284FF 0%, #4B6DE9 100%)" textColor={'white'} size="lg" onClick={handleToggle}>
                                     {isPaused ? "Start" : "Pause"}
                                   </Button>
+                                </Box>
+                                <Box mt={5} bg="black" p={5} rounded={8}>
+                                  <Flex justifyContent="center" alignItems="center" mt={3}>
+                                    <HStack>
+                                      <Text fontFamily="DM Sans" textColor="white" fontWeight="bold" fontSize="20px">
+                                        Pomos:
+                                      </Text>
+                                      <Text data-testid="pomoLeft" fontFamily="DM Sans" textColor={blueTxt} fontWeight="bold" fontSize="20px">
+                                        {currentPomo}/{timers}
+                                      </Text>
+                                      <Text fontFamily="DM Sans" textColor="white" fontWeight="bold" fontSize="20px" ml={8}>
+                                        Finish At:
+                                      </Text>
+                                      <Text fontFamily="DM Sans" textColor={blueTxt} fontWeight="bold" fontSize="20px">
+                                        {finishAt}
+                                      </Text>
+                                    </HStack>
+                                  </Flex>
                                 </Box>
                               </TabPanel>
                             </TabPanels>
