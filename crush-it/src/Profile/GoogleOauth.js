@@ -1,8 +1,5 @@
 import React, {useState} from 'react';
 import {useGoogleLogin} from '@react-oauth/google';
-// import { jwtDecode } from "jwt-decode";
-import axios from "axios";
-// import getEvents from './GoogleOauthClient.js';
 
 const GoogleOauth = (props) => {
     const user = props.user;

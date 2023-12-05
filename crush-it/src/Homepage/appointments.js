@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {Box, Table, Tbody, TableContainer, Tr, Td, useColorModeValue} from '@chakra-ui/react';
 import AppointmentContainer from "./appointmentContainer";
-import {parse, format, endOfDay, parseISO, getHours, getMinutes} from 'date-fns';
+import {parse, format, addDays, parseISO, getHours, getMinutes, setHours, setMinutes, setSeconds, setMilliseconds} from 'date-fns';
 
 function Appointment(props){
     // const bg = useColorModeValue('#F5F7F9', '#1A202C')
@@ -33,9 +33,9 @@ function Appointment(props){
         if (props.username !== null && props.selectedDate !== null && data === null) {
             const dateString = props.selectedDate
             const parsedDate = parse(dateString, "d-MMMM-yyyy", new Date());
-            const endOfDayParsed = endOfDay(parsedDate)
-            const endOfDayFormatted = format(endOfDayParsed, "yyyy-MM-dd'T'HH:mm:ss.SSS") + 'Z';
-            const formattedDate = format(parsedDate, "yyyy-MM-dd'T'HH:mm:ss.SSS") + 'Z';
+            const endOfDayParsed = addDays(parsedDate, 1)
+            const endOfDayFormatted = format(setHours(setMinutes(setSeconds(setMilliseconds(endOfDayParsed, 0), 0), 0), 5), "yyyy-MM-dd'T'HH:mm:ss.SSS") + 'Z';
+            const formattedDate = format(setHours(setMinutes(setSeconds(setMilliseconds(parsedDate, 0), 0), 0), 5), "yyyy-MM-dd'T'HH:mm:ss.SSS") + 'Z';
         
             fetch("http://localhost:5000/api/events/calendar/" + props.username, {
                 method: "POST",
@@ -59,7 +59,7 @@ function Appointment(props){
 
     useEffect(() => {
         if (data !== null) {
-            if (data.items !== null) {
+            if (data.items !== null && data.items !== undefined) {
                 const newEvents = data.items.map(item => ([
                     item.summary,
                     item.description,

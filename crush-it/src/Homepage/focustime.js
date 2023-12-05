@@ -42,7 +42,7 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
     useEffect(() => {
       let interval;
 
-      if (isPaused && timeLeft != -1) {
+      if (isPaused && timeLeft !== -1) {
         interval = setInterval(() => {
           console.log('paused', activeTab);
           futureTime.setSeconds(currentTime.getSeconds() + timeLeft);
@@ -145,7 +145,7 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
       }
       return () => clearInterval(interval);
 
-    }, [isPaused, longTimer, longLength, pomoLength, currentPomo, timer]);
+    }, [isPaused, longTimer, longLength, pomoLength, currentPomo, timer, activeTab]);
 
     const navigate = useNavigate();
     const [username, setUsername] = useState(null);
