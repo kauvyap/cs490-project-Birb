@@ -117,7 +117,7 @@ function FocusTime({isOpen, onClose, title, notes, timers, completedTimers, hand
       let interval;
 
       //console.log(currentPomo);
-      if (!isPaused && shortTimer > 0 && timer === 0 && currentPomo % 3 !== 0) {
+      if (!isPaused && shortTimer > 0 && currentPomo % 4 !== 0 && activeTab === 1) {
 
         interval = setInterval(() => {
           setShortTimer(prevShortTimer => prevShortTimer - 1);
@@ -251,7 +251,7 @@ function FocusTime({isOpen, onClose, title, notes, timers, completedTimers, hand
                                         {currentPomo}/{timers}
                                       </Text>
                                       <Text fontFamily="DM Sans" textColor="white" fontWeight="bold" fontSize="20px" ml={8}>
-                                        Finish At:
+                                        Finish{currentPomo === timers ? 'ed' : ''} At:
                                       </Text>
                                       <Text fontFamily="DM Sans" textColor={blueTxt} fontWeight="bold" fontSize="20px">
                                         {finishAt}
@@ -279,7 +279,7 @@ function FocusTime({isOpen, onClose, title, notes, timers, completedTimers, hand
                                         {currentPomo}/{timers}
                                       </Text>
                                       <Text fontFamily="DM Sans" textColor="white" fontWeight="bold" fontSize="20px" ml={8}>
-                                        Finish At:
+                                        Finish{currentPomo === timers ? 'ed' : ''} At:
                                       </Text>
                                       <Text fontFamily="DM Sans" textColor={blueTxt} fontWeight="bold" fontSize="20px">
                                         {finishAt}
@@ -307,7 +307,7 @@ function FocusTime({isOpen, onClose, title, notes, timers, completedTimers, hand
                                         {currentPomo}/{timers}
                                       </Text>
                                       <Text fontFamily="DM Sans" textColor="white" fontWeight="bold" fontSize="20px" ml={8}>
-                                        Finish At:
+                                        Finish{currentPomo === timers ? 'ed' : ''} At:
                                       </Text>
                                       <Text fontFamily="DM Sans" textColor={blueTxt} fontWeight="bold" fontSize="20px">
                                         {finishAt}
