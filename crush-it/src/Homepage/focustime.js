@@ -2,10 +2,8 @@ import React, { useState, useEffect, useLayoutEffect }  from 'react';
 import { useNavigate } from "react-router";
 
 import { HStack } from "@chakra-ui/react";
-import { Button, Text, Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton,
+import { Button, Text, Box, Modal, ModalOverlay, ModalContent, ModalFooter, ModalBody, ModalCloseButton,
          Tab, TabList, TabPanel, TabPanels, Tabs, TabIndicator, Flex, useColorModeValue} from '@chakra-ui/react';
-
-import { AddIcon } from "@chakra-ui/icons";
 
 function FocusTime({isOpen, onClose, title, notes, timers}) {
 
@@ -47,7 +45,7 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
         if (timers === currentPomo+1) { // pause if it was the last pomo (+1 because it doesn't update immediately)
           setIsPaused(true);
         }
-        if ((currentPomo+1) % 3 != 0) {
+        if ((currentPomo+1) % 3 !== 0) {
           setActiveTab(1) // change tab to short break
         } else {
           setActiveTab(2) // change tab to long break
@@ -55,13 +53,13 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
       }
       return () => clearInterval(interval);
 
-    }, [isPaused, timer]);
+    }, [isPaused, timer, activeTab, currentPomo, timers]);
 
     // short break
     useEffect(() => {
       let interval;
       console.log(currentPomo);
-      if (!isPaused && shortTimer > 0 && timer === 0 && currentPomo % 3 != 0) {
+      if (!isPaused && shortTimer > 0 && timer === 0 && currentPomo % 3 !== 0) {
         interval = setInterval(() => {
           setShortTimer(prevShortTimer => prevShortTimer - 1);
         }, 1000);
@@ -73,7 +71,7 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
       }
       return () => clearInterval(interval);
 
-    }, [isPaused, shortTimer]);
+    }, [isPaused, shortTimer, shortLength, pomoLength, activeTab, currentPomo, timer]);
     
     // long break
     useEffect(() => {
@@ -91,7 +89,7 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
       }
       return () => clearInterval(interval);
 
-    }, [isPaused, longTimer]);
+    }, [isPaused, longTimer, longLength, pomoLength, currentPomo, timer]);
 
     const navigate = useNavigate();
     const [username, setUsername] = useState(null);

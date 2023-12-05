@@ -4,7 +4,7 @@ import {Box, Heading, Container, VStack, HStack, useColorModeValue, Spacer} from
 import TaskContainer from "./TaskContainer"
 import DatePicker from './datepicker';
 import AddTask from './addtask';
-import FocusTime from "./focustime";
+// import FocusTime from "./focustime";
 import Appointment from "./appointments";
 
 
@@ -253,7 +253,6 @@ function Homepage(){
       
 
         <Box p={5} bg={bg} height={"94vh"}>
-
         <DatePicker onDateSelected={handleSelected} />
   
         <HStack justify={"left"} p={5}  h={"93%"} width={ "100%"} align={"flex-start"} >
