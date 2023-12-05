@@ -5,12 +5,11 @@ import { HStack } from "@chakra-ui/react";
 import { Button, Text, Box, Modal, ModalOverlay, ModalContent, ModalFooter, ModalBody, ModalCloseButton,
          Tab, TabList, TabPanel, TabPanels, Tabs, TabIndicator, Flex, useColorModeValue} from '@chakra-ui/react';
 
-function FocusTime({isOpen, onClose, title, notes, timers}) {
+function FocusTime({isOpen, onClose, title, notes, timers, completedTimers, handleCompletedChange, category, index}) {
 
     //const { isOpen, onOpen, onClose } = useDisclosure()
     const bg = useColorModeValue("#F3F3F3", "#1a202c");
     const blueTxt = useColorModeValue('#6284FF', '#90cdf4');
-
     const [pomoLength, setPomoLength] = useState('1');
     const [shortLength, setShortLength] = useState('2');
     const [longLength, setLongLength] = useState('3');
@@ -19,8 +18,7 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
     const [timer, setTimer] = useState(60);
     const [shortTimer, setShortTimer] = useState(120);
     const [longTimer, setLongTimer] = useState(180);
-
-    const [currentPomo, setCurrentPomo] = useState(0)
+    const [currentPomo, setCurrentPomo] = useState(null)
     const [activeTab, setActiveTab] = useState(0);
 
     const currentTime = new Date();
@@ -37,6 +35,12 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
     const handleToggle = () => {
       setIsPaused(!isPaused);
     };
+
+    // initialize currentPomo with info from DB
+    useEffect(() => {
+      setCurrentPomo(completedTimers)
+    }, completedTimers)
+
 
     // finish at
     useEffect(() => {
@@ -95,6 +99,7 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
       } else if (timer === 0) {
         // Timer reached 0 seconds
         setTimer(pomoLength*60);
+        handleCompletedChange(currentPomo + 1, category, index)
         setCurrentPomo(prevPomo => prevPomo + 1);
         setIsPaused(true);
         if ((currentPomo+1) % 4 !== 0) {
@@ -162,39 +167,25 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
     }, [navigate])
 
     useEffect(() => {
-      fetch('http://localhost:5000/api/user/' + username)
-        .then(res => res.json())
-        .then(userData => {
-          if (userData && userData.pomodoro && userData.pomodoro.timer) {
-            setPomoLength(userData.pomodoro.timer);
-            setTimer(userData.pomodoro.timer*60);
-          }
-        })
-        .catch(err => console.log(err));
-    }, [username]);
-
-    useEffect(() => {
-      fetch('http://localhost:5000/api/user/' + username)
-        .then(res => res.json())
-        .then(userData => {
-          if (userData && userData.pomodoro && userData.pomodoro.short) {
-            setShortLength(userData.pomodoro.short);
-            setShortTimer(userData.pomodoro.short*60);
-          }
-        })
-        .catch(err => console.log(err));
-    }, [username]);
-
-    useEffect(() => {
-      fetch('http://localhost:5000/api/user/' + username)
-        .then(res => res.json())
-        .then(userData => {
-          if (userData && userData.pomodoro && userData.pomodoro.long) {
-            setLongLength(userData.pomodoro.long);
-            setLongTimer(userData.pomodoro.long*60);
-          }
-        })
-        .catch(err => console.log(err));
+      if (username !== null) {
+        fetch('http://localhost:5000/api/user/' + username)
+          .then(res => res.json())
+          .then(userData => {
+            if (userData && userData.pomodoro && userData.pomodoro.timer) {
+              setPomoLength(userData.pomodoro.timer);
+              setTimer(userData.pomodoro.timer*60);
+            }
+            if (userData && userData.pomodoro && userData.pomodoro.short) {
+              setShortLength(userData.pomodoro.short);
+              setShortTimer(userData.pomodoro.short*60);
+            }
+            if (userData && userData.pomodoro && userData.pomodoro.long) {
+              setLongLength(userData.pomodoro.long);
+              setLongTimer(userData.pomodoro.long*60);
+            }
+          })
+          .catch(err => console.log(err));
+      }
     }, [username]);
 
     function formatTime(totalSeconds) {

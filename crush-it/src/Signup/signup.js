@@ -96,6 +96,19 @@ function Signup() {
       } else {
         //console.log("Successfully inserted tasks document for user")
       }
+
+      await fetch('http://localhost:5000/api/events/', {
+        method: "PUT",
+        body: JSON.stringify({
+            username: email,
+            access_token: ''
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+      });
+
+
       navigate('/login');
     };
   };

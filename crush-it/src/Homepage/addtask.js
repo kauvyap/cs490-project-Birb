@@ -53,23 +53,23 @@ function AddTask(props) {
 
       if (priority === 'Top') {
         if (topTasks[0] === null) {
-          topTasks = [{dateAssigned: props.dateSelected, title: title, description: description, priority: priority, pomodoroTimers: timers, status: 'NS'}]  
+          topTasks = [{dateAssigned: props.dateSelected, title: title, description: description, priority: priority, pomodoroTimers: timers, completedPomodoroTimers:0,  status: 'NS'}]  
         } else {
-          topTasks.push({dateAssigned: props.dateSelected, title: title, description: description, priority: priority, pomodoroTimers: timers, status: 'NS'})
+          topTasks.push({dateAssigned: props.dateSelected, title: title, description: description, priority: priority, pomodoroTimers: timers, completedPomodoroTimers:0, status: 'NS'})
         }        
       }
       else if (priority === 'Important') {
         if (importantTasks[0] === null) {
-          importantTasks = [{dateAssigned: props.dateSelected, title: title, description: description, priority: priority, pomodoroTimers: timers, status: 'NS'}]  
+          importantTasks = [{dateAssigned: props.dateSelected, title: title, description: description, priority: priority, pomodoroTimers: timers, completedPomodoroTimers:0, status: 'NS'}]  
         } else {
-          importantTasks.push({dateAssigned: props.dateSelected, title: title, description: description, priority: priority, pomodoroTimers: timers, status: 'NS'})
+          importantTasks.push({dateAssigned: props.dateSelected, title: title, description: description, priority: priority, pomodoroTimers: timers, completedPomodoroTimers:0, status: 'NS'})
         }
       }
       else if (priority === 'Other') {
         if (otherTasks[0] === null) {
-          otherTasks = [{dateAssigned: props.dateSelected, title: title, description: description, priority: priority, pomodoroTimers: timers, status: 'NS'}]  
+          otherTasks = [{dateAssigned: props.dateSelected, title: title, description: description, priority: priority, pomodoroTimers: timers, completedPomodoroTimers:0, status: 'NS'}]  
         } else {
-          otherTasks.push({dateAssigned: props.dateSelected, title: title, description: description, priority: priority, pomodoroTimers: timers, status: 'NS'})
+          otherTasks.push({dateAssigned: props.dateSelected, title: title, description: description, priority: priority, pomodoroTimers: timers, completedPomodoroTimers:0, status: 'NS'})
         }
       }
       else{
