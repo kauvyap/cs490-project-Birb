@@ -148,6 +148,7 @@ function DatePicker({onDateSelected}) {
     <Center borderRadius={"10"} w={"98%"} bg="#6284FF26" p={3} height={"8vh"} ml={5}>
 
         <IconButton
+            data-testid="monthLeft"
             variant='outline'
             colorScheme='blue'
             color={ic}
@@ -157,9 +158,9 @@ function DatePicker({onDateSelected}) {
             icon={<IoChevronBackCircleSharp />}
             onClick={() => setPreviousMonth(selectedYear, selectedMonth)}
         />
-        <Menu>
+        <Menu >
         <MenuButton as={Button} width='30vh' variant='outline' colorScheme='blue' ml={1} mr={1} color={ic} size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
-            <Text color={text} p={2} mt={3}>{selectedMonth}</Text>
+            <Text data-testid="month" color={text} p={2} m={3}>{selectedMonth}</Text>
         </MenuButton>
         <MenuList maxH="230px" overflowY="auto" w="auto" overflowX="hidden" fontSize={'xl'}
                 css={`
@@ -189,6 +190,7 @@ function DatePicker({onDateSelected}) {
         </MenuList>
         </Menu>
         <IconButton
+            data-testid="monthRight"
             variant='outline'
             colorScheme='blue'
             color={ic}
@@ -200,6 +202,7 @@ function DatePicker({onDateSelected}) {
         />
 
         <IconButton
+        data-testid="dayLeft"
             variant='outline'
             colorScheme='blue'
             color={ic}
@@ -212,7 +215,7 @@ function DatePicker({onDateSelected}) {
         />
         <Menu>
         <MenuButton as={Button} width='15vh' variant='outline' colorScheme='blue' ml={1} mr={1} color={ic} size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
-            <Text color={text} p={2} mt={3}>{selectedDate}</Text>
+            <Text data-testid="day" color={text} p={2} m={3}>{selectedDate}</Text>
         </MenuButton>
         <MenuList maxH="230px" overflowY="auto" w="auto" overflowX="hidden" fontSize={'xl'}
                 css={`
@@ -235,13 +238,14 @@ function DatePicker({onDateSelected}) {
                   }
         `}>
             {dates.map((date) => (
-            <MenuItem key={date} onClick={() => handleDateClick(date)}>
+            <MenuItem  key={date} onClick={() => handleDateClick(date)}>
               {date}
             </MenuItem>
           ))}
         </MenuList>
         </Menu>
         <IconButton
+            data-testid="dayRight"
             variant='outline'
             colorScheme='blue'
             color={ic}
@@ -253,6 +257,7 @@ function DatePicker({onDateSelected}) {
         />
 
         <IconButton
+            data-testid="yearLeft"
             variant='outline'
             colorScheme='blue'
             color={ic}
@@ -265,7 +270,7 @@ function DatePicker({onDateSelected}) {
         />
         <Menu>
         <MenuButton as={Button} width='20vh' variant='outline' colorScheme='blue' ml={1} mr={1} color={ic} size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
-            <Text color={text} p={2} mt={3}>{selectedYear}</Text>
+            <Text data-testid="year" color={text} p={2} m={3}>{selectedYear}</Text>
         </MenuButton>
         <MenuList maxH="230px" overflowY="auto" w="auto" overflowX="hidden" fontSize={'xl'}
                 css={`
@@ -295,6 +300,7 @@ function DatePicker({onDateSelected}) {
         </MenuList>
         </Menu>
         <IconButton
+            data-testid="yearRight"
             variant='outline'
             colorScheme='blue'
             color={ic}

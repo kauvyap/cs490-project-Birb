@@ -7,17 +7,9 @@ import {IoHourglassOutline, IoChevronDownCircleOutline} from 'react-icons/io5'
 // import {IoIosRadioButtonOff, IoIosCheckmarkCircleOutline, IoIosCloseCircleOutline} from 'react-icons/io'
 import FocusTime from "./focustime";
 
-
-
-
-
 function AppointmentContainer(props){
 
     const { isOpen, onOpen, onClose } = useDisclosure();
-
-    
-
-    
     // const bg = useColorModeValue('#F5F7F9', '#1A202C')
     // const cont = useColorModeValue("white", "#2d3748")
 
