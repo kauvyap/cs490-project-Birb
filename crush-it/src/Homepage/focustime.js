@@ -207,8 +207,7 @@ function FocusTime({isOpen, onClose, title, notes, timers, completedTimers, hand
 
                         <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
                         <ModalOverlay />
-                      <ModalContent maxW="40%" maxH="80%">
-                        <ModalCloseButton />
+                        <ModalContent maxW="40%" maxH="80%">
                         <ModalBody>
                           <Tabs position="relative" variant="unstyled" index={activeTab} onChange={handleTabChange}>
                             <TabList mb="0.5em">
@@ -224,6 +223,7 @@ function FocusTime({isOpen, onClose, title, notes, timers, completedTimers, hand
                                 borderRadius: "3px",
                               }}
                             />
+                            <ModalCloseButton />
                             <TabPanels>
                               <TabPanel>
                                 <Box rounded={8} bg = {bg} alignContent={"center"} p={10} textAlign={"center"}>
