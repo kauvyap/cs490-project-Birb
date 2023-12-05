@@ -160,7 +160,7 @@ function DatePicker({onDateSelected}) {
         />
         <Menu >
         <MenuButton as={Button} width='30vh' variant='outline' colorScheme='blue' ml={1} mr={1} color={ic} size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
-            <Text data-testid="month" color={text} p={2} mt={3}>{selectedMonth}</Text>
+            <Text data-testid="month" color={text} p={2} m={3}>{selectedMonth}</Text>
         </MenuButton>
         <MenuList maxH="230px" overflowY="auto" w="auto" overflowX="hidden" fontSize={'xl'}
                 css={`
@@ -215,7 +215,7 @@ function DatePicker({onDateSelected}) {
         />
         <Menu>
         <MenuButton as={Button} width='15vh' variant='outline' colorScheme='blue' ml={1} mr={1} color={ic} size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
-            <Text data-testid="day" color={text} p={2} mt={3}>{selectedDate}</Text>
+            <Text data-testid="day" color={text} p={2} m={3}>{selectedDate}</Text>
         </MenuButton>
         <MenuList maxH="230px" overflowY="auto" w="auto" overflowX="hidden" fontSize={'xl'}
                 css={`
@@ -270,7 +270,7 @@ function DatePicker({onDateSelected}) {
         />
         <Menu>
         <MenuButton as={Button} width='20vh' variant='outline' colorScheme='blue' ml={1} mr={1} color={ic} size='lg' fontSize={'3xl'} rightIcon={<IoChevronDownCircleOutline />}>
-            <Text data-testid="year" color={text} p={2} mt={3}>{selectedYear}</Text>
+            <Text data-testid="year" color={text} p={2} m={3}>{selectedYear}</Text>
         </MenuButton>
         <MenuList maxH="230px" overflowY="auto" w="auto" overflowX="hidden" fontSize={'xl'}
                 css={`

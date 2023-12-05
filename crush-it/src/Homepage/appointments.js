@@ -8,7 +8,7 @@ function Appointment(){
     //fill list with tasks to do today (do not use 0, use military time (1-24) and the function will convert to regular time)
     //title = string, isFocus = bool,
 
-    var list= [[],["Hello1", true, "many", 0, 4],["Hello", false],["Hell", false],["Hel",true, "notes", 0, 4],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
+    var list= [[],["Hello1", true, "many", 0, 4],["Hello", false],["Hell", false],["Hel",true, "notes", 0, 4],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],["Hello1", true, "many", 0, 4],["Hello", false],["Hell", false],["Hel",true, "notes", 0, 4],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
 
     return (
     <Box borderRadius={"10"} bg={cont} h={"680px"} marginTop={"5px"} overflowY={"auto"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"} 
@@ -54,7 +54,14 @@ function createTable(list){
             if(list[i].length >= 1){
                 child.push(
                     <Tr>
-                        <Td padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}>{i}  AM</Td>
+                        <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}>{i}  AM</Td>
+                        <AppointmentContainer title={list[i][0]} isFocus={list[i][1]} notes={list[i][2]}/>
+                    </Tr>
+                    
+                )
+                child.push(
+                    <Tr>
+                        <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}></Td>
                         <AppointmentContainer title={list[i][0]} isFocus={list[i][1]} notes={list[i][2]}/>
                     </Tr>
                 )
@@ -66,6 +73,11 @@ function createTable(list){
     
                     </Tr>
                 )
+                child.push(
+                    <Tr>
+                        <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}></Td>
+                    </Tr>
+                )
             }
             if(i===4){
                 break;
@@ -75,7 +87,13 @@ function createTable(list){
             if(list[i].length >= 1){
                 child.push(
                     <Tr>
-                        <Td padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}>{i-12}  PM</Td>
+                        <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}>{i-12}  PM</Td>
+                        <AppointmentContainer title={list[i][0]} notes={list[i][2]} remaining={list[i][3]} total={list[i][4]}/>
+                    </Tr>
+                )
+                child.push(
+                    <Tr>
+                        <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}></Td>
                         <AppointmentContainer title={list[i][0]} notes={list[i][2]} remaining={list[i][3]} total={list[i][4]}/>
                     </Tr>
                 )
@@ -84,6 +102,12 @@ function createTable(list){
                 child.push(
                     <Tr>
                         <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}>{i-12}  PM</Td>
+        
+                    </Tr>
+                )
+                child.push(
+                    <Tr>
+                        <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}></Td>
         
                     </Tr>
                 )

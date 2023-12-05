@@ -182,6 +182,9 @@ function TaskContainer(props) {
   // get all topPriority taks
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [elements, setElements] = useState()
+  const [focusTitle, setFocusTitle] = useState();
+  const [focusNotes, setFocusNotes] = useState();
+  const [focusPomo, setFocusPomo] = useState();
   //split into 2d arrays [ [ Title, description, pomoTimer#, status]]
   //status = notStarted, inProgress, finished
   useEffect(() => {
@@ -194,6 +197,13 @@ function TaskContainer(props) {
 
   function onDragOver(e) {
     e.preventDefault()
+  }
+
+  function handleFocus(title, note, pomo){
+    setFocusTitle(title);
+    setFocusNotes(note);
+    setFocusPomo(pomo);
+    onOpen();
   }
 
   function onDrop(ev) {
@@ -251,7 +261,7 @@ function TaskContainer(props) {
                               <Box as="span" flex='1' textAlign='left'>
                                 <Flex  justifyContent={"flex-left"} alignItems={"top"}>
                                 {EditableIcon(list[i][3], props.handleUpdatedIcon, props.category, indices[i])}
-                                <Heading _hover={{bg:"#6284ff14"}} style={{ cursor: 'pointer' }} onClick={onOpen} fontWeight={"700"} fontSize={"16px"} textColor={hd} fontFamily={"'DM Sans', sans-serif"}>{list[i][0]}</Heading>
+                                <Heading _hover={{bg:"#6284ff14"}} style={{ cursor: 'pointer' }} onClick={() =>handleFocus( list[i][0], list[i][1], list[i][2])} fontWeight={"700"} fontSize={"16px"} textColor={hd} fontFamily={"'DM Sans', sans-serif"}>{list[i][0]}</Heading>
                                 </Flex>
                               </Box>
                             </>
@@ -276,8 +286,7 @@ function TaskContainer(props) {
                       )}
                     </AccordionItem>
 
-                </Accordion>
-                <FocusTime isOpen={isOpen} onClose={onClose} title={list[i][0]} notes={list[i][1]} timers={list[i][2]}/>  
+                </Accordion>  
             </Card>
         )
     }
@@ -321,7 +330,9 @@ return(
         </Heading>
         <Box >
         {createCard(elements) }
+        
         </Box>
+        <FocusTime isOpen={isOpen} onClose={onClose} title={focusTitle} notes={focusNotes} timers={focusPomo}/>
     </Card>
 )
 }
