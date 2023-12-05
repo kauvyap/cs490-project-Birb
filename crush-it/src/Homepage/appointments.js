@@ -30,7 +30,7 @@ function Appointment(props){
     var list= [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
 
     useEffect(() => {
-        if (props.username !== null && props.selectedDate !== null && data === null) {
+        if (props.username !== null && props.selectedDate !== null) {
             const dateString = props.selectedDate
             const parsedDate = parse(dateString, "d-MMMM-yyyy", new Date());
             const endOfDayParsed = addDays(parsedDate, 1)
@@ -53,7 +53,7 @@ function Appointment(props){
             
             console.log(data)
         }
-    }, [props.username, props.selectedDate, data])
+    }, [props.username, props.selectedDate])
     
 
 
