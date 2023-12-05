@@ -1,12 +1,11 @@
 const Event = require('../models/eventsModel');
 const mongoose = require('mongoose');
-const axios = require('axios');
 const {google} = require('googleapis');
 
 const oauth2Client = new google.auth.OAuth2(
-    "680743163313-ar6ambpnmgcrl5l1nuilf8vermdic6lv.apps.googleusercontent.com",
-    "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",
-    "http://localhost:3000"
+    process.env.CLIENT_ID,
+    process.env.CLIENT_SECRET,
+    process.env.REDIRECT_URL
 );
 
 
