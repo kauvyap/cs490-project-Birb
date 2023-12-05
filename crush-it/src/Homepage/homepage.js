@@ -244,6 +244,7 @@ function Homepage(){
         .then(data => {setTimerLength(data.pomodoro.timer)})
         .catch((err) => console.log(err))
     }, [username])
+
     
     // const topPriorityList = [["Complete Math Homework", "This is a hw", 1, "FN" ], ["Homework 2","This is a hw", 3, "NS"]];
     // const importantList = [["Homework 1", "This is a hw", 4, "FN" ], ["Homework 7","This is a hw", 2, "CA"]];
@@ -277,7 +278,7 @@ function Homepage(){
               
               </Heading>
 
-            <Appointment></Appointment>
+            <Appointment username={username} selectedDate={selectedDate}></Appointment>
   
           </VStack>
   

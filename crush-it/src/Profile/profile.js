@@ -227,7 +227,7 @@ function Profile() {
 
     return (
     <div>
-      <GoogleOauth/>
+      <GoogleOauth user={user}/>
     <Box p={5} height={"94vh"} bg={bg}>    
       <VStack spacing={4} align="start">
         <Box mt={5} >
