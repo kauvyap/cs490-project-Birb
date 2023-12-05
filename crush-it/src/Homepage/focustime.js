@@ -5,22 +5,20 @@ import { HStack } from "@chakra-ui/react";
 import { Button, Text, Box, Modal, ModalOverlay, ModalContent, ModalFooter, ModalBody, ModalCloseButton,
          Tab, TabList, TabPanel, TabPanels, Tabs, TabIndicator, Flex, useColorModeValue} from '@chakra-ui/react';
 
-function FocusTime({isOpen, onClose, title, notes, timers}) {
+function FocusTime({isOpen, onClose, title, notes, timers, completedTimers, handleCompletedChange, category, index}) {
 
     //const { isOpen, onOpen, onClose } = useDisclosure()
     const bg = useColorModeValue("#F3F3F3", "#1a202c");
     const blueTxt = useColorModeValue('#6284FF', '#90cdf4');
-
-    const [pomoLength, setPomoLength] = useState('');
-    const [shortLength, setShortLength] = useState('');
-    const [longLength, setLongLength] = useState('');
+    const [pomoLength, setPomoLength] = useState('1');
+    const [shortLength, setShortLength] = useState('2');
+    const [longLength, setLongLength] = useState('3');
 
     const [isPaused, setIsPaused] = useState(true);
-    const [timer, setTimer] = useState('');
-    const [shortTimer, setShortTimer] = useState('');
-    const [longTimer, setLongTimer] = useState('');
-
-    const [currentPomo, setCurrentPomo] = useState(0)
+    const [timer, setTimer] = useState(60);
+    const [shortTimer, setShortTimer] = useState(120);
+    const [longTimer, setLongTimer] = useState(180);
+    const [currentPomo, setCurrentPomo] = useState(null)
     const [activeTab, setActiveTab] = useState(0);
 
     const currentTime = new Date();
@@ -38,11 +36,17 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
       setIsPaused(!isPaused);
     };
 
+    // initialize currentPomo with info from DB
+    useEffect(() => {
+      setCurrentPomo(completedTimers)
+    }, completedTimers)
+
+
     // finish at
     useEffect(() => {
       let interval;
 
-      if (isPaused && timeLeft != -1) {
+      if (isPaused && timeLeft !== -1) {
         interval = setInterval(() => {
           console.log('paused', activeTab);
           futureTime.setSeconds(currentTime.getSeconds() + timeLeft);
@@ -95,6 +99,7 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
       } else if (timer === 0) {
         // Timer reached 0 seconds
         setTimer(pomoLength*60);
+        handleCompletedChange(currentPomo + 1, category, index)
         setCurrentPomo(prevPomo => prevPomo + 1);
         setIsPaused(true);
         if ((currentPomo+1) % 4 !== 0) {
@@ -110,7 +115,10 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
     // short break
     useEffect(() => {
       let interval;
+
+      //console.log(currentPomo);
       if (!isPaused && shortTimer > 0 && currentPomo % 4 !== 0 && activeTab === 1) {
+
         interval = setInterval(() => {
           setShortTimer(prevShortTimer => prevShortTimer - 1);
         }, 1000);
@@ -142,7 +150,7 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
       }
       return () => clearInterval(interval);
 
-    }, [isPaused, longTimer, longLength, pomoLength, currentPomo, timer]);
+    }, [isPaused, longTimer, longLength, pomoLength, currentPomo, timer, activeTab]);
 
     const navigate = useNavigate();
     const [username, setUsername] = useState(null);
@@ -159,39 +167,25 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
     }, [navigate])
 
     useEffect(() => {
-      fetch('http://localhost:5000/api/user/' + username)
-        .then(res => res.json())
-        .then(userData => {
-          if (userData && userData.pomodoro && userData.pomodoro.timer) {
-            setPomoLength(userData.pomodoro.timer);
-            setTimer(userData.pomodoro.timer*60);
-          }
-        })
-        .catch(err => console.log(err));
-    }, [username]);
-
-    useEffect(() => {
-      fetch('http://localhost:5000/api/user/' + username)
-        .then(res => res.json())
-        .then(userData => {
-          if (userData && userData.pomodoro && userData.pomodoro.short) {
-            setShortLength(userData.pomodoro.short);
-            setShortTimer(userData.pomodoro.short*60);
-          }
-        })
-        .catch(err => console.log(err));
-    }, [username]);
-
-    useEffect(() => {
-      fetch('http://localhost:5000/api/user/' + username)
-        .then(res => res.json())
-        .then(userData => {
-          if (userData && userData.pomodoro && userData.pomodoro.long) {
-            setLongLength(userData.pomodoro.long);
-            setLongTimer(userData.pomodoro.long*60);
-          }
-        })
-        .catch(err => console.log(err));
+      if (username !== null) {
+        fetch('http://localhost:5000/api/user/' + username)
+          .then(res => res.json())
+          .then(userData => {
+            if (userData && userData.pomodoro && userData.pomodoro.timer) {
+              setPomoLength(userData.pomodoro.timer);
+              setTimer(userData.pomodoro.timer*60);
+            }
+            if (userData && userData.pomodoro && userData.pomodoro.short) {
+              setShortLength(userData.pomodoro.short);
+              setShortTimer(userData.pomodoro.short*60);
+            }
+            if (userData && userData.pomodoro && userData.pomodoro.long) {
+              setLongLength(userData.pomodoro.long);
+              setLongTimer(userData.pomodoro.long*60);
+            }
+          })
+          .catch(err => console.log(err));
+      }
     }, [username]);
 
     function formatTime(totalSeconds) {
@@ -213,14 +207,13 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
 
                         <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
                         <ModalOverlay />
-                      <ModalContent maxW="40%" maxH="80%">
-                        <ModalCloseButton />
+                        <ModalContent maxW="40%" maxH="80%">
                         <ModalBody>
                           <Tabs position="relative" variant="unstyled" index={activeTab} onChange={handleTabChange}>
                             <TabList mb="0.5em">
-                              <Tab fontFamily="DM Sans" fontWeight="bold" _selected={{ color: blueTxt }} mr="4">Pomodoro</Tab>
-                              <Tab fontFamily="DM Sans" fontWeight="bold" _selected={{ color: blueTxt }} mr="4">Short Break</Tab>
-                              <Tab fontFamily="DM Sans" fontWeight="bold" _selected={{ color: blueTxt }}>Long Break</Tab>
+                              <Tab data-testid="pomoTab" fontFamily="DM Sans" fontWeight="bold" _selected={{ color: blueTxt }} mr="4">Pomodoro</Tab>
+                              <Tab data-testid="shortTab" fontFamily="DM Sans" fontWeight="bold" _selected={{ color: blueTxt }} mr="4">Short Break</Tab>
+                              <Tab data-testid="longTab" fontFamily="DM Sans" fontWeight="bold" _selected={{ color: blueTxt }}>Long Break</Tab>
                             </TabList>
                             <TabIndicator
                               sx={{
@@ -230,20 +223,21 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
                                 borderRadius: "3px",
                               }}
                             />
+                            <ModalCloseButton />
                             <TabPanels>
                               <TabPanel>
                                 <Box rounded={8} bg = {bg} alignContent={"center"} p={10} textAlign={"center"}>
-                                  <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>
+                                  <Text data-testid="pomoTimer" fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>
                                     {formatTime(timer)}
                                   </Text>
-                                  <Button borderRadius={"16px"} width={"158px"} height={"54"} background="linear-gradient(180deg, #6284FF 0%, #4B6DE9 100%)" textColor={'white'} size="lg" onClick={handleToggle}>
+                                  <Button data-testid="pomoStart" borderRadius={"16px"} width={"158px"} height={"54"} background="linear-gradient(180deg, #6284FF 0%, #4B6DE9 100%)" textColor={'white'} size="lg" onClick={handleToggle}>
                                     {isPaused ? "Start" : "Pause"}
                                   </Button>
                                 </Box>
-                                <Text mt={5} mb={5} fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"20px"}>{title}</Text>
+                                <Text data-testid="title" mt={5} mb={5} fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"20px"}>{title}</Text>
                                 <Box bg = {bg} p={5} rounded={8}>
                                   <Text fontFamily={"DM Sans"} textColor={blueTxt} fontWeight={"bold"} fontSize={"16px"} mb={3}>Notes:</Text>
-                                  <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"14px"} mb={3}>
+                                  <Text data-testid="note" fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"14px"} mb={3}>
                                     {notes}
                                   </Text>
                                 </Box>
@@ -253,11 +247,11 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
                                       <Text fontFamily="DM Sans" textColor="white" fontWeight="bold" fontSize="20px">
                                         Pomos:
                                       </Text>
-                                      <Text fontFamily="DM Sans" textColor={blueTxt} fontWeight="bold" fontSize="20px">
+                                      <Text data-testid="pomoLeft" fontFamily="DM Sans" textColor={blueTxt} fontWeight="bold" fontSize="20px">
                                         {currentPomo}/{timers}
                                       </Text>
                                       <Text fontFamily="DM Sans" textColor="white" fontWeight="bold" fontSize="20px" ml={8}>
-                                        Finish{currentPomo === timers ? 'ed' : ''} At:
+                                        Finish At:
                                       </Text>
                                       <Text fontFamily="DM Sans" textColor={blueTxt} fontWeight="bold" fontSize="20px">
                                         {finishAt}
@@ -268,22 +262,58 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
                               </TabPanel>
                               <TabPanel>
                                   <Box bg = {bg} borderRadius={8} alignContent={"center"} p={10} textAlign={"center"}>
-                                    <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>
+                                    <Text data-testid="shortTimer" fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>
                                       {formatTime(shortTimer)}
                                     </Text>
-                                    <Button borderRadius={"16px"} width={"158px"} height={"54"} background="linear-gradient(180deg, #6284FF 0%, #4B6DE9 100%)" textColor={'white'} size="lg" onClick={handleToggle}>
+                                    <Button data-testid="shortStart" borderRadius={"16px"} width={"158px"} height={"54"} background="linear-gradient(180deg, #6284FF 0%, #4B6DE9 100%)" textColor={'white'} size="lg" onClick={handleToggle}>
                                       {isPaused ? "Start" : "Pause"}
                                     </Button>
                                   </Box>
+                                  <Box mt={5} bg="black" p={5} rounded={8}>
+                                  <Flex justifyContent="center" alignItems="center" mt={3}>
+                                    <HStack>
+                                      <Text fontFamily="DM Sans" textColor="white" fontWeight="bold" fontSize="20px">
+                                        Pomos:
+                                      </Text>
+                                      <Text data-testid="pomoLeft" fontFamily="DM Sans" textColor={blueTxt} fontWeight="bold" fontSize="20px">
+                                        {currentPomo}/{timers}
+                                      </Text>
+                                      <Text fontFamily="DM Sans" textColor="white" fontWeight="bold" fontSize="20px" ml={8}>
+                                        Finish At:
+                                      </Text>
+                                      <Text fontFamily="DM Sans" textColor={blueTxt} fontWeight="bold" fontSize="20px">
+                                        {finishAt}
+                                      </Text>
+                                    </HStack>
+                                  </Flex>
+                                </Box>
                               </TabPanel>
                               <TabPanel>
                                 <Box bg = {bg} borderRadius={8} alignContent={"center"} p={10} textAlign={"center"}>
-                                  <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>
+                                  <Text data-testid="longTimer" fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>
                                     {formatTime(longTimer)}
                                   </Text>
-                                  <Button borderRadius={"16px"} width={"158px"} height={"54"} background="linear-gradient(180deg, #6284FF 0%, #4B6DE9 100%)" textColor={'white'} size="lg" onClick={handleToggle}>
+                                  <Button data-testid="longStart" borderRadius={"16px"} width={"158px"} height={"54"} background="linear-gradient(180deg, #6284FF 0%, #4B6DE9 100%)" textColor={'white'} size="lg" onClick={handleToggle}>
                                     {isPaused ? "Start" : "Pause"}
                                   </Button>
+                                </Box>
+                                <Box mt={5} bg="black" p={5} rounded={8}>
+                                  <Flex justifyContent="center" alignItems="center" mt={3}>
+                                    <HStack>
+                                      <Text fontFamily="DM Sans" textColor="white" fontWeight="bold" fontSize="20px">
+                                        Pomos:
+                                      </Text>
+                                      <Text data-testid="pomoLeft" fontFamily="DM Sans" textColor={blueTxt} fontWeight="bold" fontSize="20px">
+                                        {currentPomo}/{timers}
+                                      </Text>
+                                      <Text fontFamily="DM Sans" textColor="white" fontWeight="bold" fontSize="20px" ml={8}>
+                                        Finish At:
+                                      </Text>
+                                      <Text fontFamily="DM Sans" textColor={blueTxt} fontWeight="bold" fontSize="20px">
+                                        {finishAt}
+                                      </Text>
+                                    </HStack>
+                                  </Flex>
                                 </Box>
                               </TabPanel>
                             </TabPanels>
