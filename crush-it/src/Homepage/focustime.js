@@ -117,7 +117,7 @@ function FocusTime({isOpen, onClose, title, notes, timers, completedTimers, hand
       let interval;
 
       //console.log(currentPomo);
-      if (!isPaused && shortTimer > 0 && currentPomo % 4 !== 0 && activeTab === 1) {
+      if (!isPaused && shortTimer > 0 && activeTab === 1) {
 
         interval = setInterval(() => {
           setShortTimer(prevShortTimer => prevShortTimer - 1);
@@ -137,7 +137,7 @@ function FocusTime({isOpen, onClose, title, notes, timers, completedTimers, hand
     useEffect(() => {
       let interval;
       
-      if (!isPaused && longTimer > 0 && currentPomo % 4 === 0 && activeTab === 2) {
+      if (!isPaused && longTimer > 0 && activeTab === 2) {
         interval = setInterval(() => {
           setLongTimer(prevLongTimer => prevLongTimer - 1);
         }, 1000);
