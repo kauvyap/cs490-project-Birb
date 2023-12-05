@@ -251,7 +251,7 @@ function FocusTime({isOpen, onClose, title, notes, timers, completedTimers, hand
                                         {currentPomo}/{timers}
                                       </Text>
                                       <Text fontFamily="DM Sans" textColor="white" fontWeight="bold" fontSize="20px" ml={8}>
-                                        Finish At:
+                                        Finish{currentPomo === timers ? 'ed' : ''} At:
                                       </Text>
                                       <Text fontFamily="DM Sans" textColor={blueTxt} fontWeight="bold" fontSize="20px">
                                         {finishAt}
@@ -279,7 +279,7 @@ function FocusTime({isOpen, onClose, title, notes, timers, completedTimers, hand
                                         {currentPomo}/{timers}
                                       </Text>
                                       <Text fontFamily="DM Sans" textColor="white" fontWeight="bold" fontSize="20px" ml={8}>
-                                        Finish At:
+                                        Finish{currentPomo === timers ? 'ed' : ''} At:
                                       </Text>
                                       <Text fontFamily="DM Sans" textColor={blueTxt} fontWeight="bold" fontSize="20px">
                                         {finishAt}
