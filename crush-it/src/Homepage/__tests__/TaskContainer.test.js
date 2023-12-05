@@ -35,11 +35,11 @@ describe('Task Container', () => {
   test('Renders Task container', async () => {
     // Render the Login component within the BrowserRouter and ChakraProvider
     const { getByPlaceholderText, getByText, getByTestId, getByRole } = render(
-      
+      <BrowserRouter>
         <ChakraProvider>
           <Task category='Top Priority' />
         </ChakraProvider>
-      
+        </BrowserRouter>
     );
 
     // Interact with Chakra UI form elements using placeholder text
