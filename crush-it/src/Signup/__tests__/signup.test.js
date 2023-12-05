@@ -8,6 +8,15 @@ import Signup from '../signup.js';
 // Mock the fetch function to simulate a delay
 global.fetch = jest.fn((url, options) => {
   //console.log("in Fetch")
+    if(url === "http://localhost:5000/api/events/"){
+        const { body } = options;
+        const requestBody = JSON.parse(body);
+            return Promise.resolve({
+                ok: true, 
+                status: 200,
+                json: () => Promise.resolve({ message: 'Email or password is incorrect.' }),
+        });
+    }
     if(url === "http://localhost:5000/api/auth/register"){
         const { body } = options;
         const requestBody = JSON.parse(body);

@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import {useGoogleLogin} from '@react-oauth/google';
+import { IoLogoGoogle } from "react-icons/io5";
+import { IconButton} from '@chakra-ui/react';
 
 const GoogleOauth = (props) => {
     const user = props.user;
@@ -30,7 +32,7 @@ const GoogleOauth = (props) => {
 
   return (
     <div>
-        <button style={{background: 'blue', color: 'white'}}onClick={() => login()}>Sign in with google</button>
+        <IconButton marginRight={5} style={{ cursor: 'pointer' }} as={IoLogoGoogle} onClick={() => login()}></IconButton>
     </div>
   );
 }
