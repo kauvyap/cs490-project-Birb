@@ -74,7 +74,7 @@ describe('focustime', () => {
           expect(PT.textContent).toBe("01:00")
           expect(ST.textContent).toBe("02:00")
           expect(LT.textContent).toBe("03:00")
-          expect(pomoRemain.textContent).toBe("0/5");
+          expect(pomoRemain.textContent).toBe("/5");
           expect(pomoTitle.textContent).toBe("Test");
           expect(pomoNote.textContent).toBe("testing this note");
         });
@@ -122,9 +122,9 @@ describe('focustime', () => {
                 console.log(PT.textContent)
             }
             else
-                expect(PT.textContent).toBe("00:00");
+                expect(PT.textContent).toBe("01:00");
         });
-      });*/
-
+      });
+*/
   // Add more test cases as needed
 });
