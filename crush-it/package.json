@@ -60,14 +60,10 @@
     "typescript": "^4.9.5"
   },
   "jest": {
-    "testEnvironment": "jsdom"
-  },
-  "moduleNameMapper": {
-    "\\.(svg)$": "<rootDir>/path/to/identity-obj-proxy.js",
-    "^@/media/edit-2\\.svg$": "<rootDir>/crush-it/src/media/edit-2.svg",
-    "^@/media/fi_7154459\\.svg$": "<rootDir>/crush-it/src/media/fi_7154459.svg",
-    "^@/media/Vector\\.svg$": "<rootDir>/crush-it/src/media/Vector.svg",
-    "^@/media/add-square\\.svg$": "<rootDir>/crush-it/src/media/add-square.svg",
-    "^@/media/minus-square\\.svg$": "<rootDir>/crush-it/src/media/minus-square.svg"
+    "testEnvironment": "jsdom",
+    "moduleNameMapper": {
+      "\\.(svg)$": "D:/Coding/CS490/cs490-project-Birb/crush-it/src/media/identity-obj-proxy.js",
+      "\\.(png)$": "D:/Coding/CS490/cs490-project-Birb/crush-it/src/media/identity-obj-proxy.js"
+    }
   }
 }

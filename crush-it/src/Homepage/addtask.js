@@ -107,7 +107,7 @@ function AddTask(props) {
 
   return (
       <>
-      <IconButton boxSize={39} onClick={onOpen} isRound={true} variant='solid' aria-label='Done' fontSize='15px' fontWeight={"extrabold"} icon={<AddIcon />} ml={4} mb={1.5}
+      <IconButton  boxSize={39} onClick={onOpen} isRound={true} variant='solid' aria-label='Done' fontSize='15px' fontWeight={"extrabold"} icon={<AddIcon />} ml={4} mb={1.5}
                       colorScheme="blue" style={{ background: 'linear-gradient(#5D8EFF 100%, #3E6FE1 100%)', color: 'white' }}/>
 
                         <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
@@ -136,11 +136,9 @@ function AddTask(props) {
                             <HStack w={'100%'} align={"flex-start"} >
                             <FormControl isInvalid={priorityError} isRequired>
                             <FormLabel>Priority</FormLabel>
-                            <Select placeholder='Select priority'  value={priority} onChange={(e) => setPriority(e.target.value)}>
+                            <Select data-testid="select" placeholder='Select priority'  value={priority} onChange={(e) => setPriority(e.target.value)}>
                                 <option value="Top">Top</option>
-                                <option value="Important" selected>
-                                Important
-                                </option>
+                                <option value="Important">Important</option>
                                 <option value="Other">Other</option>
                             </Select>
                             {priorityError && (<FormErrorMessage>Select a valid option.</FormErrorMessage>)}
@@ -148,11 +146,11 @@ function AddTask(props) {
   
                             <FormControl>
                                 <FormLabel># of Pomodoro Timers</FormLabel>
-                                <NumberInput min={1} value={timers} >
-                                  <NumberInputField onChange={(e) => {if (/^\d+$/.test(e.target.value)) {setTimers(e.target.value)}}}/>
+                                <NumberInput  min={1} value={timers} >
+                                  <NumberInputField data-testid="pomoNum" onChange={(e) => {if (/^\d+$/.test(e.target.value)) {setTimers(e.target.value)}}}/>
                                   <NumberInputStepper>
-                                    <NumberIncrementStepper onClick={() => setTimers(1 + Number(timers))}/>
-                                    <NumberDecrementStepper onClick={() => {if (timers > 1) {setTimers(timers - 1)}}}/>
+                                    <NumberIncrementStepper data-testid="add1" onClick={() => setTimers(1 + Number(timers))}/>
+                                    <NumberDecrementStepper data-testid="sub1" onClick={() => {if (timers > 1) {setTimers(timers - 1)}}}/>
                                   </NumberInputStepper>
                                 </NumberInput>
                             </FormControl>
@@ -161,8 +159,8 @@ function AddTask(props) {
                           </ModalBody>
                 
                           <ModalFooter>
-                            <Button variant='ghost'  onClick={onClose}>Cancel</Button>
-                            <Button colorScheme='blue' mr={3} onClick={e => onSubmit(e)}>
+                            <Button data-testid="close" variant='ghost'  onClick={onClose}>Cancel</Button>
+                            <Button data-testid="save" colorScheme='blue' mr={3} onClick={e => onSubmit(e)}>
                               Save
                             </Button>
                           </ModalFooter>
