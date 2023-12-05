@@ -62,7 +62,8 @@
   "jest": {
     "testEnvironment": "jsdom",
     "moduleNameMapper": {
-      "\\.(svg)$": "D:/Coding/CS490/cs490-project-Birb/crush-it/src/media/identity-obj-proxy.js"
+      "\\.(svg)$": "D:/Coding/CS490/cs490-project-Birb/crush-it/src/media/identity-obj-proxy.js",
+      "\\.(png)$": "D:/Coding/CS490/cs490-project-Birb/crush-it/src/media/identity-obj-proxy.js"
     }
   }
 }
