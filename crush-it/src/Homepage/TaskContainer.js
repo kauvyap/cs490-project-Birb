@@ -187,7 +187,7 @@ function TaskContainer(props) {
   useEffect(() => {
     setElements(props.categoryList)
   }, [props.categoryList])
-  //console.log("elements", elements)
+  ////console.log("elements", elements)
 
   const bg = useColorModeValue('#F5F7F9', '#1A202C')
   const hd = useColorModeValue('#6284FF', '#90cdf4');

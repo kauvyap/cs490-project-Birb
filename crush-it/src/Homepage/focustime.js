@@ -11,14 +11,14 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
     const bg = useColorModeValue("#F3F3F3", "#1a202c");
     const blueTxt = useColorModeValue('#6284FF', '#90cdf4');
 
-    const [pomoLength, setPomoLength] = useState('');
-    const [shortLength, setShortLength] = useState('');
-    const [longLength, setLongLength] = useState('');
+    const [pomoLength, setPomoLength] = useState('1');
+    const [shortLength, setShortLength] = useState('2');
+    const [longLength, setLongLength] = useState('3');
 
     const [isPaused, setIsPaused] = useState(true);
-    const [timer, setTimer] = useState('');
-    const [shortTimer, setShortTimer] = useState('');
-    const [longTimer, setLongTimer] = useState('');
+    const [timer, setTimer] = useState(60);
+    const [shortTimer, setShortTimer] = useState(120);
+    const [longTimer, setLongTimer] = useState(180);
 
     const [currentPomo, setCurrentPomo] = useState(0)
     const [activeTab, setActiveTab] = useState(0);
@@ -165,9 +165,9 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
                         <ModalBody>
                           <Tabs position="relative" variant="unstyled" index={activeTab} onChange={handleTabChange}>
                             <TabList mb="0.5em">
-                              <Tab fontFamily="DM Sans" fontWeight="bold" _selected={{ color: blueTxt }} mr="4">Pomodoro</Tab>
-                              <Tab fontFamily="DM Sans" fontWeight="bold" _selected={{ color: blueTxt }} mr="4">Short Break</Tab>
-                              <Tab fontFamily="DM Sans" fontWeight="bold" _selected={{ color: blueTxt }}>Long Break</Tab>
+                              <Tab data-testid="pomoTab" fontFamily="DM Sans" fontWeight="bold" _selected={{ color: blueTxt }} mr="4">Pomodoro</Tab>
+                              <Tab data-testid="shortTab" fontFamily="DM Sans" fontWeight="bold" _selected={{ color: blueTxt }} mr="4">Short Break</Tab>
+                              <Tab data-testid="longTab" fontFamily="DM Sans" fontWeight="bold" _selected={{ color: blueTxt }}>Long Break</Tab>
                             </TabList>
                             <TabIndicator
                               sx={{
@@ -180,17 +180,17 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
                             <TabPanels>
                               <TabPanel>
                                 <Box rounded={8} bg = {bg} alignContent={"center"} p={10} textAlign={"center"}>
-                                  <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>
+                                  <Text data-testid="pomoTimer" fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>
                                     {formatTime(timer)}
                                   </Text>
-                                  <Button borderRadius={"16px"} width={"158px"} height={"54"} background="linear-gradient(180deg, #6284FF 0%, #4B6DE9 100%)" textColor={'white'} size="lg" onClick={handleToggle}>
+                                  <Button data-testid="pomoStart" borderRadius={"16px"} width={"158px"} height={"54"} background="linear-gradient(180deg, #6284FF 0%, #4B6DE9 100%)" textColor={'white'} size="lg" onClick={handleToggle}>
                                     {isPaused ? "Start" : "Pause"}
                                   </Button>
                                 </Box>
-                                <Text mt={5} mb={5} fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"20px"}>{title}</Text>
+                                <Text data-testid="title" mt={5} mb={5} fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"20px"}>{title}</Text>
                                 <Box bg = {bg} p={5} rounded={8}>
                                   <Text fontFamily={"DM Sans"} textColor={blueTxt} fontWeight={"bold"} fontSize={"16px"} mb={3}>Notes:</Text>
-                                  <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"14px"} mb={3}>
+                                  <Text data-testid="note" fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"14px"} mb={3}>
                                     {notes}
                                   </Text>
                                 </Box>
@@ -200,7 +200,7 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
                                       <Text fontFamily="DM Sans" textColor="white" fontWeight="bold" fontSize="20px">
                                         Pomos:
                                       </Text>
-                                      <Text fontFamily="DM Sans" textColor={blueTxt} fontWeight="bold" fontSize="20px">
+                                      <Text data-testid="pomoLeft" fontFamily="DM Sans" textColor={blueTxt} fontWeight="bold" fontSize="20px">
                                         {currentPomo}/{timers}
                                       </Text>
                                       <Text fontFamily="DM Sans" textColor="white" fontWeight="bold" fontSize="20px" ml={8}>
@@ -215,20 +215,20 @@ function FocusTime({isOpen, onClose, title, notes, timers}) {
                               </TabPanel>
                               <TabPanel>
                                   <Box bg = {bg} borderRadius={8} alignContent={"center"} p={10} textAlign={"center"}>
-                                    <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>
+                                    <Text data-testid="shortTimer" fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>
                                       {formatTime(shortTimer)}
                                     </Text>
-                                    <Button borderRadius={"16px"} width={"158px"} height={"54"} background="linear-gradient(180deg, #6284FF 0%, #4B6DE9 100%)" textColor={'white'} size="lg" onClick={handleToggle}>
+                                    <Button data-testid="shortStart" borderRadius={"16px"} width={"158px"} height={"54"} background="linear-gradient(180deg, #6284FF 0%, #4B6DE9 100%)" textColor={'white'} size="lg" onClick={handleToggle}>
                                       {isPaused ? "Start" : "Pause"}
                                     </Button>
                                   </Box>
                               </TabPanel>
                               <TabPanel>
                                 <Box bg = {bg} borderRadius={8} alignContent={"center"} p={10} textAlign={"center"}>
-                                  <Text fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>
+                                  <Text data-testid="longTimer" fontFamily={"DM Sans"} fontWeight={"bold"} fontSize={"100px"}>
                                     {formatTime(longTimer)}
                                   </Text>
-                                  <Button borderRadius={"16px"} width={"158px"} height={"54"} background="linear-gradient(180deg, #6284FF 0%, #4B6DE9 100%)" textColor={'white'} size="lg" onClick={handleToggle}>
+                                  <Button data-testid="longStart" borderRadius={"16px"} width={"158px"} height={"54"} background="linear-gradient(180deg, #6284FF 0%, #4B6DE9 100%)" textColor={'white'} size="lg" onClick={handleToggle}>
                                     {isPaused ? "Start" : "Pause"}
                                   </Button>
                                 </Box>
