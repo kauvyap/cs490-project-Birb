@@ -80,7 +80,7 @@ function Appointment(props){
       };
 
     return (
-    <Box borderRadius={"10"} bg={cont} h={"680px"} marginTop={"5px"} overflowY={"auto"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"} 
+    <Box borderRadius={"10"} bg={cont} h={"680px"} marginmiddle={"5px"} overflowY={"auto"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"} 
                   css={`
                   &::-webkit-scrollbar {
                       width: 6px;
@@ -186,7 +186,7 @@ function CreateTable(list, events){
                 if(lastT !== list[i*2-1][0]){//check if it is a continuation
                     child.push(
                         <Tr key={i}>
-                            <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"} style={{
+                            <Td height={"45px"} padding={4} paddingLeft={4} paddingBottom={6} verticalAlign="middle" width={"80px"} style={{
                             border: isCurrentHour ? `2px solid ${bd}` : 'none',
                         }}>{i}  AM</Td>
                             <AppointmentContainer title={list[i*2-1][0]} isFocus={list[i*2-1][1]} notes={list[i*2-1][2]} isCont={false}/>
@@ -200,7 +200,7 @@ function CreateTable(list, events){
                     if(list[i*2].length < 1 || lastT !== list[i*2][0] ){//It is the end
                     child.push(
                         <Tr>
-                            <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"} style={{
+                            <Td height={"45px"} padding={4} paddingLeft={4} paddingBottom={6} verticalAlign="middle" width={"80px"} style={{
                             border: isCurrentHour ? `2px solid ${bd}` : 'none',
                         }}>{i}  AM</Td>
                             <AppointmentContainer title={""} isFocus={list[i*2-1][1]} notes={list[i*2-1][2]} isCont={true} isEnd={true}/>
@@ -211,7 +211,7 @@ function CreateTable(list, events){
                     else{//It is not the end
                         child.push(
                         <Tr>
-                            <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"} style={{
+                            <Td height={"45px"} padding={4} paddingLeft={4} paddingBottom={6} verticalAlign="middle" width={"80px"} style={{
                             border: isCurrentHour ? `2px solid ${bd}` : 'none',
                         }}>{i}  AM</Td>
                             <AppointmentContainer title={""} isFocus={list[i*2-1][1]} notes={list[i*2-1][2]} isCont={true} isEnd={false}/>
@@ -225,7 +225,7 @@ function CreateTable(list, events){
             else{//no tasks
                 child.push(
                     <Tr>
-                        <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"} style={{
+                        <Td height={"45px"} padding={4} paddingLeft={4} paddingBottom={6} verticalAlign="middle" width={"80px"} style={{
                             border: isCurrentHour ? `2px solid ${bd}` : 'none',
                         }}>{i}  AM</Td>
                     </Tr>
@@ -236,7 +236,7 @@ function CreateTable(list, events){
                 if(lastT !== list[i*2][0]){
                     child.push(
                         <Tr>
-                            <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"} style={{
+                            <Td height={"45px"} padding={4} paddingLeft={4} paddingBottom={6} verticalAlign="middle" width={"80px"} style={{
                             border: isCurrentHour ? `2px solid ${bd}` : 'none',
                         }}></Td>
                             <AppointmentContainer title={list[i*2][0]} isFocus={list[i*2][1]} notes={list[i*2][2]} isCont={false}/>
@@ -249,7 +249,7 @@ function CreateTable(list, events){
                     if(list[i*2+1].length < 1 || lastT !== list[i*2][0] ){
                     child.push(
                         <Tr>
-                            <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"} style={{
+                            <Td height={"45px"} padding={4} paddingLeft={4} paddingBottom={6} verticalAlign="middle" width={"80px"} style={{
                             border: isCurrentHour ? `2px solid ${bd}` : 'none',
                         }}></Td>
                             <AppointmentContainer title={""} isFocus={list[i*2][1]} notes={list[i*2][2]} isCont={true} isEnd={true}/>
@@ -258,7 +258,7 @@ function CreateTable(list, events){
                     else{
                         child.push(
                         <Tr>
-                            <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"} style={{
+                            <Td height={"45px"} padding={4} paddingLeft={4} paddingBottom={6} verticalAlign="middle" width={"80px"} style={{
                             border: isCurrentHour ? `2px solid ${bd}` : 'none',
                         }}></Td>
                             <AppointmentContainer title={""} isFocus={list[i*2][1]} notes={list[i*2][2]} isCont={true} isEnd={false}/>
@@ -271,7 +271,7 @@ function CreateTable(list, events){
             else{
                 child.push(
                     <Tr>
-                        <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"} style={{
+                        <Td height={"45px"} padding={4} paddingLeft={4} paddingBottom={6} verticalAlign="middle" width={"80px"} style={{
                             border: isCurrentHour ? `2px solid ${bd}` : 'none',
                         }}></Td>
                     </Tr>
@@ -286,7 +286,7 @@ function CreateTable(list, events){
                 if(lastT !== list[i*2-1][0]){//check if it is a cont
                     child.push(
                         <Tr>
-                            <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}
+                            <Td height={"45px"} padding={4} paddingLeft={4} paddingBottom={6} verticalAlign="middle" width={"80px"}
                             style={{ border: isCurrentHour ? `2px solid ${bd}` : 'none'}}>{i-12}  PM</Td>
                             <AppointmentContainer title={list[i*2-1][0]} notes={list[i*2-1][2]} remaining={list[i*2-1][3]} total={list[i][4]} isCont={false}/>
                         </Tr>
@@ -297,7 +297,7 @@ function CreateTable(list, events){
                     if(list[i*2].length < 1 || lastT !== list[i*2][0] ){//check if it is the end
                     child.push(
                         <Tr>
-                            <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}
+                            <Td height={"45px"} padding={4} paddingLeft={4} paddingBottom={6} verticalAlign="middle" width={"80px"}
                             style={{ border: isCurrentHour ? `2px solid ${bd}` : 'none'}}>{i-12}  PM</Td>
                             <AppointmentContainer title={""} notes={list[i*2-1][2]} remaining={list[i*2-1][3]} total={list[i*2-1][4]} isCont={true} isEnd={true}/>
                         </Tr>
@@ -306,7 +306,7 @@ function CreateTable(list, events){
                     else{
                         child.push(
                             <Tr>
-                                <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}
+                                <Td height={"45px"} padding={4} paddingLeft={4} paddingBottom={6} verticalAlign="middle" width={"80px"}
                                 style={{ border: isCurrentHour ? `2px solid ${bd}` : 'none'}}>{i-12}  PM</Td>
                                 <AppointmentContainer title={""} notes={list[i*2-1][2]} remaining={list[i*2-1][3]} total={list[i*2-1][4]} isCont={true} isEnd={false}/>
                             </Tr>
@@ -319,7 +319,7 @@ function CreateTable(list, events){
             else{
                 child.push(
                     <Tr>
-                        <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}
+                        <Td height={"45px"} padding={4} paddingLeft={4} paddingBottom={6} verticalAlign="middle" width={"80px"}
                         style={{ border: isCurrentHour ? `2px solid ${bd}` : 'none'}}>{i-12}  PM</Td>
         
                     </Tr>
@@ -330,7 +330,7 @@ function CreateTable(list, events){
                     boolIsCont = true
                     child.push(
                         <Tr>
-                            <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}></Td>
+                            <Td height={"45px"} padding={4} paddingLeft={4} paddingBottom={6} verticalAlign="middle" width={"80px"}></Td>
                             <AppointmentContainer title={list[i*2][0]} notes={list[i*2][2]} remaining={list[i*2][3]} total={list[i*2][4]} isCont={false}/>
                         </Tr>
                     )
@@ -339,14 +339,14 @@ function CreateTable(list, events){
                     if(list[i*2+1].length < 1 || lastT !== list[i*2][0] ){//check if next is also equal
                     child.push(
                         <Tr>
-                            <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}></Td>
+                            <Td height={"45px"} padding={4} paddingLeft={4} paddingBottom={6} verticalAlign="middle" width={"80px"}></Td>
                             <AppointmentContainer title={""} notes={list[i*2][2]} remaining={list[i*2][3]} total={list[i*2][4]} isCont={true} isEnd={true}/>
                         </Tr>
                     )}
                     else{
                         child.push(
                             <Tr>
-                                <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}></Td>
+                                <Td height={"45px"} padding={4} paddingLeft={4} paddingBottom={6} verticalAlign="middle" width={"80px"}></Td>
                                 <AppointmentContainer title={""} notes={list[i*2][2]} remaining={list[i*2][3]} total={list[i*2][4]} isCont={true} isEnd={false}/>
                             </Tr>
                         )
@@ -358,7 +358,7 @@ function CreateTable(list, events){
             else{
                 child.push(
                 <Tr>
-                        <Td height={"45px"} padding={0} paddingLeft={6} paddingBottom={6} verticalAlign="top" width={"80px"}></Td>
+                        <Td height={"45px"} padding={4} paddingLeft={4} paddingBottom={6} verticalAlign="middle" width={"80px"}></Td>
                 </Tr>
                 )
             }
@@ -369,14 +369,15 @@ function CreateTable(list, events){
     }
 
     return(
-        <Table variant='unstyled' key={list}>
-            <Tbody >
-                {child.map((el, index)=> 
-                    <div key={index}>{el}</div>
-                    )}
-            </Tbody>
-            
-        </Table>
+        <Box p={4}>
+            <Table variant='unstyled' key={list}>
+                <Tbody >
+                    {child.map((el, index)=> 
+                        <div key={index}>{el}</div>
+                        )}
+                </Tbody>    
+            </Table>
+        </Box>
     )
 }
 
