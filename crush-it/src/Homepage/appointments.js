@@ -175,10 +175,13 @@ function CreateTable(list, events){
         const conditionHour = i;
         const conditionValue = `${conditionHour}:${String(currentTime.getMinutes()).padStart(2, '0')}`;
         const isCurrentHour = formattedTime === conditionValue;
+        const currentHour = parseInt(formattedTime.split(':')[0], 10);
+        const hourPassed = conditionHour < currentHour
 
         console.log('Current Time:', formattedTime);
         console.log('Condition Value:', conditionValue);
         console.log(`Hour ${conditionHour}:`, isCurrentHour);
+        console.log(`HourPassed ${conditionHour} ${currentHour}:`, hourPassed);
 
       
         if (i <= 12) {//hours before 12 AM
@@ -188,7 +191,7 @@ function CreateTable(list, events){
                         <Tr key={i}>
                             <Td height={"45px"} padding={4} paddingLeft={4} paddingBottom={6} verticalAlign="middle" width={"80px"} style={{
                             border: isCurrentHour ? `2px solid ${bd}` : 'none',
-                        }}>{i}  AM</Td>
+                        }}>{i === 12 ? `${i} PM` : i > 12 ? `${i - 12} PM` : `${i} AM`}</Td>
                             <AppointmentContainer title={list[i*2-1][0]} isFocus={list[i*2-1][1]} notes={list[i*2-1][2]} isCont={false}/>
                         </Tr>
                         
@@ -202,7 +205,7 @@ function CreateTable(list, events){
                         <Tr>
                             <Td height={"45px"} padding={4} paddingLeft={4} paddingBottom={6} verticalAlign="middle" width={"80px"} style={{
                             border: isCurrentHour ? `2px solid ${bd}` : 'none',
-                        }}>{i}  AM</Td>
+                        }}>{i === 12 ? `${i} PM` : i > 12 ? `${i - 12} PM` : `${i} AM`}</Td>
                             <AppointmentContainer title={""} isFocus={list[i*2-1][1]} notes={list[i*2-1][2]} isCont={true} isEnd={true}/>
                         </Tr>
                         
@@ -213,7 +216,7 @@ function CreateTable(list, events){
                         <Tr>
                             <Td height={"45px"} padding={4} paddingLeft={4} paddingBottom={6} verticalAlign="middle" width={"80px"} style={{
                             border: isCurrentHour ? `2px solid ${bd}` : 'none',
-                        }}>{i}  AM</Td>
+                        }}>{i === 12 ? `${i} PM` : i > 12 ? `${i - 12} PM` : `${i} AM`}</Td>
                             <AppointmentContainer title={""} isFocus={list[i*2-1][1]} notes={list[i*2-1][2]} isCont={true} isEnd={false}/>
                         </Tr>)
                     }
@@ -227,7 +230,7 @@ function CreateTable(list, events){
                     <Tr>
                         <Td height={"45px"} padding={4} paddingLeft={4} paddingBottom={6} verticalAlign="middle" width={"80px"} style={{
                             border: isCurrentHour ? `2px solid ${bd}` : 'none',
-                        }}>{i}  AM</Td>
+                        }}>{i === 12 ? `${i} PM` : i > 12 ? `${i - 12} PM` : `${i} AM`}</Td>
                     </Tr>
                 )
             }
@@ -287,7 +290,7 @@ function CreateTable(list, events){
                     child.push(
                         <Tr>
                             <Td height={"45px"} padding={4} paddingLeft={4} paddingBottom={6} verticalAlign="middle" width={"80px"}
-                            style={{ border: isCurrentHour ? `2px solid ${bd}` : 'none'}}>{i-12}  PM</Td>
+                            style={{ border: isCurrentHour ? `2px solid ${bd}` : 'none'}}>{i === 24 ? '12 AM' : i > 12 ? `${i - 12} PM` : `${i} AM`}</Td>
                             <AppointmentContainer title={list[i*2-1][0]} notes={list[i*2-1][2]} remaining={list[i*2-1][3]} total={list[i][4]} isCont={false}/>
                         </Tr>
                     )
@@ -298,7 +301,7 @@ function CreateTable(list, events){
                     child.push(
                         <Tr>
                             <Td height={"45px"} padding={4} paddingLeft={4} paddingBottom={6} verticalAlign="middle" width={"80px"}
-                            style={{ border: isCurrentHour ? `2px solid ${bd}` : 'none'}}>{i-12}  PM</Td>
+                            style={{ border: isCurrentHour ? `2px solid ${bd}` : 'none'}}>{i === 24 ? '12 AM' : i > 12 ? `${i - 12} PM` : `${i} AM`}</Td>
                             <AppointmentContainer title={""} notes={list[i*2-1][2]} remaining={list[i*2-1][3]} total={list[i*2-1][4]} isCont={true} isEnd={true}/>
                         </Tr>
                     )
@@ -307,7 +310,7 @@ function CreateTable(list, events){
                         child.push(
                             <Tr>
                                 <Td height={"45px"} padding={4} paddingLeft={4} paddingBottom={6} verticalAlign="middle" width={"80px"}
-                                style={{ border: isCurrentHour ? `2px solid ${bd}` : 'none'}}>{i-12}  PM</Td>
+                                style={{ border: isCurrentHour ? `2px solid ${bd}` : 'none'}}>{i === 24 ? '12 AM' : i > 12 ? `${i - 12} PM` : `${i} AM`}</Td>
                                 <AppointmentContainer title={""} notes={list[i*2-1][2]} remaining={list[i*2-1][3]} total={list[i*2-1][4]} isCont={true} isEnd={false}/>
                             </Tr>
                         )
@@ -320,7 +323,7 @@ function CreateTable(list, events){
                 child.push(
                     <Tr>
                         <Td height={"45px"} padding={4} paddingLeft={4} paddingBottom={6} verticalAlign="middle" width={"80px"}
-                        style={{ border: isCurrentHour ? `2px solid ${bd}` : 'none'}}>{i-12}  PM</Td>
+                        style={{ border: isCurrentHour ? `2px solid ${bd}` : 'none'}}>{i === 24 ? '12 AM' : i > 12 ? `${i - 12} PM` : `${i} AM`}</Td>
         
                     </Tr>
                 )
