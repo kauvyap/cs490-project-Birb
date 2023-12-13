@@ -12,6 +12,8 @@ function AppointmentContainer(props){
     const { isOpen, onOpen, onClose } = useDisclosure();
     // const bg = useColorModeValue('#F5F7F9', '#1A202C')
     const cont = useColorModeValue("white", "#2d3748")
+    const passedFocus = useColorModeValue("#f3f6ff", "#243064") //use to gray out passed focus time
+
 
     return (
              <Td padding={0} width={"88%"} style={{ backgroundColor: `${cont}`}}>
