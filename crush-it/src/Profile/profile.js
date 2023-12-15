@@ -227,18 +227,21 @@ function Profile() {
 
     return (
     <div>
-      <GoogleOauth/>
+      
     <Box p={5} height={"94vh"} bg={bg}>    
       <VStack spacing={4} align="start">
-        <Box mt={5} >
-          <UploadAvatar></UploadAvatar>
+        <Box mt={3} >
         </Box>
         <Box w="100%" mt={10}>
         <Flex justifyContent="space-between" width="100%" mb={2}>
           <Heading as="h2" size="md">
             User Info
+            <UploadAvatar></UploadAvatar>
           </Heading>
+          
           <Flex alignItems="center">
+            
+            <GoogleOauth user={user}/>
             <FormLabel mb={0} mr={2}>
               {themeLabel}
             </FormLabel>

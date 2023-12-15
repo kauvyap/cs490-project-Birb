@@ -7,14 +7,20 @@
     "@chakra-ui/react": "^2.8.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@googleapis/calendar": "^9.4.0",
     "@react-oauth/google": "^0.12.1",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.6.2",
+    "axis": "^1.0.0",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.2",
+    "buffer": "^6.0.3",
+    "date-fns": "^2.30.0",
     "framer-motion": "^10.16.4",
     "googleapis": "^129.0.0",
+    "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
     "react-avatar-editor": "^14.0.0-beta.5",
     "react-dom": "^18.2.0",
@@ -23,6 +29,7 @@
     "react-router": "^6.17.0",
     "react-router-dom": "^6.17.0",
     "react-scripts": "5.0.1",
+    "util": "^0.12.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -60,14 +67,10 @@
     "typescript": "^4.9.5"
   },
   "jest": {
-    "testEnvironment": "jsdom"
-  },
-  "moduleNameMapper": {
-    "\\.(svg)$": "<rootDir>/path/to/identity-obj-proxy.js",
-    "^@/media/edit-2\\.svg$": "<rootDir>/crush-it/src/media/edit-2.svg",
-    "^@/media/fi_7154459\\.svg$": "<rootDir>/crush-it/src/media/fi_7154459.svg",
-    "^@/media/Vector\\.svg$": "<rootDir>/crush-it/src/media/Vector.svg",
-    "^@/media/add-square\\.svg$": "<rootDir>/crush-it/src/media/add-square.svg",
-    "^@/media/minus-square\\.svg$": "<rootDir>/crush-it/src/media/minus-square.svg"
+    "testEnvironment": "jsdom",
+    "moduleNameMapper": {
+      "\\.(svg)$": "D:/Coding/CS490/cs490-project-Birb/crush-it/src/media/identity-obj-proxy.js",
+      "\\.(png)$": "D:/Coding/CS490/cs490-project-Birb/crush-it/src/media/identity-obj-proxy.js"
+    }
   }
 }

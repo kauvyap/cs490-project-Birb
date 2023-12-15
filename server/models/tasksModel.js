@@ -8,6 +8,7 @@ const subTasksSchema = new Schema({
     description: String,
     priority: String,
     pomodoroTimers: Number,
+    completedPomodoroTimers: Number,
     status: String
 })
 

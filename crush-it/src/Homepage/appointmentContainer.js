@@ -7,17 +7,9 @@ import {IoHourglassOutline, IoChevronDownCircleOutline} from 'react-icons/io5'
 // import {IoIosRadioButtonOff, IoIosCheckmarkCircleOutline, IoIosCloseCircleOutline} from 'react-icons/io'
 import FocusTime from "./focustime";
 
-
-
-
-
 function AppointmentContainer(props){
 
     const { isOpen, onOpen, onClose } = useDisclosure();
-
-    
-
-    
     // const bg = useColorModeValue('#F5F7F9', '#1A202C')
     // const cont = useColorModeValue("white", "#2d3748")
 
@@ -25,7 +17,6 @@ function AppointmentContainer(props){
              <Td padding={0} width={"88%"}>
                 
                 {props.isFocus? (
-                
                 <Flex justifyContent={"center"} border={"2px solid #6284FF"} _hover={{bg:"#6284ff14"}} width={"95%"} bg={"white"} marginLeft={4} height={45} maxH={"100px"} overflowY={"auto"}>
                     <Flex justifyContent={"flex-left"} alignItems={"center"} style={{ cursor: 'pointer' }} onClick={onOpen}>
                         <Heading margin={3} textAlign={"center"} fontSize={"14px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"}>
@@ -48,6 +39,31 @@ function AppointmentContainer(props){
                 </Flex>
                 ) : 
                 (
+                    <>
+                    {props.isCont? (
+                        <>
+                        {props.isEnd? (
+                            <Flex justifyContent={"center"} borderRight={"2px solid #E2EAF1"} borderLeft={"2px solid #E2EAF1"} borderBottom={"2px solid #E2EAF1"} width={"95%"} bg={"white"} marginLeft={4} height={45} maxH={"100px"} overflowY={"auto"}>
+                            <Flex justifyContent={"flex-left"} alignItems={"center"}>
+                                <Heading  padding={3} fontSize={"14px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"}>
+                                    {props.title}
+                                </Heading>
+                            </Flex>
+                            <Spacer></Spacer>
+                            </Flex>
+                        ):(
+                            <Flex justifyContent={"center"} borderRight={"2px solid #E2EAF1"} borderLeft={"2px solid #E2EAF1"} width={"95%"} bg={"white"} marginLeft={4} height={45} maxH={"100px"} overflowY={"auto"}>
+                            <Flex justifyContent={"flex-left"} alignItems={"center"}>
+                                <Heading  padding={3} fontSize={"14px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"}>
+                                    {props.title}
+                                </Heading>
+                            </Flex>
+                            <Spacer></Spacer>
+                            </Flex>
+                        )}
+                        
+                        </>
+                    ):(
                     <Flex justifyContent={"center"} border={"2px solid #E2EAF1"} width={"95%"} bg={"white"} marginLeft={4} height={45} maxH={"100px"} overflowY={"auto"}>
                         <Flex justifyContent={"flex-left"} alignItems={"center"}>
                             <Heading  padding={3} fontSize={"14px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"}>
@@ -56,7 +72,9 @@ function AppointmentContainer(props){
                         </Flex>
                         <Spacer></Spacer>
                     </Flex>
-
+                    )}
+                    
+                    </>
                 ) 
                 
                 } 

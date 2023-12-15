@@ -182,12 +182,16 @@ function TaskContainer(props) {
   // get all topPriority taks
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [elements, setElements] = useState()
+  const [focusTitle, setFocusTitle] = useState();
+  const [focusNotes, setFocusNotes] = useState();
+  const [focusPomo, setFocusPomo] = useState();
+  const [focusCompletedPomo, setFocusCompletedPomo] = useState();
   //split into 2d arrays [ [ Title, description, pomoTimer#, status]]
   //status = notStarted, inProgress, finished
   useEffect(() => {
     setElements(props.categoryList)
   }, [props.categoryList])
-  console.log("elements", elements)
+  //console.log("elements", elements)
 
   const bg = useColorModeValue('#F5F7F9', '#1A202C')
   const hd = useColorModeValue('#6284FF', '#90cdf4');
@@ -196,13 +200,21 @@ function TaskContainer(props) {
     e.preventDefault()
   }
 
+  function handleFocus(title, note, pomo, completedPomo){
+    setFocusTitle(title);
+    setFocusNotes(note);
+    setFocusPomo(pomo);
+    setFocusCompletedPomo(completedPomo)
+    onOpen();
+  }
+
   function onDrop(ev) {
     let id = ev.dataTransfer.getData("id")
     let originalCategory = ev.dataTransfer.getData("category")
-    console.log("hello")
-    console.log("target", props.category)
-    console.log("drag", props.categoryList[id])
-    console.log("original", originalCategory)
+    //console.log("hello")
+    //console.log("target", props.category)
+    //console.log("drag", props.categoryList[id])
+    //console.log("original", originalCategory)
     if (originalCategory !== props.category) {
       props.handleDrop(id, originalCategory, props.category)
     }
@@ -212,14 +224,14 @@ function TaskContainer(props) {
   const createCard = (elements) => {
     // create all card views inside of elements
     // [["Complete Math Homework", "This is a hw", 1, "FN"]]
-    console.log("card", elements)
+    //console.log("card", elements)
     var list = []
     var indices = []
     if (typeof elements !== 'undefined') {
       if (elements[0] !== null) {
         Object.keys(elements).map((element) => {
           if (props.dateSelected === elements[element].dateAssigned) {
-            list.push([elements[element].title, elements[element].description, elements[element].pomodoroTimers, elements[element].status])
+            list.push([elements[element].title, elements[element].description, elements[element].pomodoroTimers, elements[element].status, elements[element].completedPomodoroTimers])
             indices.push(element)
           }
           return null
@@ -229,7 +241,7 @@ function TaskContainer(props) {
     var cards = []
 
     function onDragStart(ev, i, category, categoryList) {
-      console.log("dragstart", i)
+      //console.log("dragstart", i)
       ev.dataTransfer.setData("id", i)
       ev.dataTransfer.setData("category", category)
       ev.dataTransfer.setData("categoryList", categoryList)
@@ -251,7 +263,7 @@ function TaskContainer(props) {
                               <Box as="span" flex='1' textAlign='left'>
                                 <Flex  justifyContent={"flex-left"} alignItems={"top"}>
                                 {EditableIcon(list[i][3], props.handleUpdatedIcon, props.category, indices[i])}
-                                <Heading _hover={{bg:"#6284ff14"}} style={{ cursor: 'pointer' }} onClick={onOpen} fontWeight={"700"} fontSize={"16px"} textColor={hd} fontFamily={"'DM Sans', sans-serif"}>{list[i][0]}</Heading>
+                                <Heading _hover={{bg:"#6284ff14"}} style={{ cursor: 'pointer' }} onClick={() =>handleFocus( list[i][0], list[i][1], list[i][2], list[i][4])} fontWeight={"700"} fontSize={"16px"} textColor={hd} fontFamily={"'DM Sans', sans-serif"}>{list[i][0]}</Heading>
                                 </Flex>
                               </Box>
                             </>
@@ -271,13 +283,13 @@ function TaskContainer(props) {
                             <Box height={"1px"} width={"100%"} bg={"#E2EAF1"} marginBottom={"2"}></Box>
                             {EditablePomo(list[i][2], props.timerLength, props.handleUpdatedPomo, props.category, indices[i])}
                             {EditableNote(list[i][1], props.handleUpdatedDescription, props.category, indices[i])}
+                            <FocusTime isOpen={isOpen} onClose={onClose} title={focusTitle} notes={focusNotes} timers={focusPomo} completedTimers={focusCompletedPomo} handleCompletedChange={props.handleCompletedChange} category={props.category} index={indices[i]}/>
                           </AccordionPanel>
                         </>
                       )}
                     </AccordionItem>
 
-                </Accordion>
-                <FocusTime isOpen={isOpen} onClose={onClose} title={list[i][0]} notes={list[i][1]} timers={list[i][2]}/>  
+                </Accordion>  
             </Card>
         )
     }
@@ -296,7 +308,7 @@ function TaskContainer(props) {
 
 return(
              
-    <Card borderRadius={"8"} bg={bg} Width={"100%"} height={200} maxH={"200px"} p={5} marginBottom={5} overflowY={"auto"} onDragOver={(e) => onDragOver(e)} onDrop={(e) => onDrop(e, props.category, props.categoryList)}
+    <Card borderRadius={"8"} bg={bg} width={"100%"} height={200} maxH={"200px"} p={5} marginBottom={5} overflowY={"auto"} onDragOver={(e) => onDragOver(e)} onDrop={(e) => onDrop(e, props.category, props.categoryList)}
     css={`
                 &::-webkit-scrollbar {
                     width: 8px;
@@ -321,6 +333,7 @@ return(
         </Heading>
         <Box >
         {createCard(elements) }
+        
         </Box>
     </Card>
 )

@@ -50,7 +50,7 @@ function Signup() {
     // Implement your login logic here
 
     if (!emailRegex.test(email)) {
-      console.log("Invalid email format")
+      //console.log("Invalid email format")
       setEmailError(true);
 
       return;
@@ -58,16 +58,16 @@ function Signup() {
 
     
     if (password.length < 8) {
-      console.log("Password must be at least 8 characters");
+      //console.log("Password must be at least 8 characters");
       setPasswordLengthError(true);
       return;
     }
     if (!specialRegex.test(password) || !lowerRegex.test(password) || !upperRegex.test(password) || !digitRegex.test(password)) {
-      console.log("Passwords must contain a mix of uppercase letters, lowercase letters, numbers, and symbols");
+      //console.log("Passwords must contain a mix of uppercase letters, lowercase letters, numbers, and symbols");
       return;
     }
     if (password !== confirmPassword) {
-      console.log("Passwords must match");
+      //console.log("Passwords must match");
       return;
     }
 
@@ -80,7 +80,7 @@ function Signup() {
     })
     if(!response.ok) {
       if (response.status === 400) {
-        console.log("Email already being used");
+        //console.log("Email already being used");
         setEmailSameError(true);
       }
     } else {
@@ -92,10 +92,23 @@ function Signup() {
         body: JSON.stringify({username: email})
       })
       if (!taskResponse.ok) {
-        console.log("Error inserting tasks document for user")
+        //console.log("Error inserting tasks document for user")
       } else {
-        console.log("Successfully inserted tasks document for user")
+        //console.log("Successfully inserted tasks document for user")
       }
+
+      await fetch('http://localhost:5000/api/events/', {
+        method: "PUT",
+        body: JSON.stringify({
+            username: email,
+            access_token: ''
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+      });
+
+
       navigate('/login');
     };
   };
@@ -136,7 +149,7 @@ function Signup() {
 
     if (!passwordLengthError && password.length !== 0) {
       if (!specialRegex.test(password) || !lowerRegex.test(password) || !upperRegex.test(password) || !digitRegex.test(password)) {
-        console.log("True")
+        //console.log("True")
         setComboError(true)
       }
     }

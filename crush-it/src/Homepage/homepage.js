@@ -22,6 +22,7 @@ function Homepage(){
     const [topTasks, setTopTasks] = useState([])
     const [importantTasks, setImportantTasks] = useState([])
     const [otherTasks, setOtherTasks] = useState([])
+
     
     //handle the date change
     const handleSelected = (date) => {
@@ -47,15 +48,15 @@ function Homepage(){
         var important = importantTasks
         var other = otherTasks
         if (category === 'Top Priority') {
-            edit = {dateAssigned: topTasks[i].dateAssigned, title: topTasks[i].title, description: topTasks[i].description, pomodoroTimers: pomo, priority: topTasks[i].priority, status: topTasks[i].status}
+            edit = {dateAssigned: topTasks[i].dateAssigned, title: topTasks[i].title, description: topTasks[i].description, pomodoroTimers: pomo, completedPomodoroTimers:topTasks[i].completedPomodoroTimers, priority: topTasks[i].priority, status: topTasks[i].status}
             top[i] = edit
         }
         if (category === 'Important') {
-            edit = {dateAssigned: importantTasks[i].dateAssigned, title: importantTasks[i].title, description: importantTasks[i].description, pomodoroTimers: pomo, priority: importantTasks[i].priority, status: importantTasks[i].status}
+            edit = {dateAssigned: importantTasks[i].dateAssigned, title: importantTasks[i].title, description: importantTasks[i].description, pomodoroTimers: pomo, completedPomodoroTimers:importantTasks[i].completedPomodoroTimers, priority: importantTasks[i].priority, status: importantTasks[i].status}
             important[i] = edit
         }
         if (category === 'Other') {
-            edit = {dateAssigned: otherTasks[i].dateAssigned, title: otherTasks[i].title, description: otherTasks[i].description, pomodoroTimers: pomo, priority: otherTasks[i].priority, status: otherTasks[i].status}
+            edit = {dateAssigned: otherTasks[i].dateAssigned, title: otherTasks[i].title, description: otherTasks[i].description, pomodoroTimers: pomo, completedPomodoroTimers:otherTasks[i].completedPomodoroTimers, priority: otherTasks[i].priority, status: otherTasks[i].status}
             other[i] = edit
         }
         const response = await fetch('http://localhost:5000/api/tasks/' + username, {
@@ -85,15 +86,15 @@ function Homepage(){
         var important = importantTasks
         var other = otherTasks
         if (category === 'Top Priority') {
-            edit = {dateAssigned: topTasks[i].dateAssigned, title: topTasks[i].title, description: description, pomodoroTimers: topTasks[i].pomodoroTimers, priority: topTasks[i].priority, status: topTasks[i].status}
+            edit = {dateAssigned: topTasks[i].dateAssigned, title: topTasks[i].title, description: description, pomodoroTimers: topTasks[i].pomodoroTimers, completedPomodoroTimers:topTasks[i].completedPomodoroTimers, priority: topTasks[i].priority, status: topTasks[i].status}
             top[i] = edit
         }
         if (category === 'Important') {
-            edit = {dateAssigned: importantTasks[i].dateAssigned, title: importantTasks[i].title, description: description, pomodoroTimers: importantTasks[i].pomodoroTimers, priority: importantTasks[i].priority, status: importantTasks[i].status}
+            edit = {dateAssigned: importantTasks[i].dateAssigned, title: importantTasks[i].title, description: description, pomodoroTimers: importantTasks[i].pomodoroTimers, completedPomodoroTimers:importantTasks[i].completedPomodoroTimers, priority: importantTasks[i].priority, status: importantTasks[i].status}
             important[i] = edit
         }
         if (category === 'Other') {
-            edit = {dateAssigned: otherTasks[i].dateAssigned, title: otherTasks[i].title, description: description, pomodoroTimers: otherTasks[i].pomodoroTimers, priority: otherTasks[i].priority, status: otherTasks[i].status}
+            edit = {dateAssigned: otherTasks[i].dateAssigned, title: otherTasks[i].title, description: description, pomodoroTimers: otherTasks[i].pomodoroTimers, completedPomodoroTimers:otherTasks[i].completedPomodoroTimers, priority: otherTasks[i].priority, status: otherTasks[i].status}
             other[i] = edit
         }
         const response = await fetch('http://localhost:5000/api/tasks/' + username, {
@@ -123,15 +124,15 @@ function Homepage(){
         var important = importantTasks
         var other = otherTasks
         if (category === 'Top Priority') {
-            edit = {dateAssigned: topTasks[i].dateAssigned, title: topTasks[i].title, description: topTasks[i].description, pomodoroTimers: topTasks[i].pomodoroTimers, priority: topTasks[i].priority, status: String(icon)}
+            edit = {dateAssigned: topTasks[i].dateAssigned, title: topTasks[i].title, description: topTasks[i].description, pomodoroTimers: topTasks[i].pomodoroTimers, completedPomodoroTimers:topTasks[i].completedPomodoroTimers, priority: topTasks[i].priority, status: String(icon)}
             top[i] = edit
         }
         if (category === 'Important') {
-            edit = {dateAssigned: importantTasks[i].dateAssigned, title: importantTasks[i].title, description: importantTasks[i].description, pomodoroTimers: importantTasks[i].pomodoroTimers, priority: importantTasks[i].priority, status: String(icon)}
+            edit = {dateAssigned: importantTasks[i].dateAssigned, title: importantTasks[i].title, description: importantTasks[i].description, pomodoroTimers: importantTasks[i].pomodoroTimers, completedPomodoroTimers:importantTasks[i].completedPomodoroTimers, priority: importantTasks[i].priority, status: String(icon)}
             important[i] = edit
         }
         if (category === 'Other') {
-            edit = {dateAssigned: otherTasks[i].dateAssigned, title: otherTasks[i].title, description: otherTasks[i].description, pomodoroTimers: otherTasks[i].pomodoroTimers, priority: otherTasks[i].priority, status: String(icon)}
+            edit = {dateAssigned: otherTasks[i].dateAssigned, title: otherTasks[i].title, description: otherTasks[i].description, pomodoroTimers: otherTasks[i].pomodoroTimers, completedPomodoroTimers:otherTasks[i].completedPomodoroTimers, priority: otherTasks[i].priority, status: String(icon)}
             other[i] = edit
         }
         const response = await fetch('http://localhost:5000/api/tasks/' + username, {
@@ -155,6 +156,45 @@ function Homepage(){
         }
     }
 
+    const handleCompletedChange = async (completed, category, i) => {
+        var edit = null 
+        var top = topTasks
+        var important = importantTasks
+        var other = otherTasks
+        if (category === 'Top Priority') {
+            edit = {dateAssigned: topTasks[i].dateAssigned, title: topTasks[i].title, description: topTasks[i].description, pomodoroTimers: topTasks[i].pomodoroTimers, completedPomodoroTimers: completed, priority: topTasks[i].priority, status: topTasks[i].status}
+            top[i] = edit
+        }
+        if (category === 'Important') {
+            edit = {dateAssigned: importantTasks[i].dateAssigned, title: importantTasks[i].title, description: importantTasks[i].description, pomodoroTimers: importantTasks[i].pomodoroTimers, completedPomodoroTimers: completed, priority: importantTasks[i].priority, status: importantTasks[i].status}
+            important[i] = edit
+        }
+        if (category === 'Other') {
+            edit = {dateAssigned: otherTasks[i].dateAssigned, title: otherTasks[i].title, description: otherTasks[i].description, pomodoroTimers: otherTasks[i].pomodoroTimers, completedPomodoroTimers: completed, priority: otherTasks[i].priority, status: otherTasks[i].status}
+            other[i] = edit
+        }
+        const response = await fetch('http://localhost:5000/api/tasks/' + username, {
+            method: "PUT",
+            body: JSON.stringify({
+                username: username,
+                topTasks: top,
+                importantTasks: important,
+                otherTasks: other,
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if (!response.ok) {
+            console.log(response)
+        } else {
+            setTopTasks(top)
+            handleImportant(important)
+            handleOther(other)
+        }
+    }
+
+
     const handleDrop = async (id, originalCategory, targetCategory) => {      
         var top = topTasks
         var important = importantTasks
@@ -165,31 +205,31 @@ function Homepage(){
         console.log("target", targetCategory)
         if (targetCategory === 'Top Priority') {
             if (originalCategory === 'Important') {
-                top.push({dateAssigned: importantTasks[id].dateAssigned, title: importantTasks[id].title, description: importantTasks[id].description, pomodoroTimers: importantTasks[id].pomodoroTimers, priority: 'Top', status: importantTasks[id].status})
+                top.push({dateAssigned: importantTasks[id].dateAssigned, title: importantTasks[id].title, description: importantTasks[id].description, pomodoroTimers: importantTasks[id].pomodoroTimers, completedPomodoroTimers:importantTasks[id].completedPomodoroTimers, priority: 'Top', status: importantTasks[id].status})
                 important.splice(id, 1)
             }
             if (originalCategory === 'Other') {
-                top.push({dateAssigned: otherTasks[id].dateAssigned, title: otherTasks[id].title, description: otherTasks[id].description, pomodoroTimers: otherTasks[id].pomodoroTimers, priority: 'Top', status: otherTasks[id].status})
+                top.push({dateAssigned: otherTasks[id].dateAssigned, title: otherTasks[id].title, description: otherTasks[id].description, pomodoroTimers: otherTasks[id].pomodoroTimers, completedPomodoroTimers:otherTasks[id].completedPomodoroTimers, priority: 'Top', status: otherTasks[id].status})
                 other.splice(id, 1)
             }
         }
         if (targetCategory === 'Important') {
             if (originalCategory === 'Top Priority') {
-                important.push({dateAssigned: topTasks[id].dateAssigned, title: topTasks[id].title, description: topTasks[id].description, pomodoroTimers: topTasks[id].pomodoroTimers, priority: 'Important', status: topTasks[id].status})
+                important.push({dateAssigned: topTasks[id].dateAssigned, title: topTasks[id].title, description: topTasks[id].description, pomodoroTimers: topTasks[id].pomodoroTimers, completedPomodoroTimers:topTasks[id].completedPomodoroTimers, priority: 'Important', status: topTasks[id].status})
                 top.splice(id, 1)
             }
             if (originalCategory === 'Other') {
-                important.push({dateAssigned: otherTasks[id].dateAssigned, title: otherTasks[id].title, description: otherTasks[id].description, pomodoroTimers: otherTasks[id].pomodoroTimers, priority: 'Important', status: otherTasks[id].status})
+                important.push({dateAssigned: otherTasks[id].dateAssigned, title: otherTasks[id].title, description: otherTasks[id].description, pomodoroTimers: otherTasks[id].pomodoroTimers, completedPomodoroTimers:importantTasks[id].completedPomodoroTimers, priority: 'Important', status: otherTasks[id].status})
                 other.splice(id, 1)
             }
         }
         if (targetCategory === 'Other') {
             if (originalCategory === 'Top Priority') {
-                other.push({dateAssigned: topTasks[id].dateAssigned, title: topTasks[id].title, description: topTasks[id].description, pomodoroTimers: topTasks[id].pomodoroTimers, priority: 'Other', status: topTasks[id].status})
+                other.push({dateAssigned: topTasks[id].dateAssigned, title: topTasks[id].title, description: topTasks[id].description, pomodoroTimers: topTasks[id].pomodoroTimers, completedPomodoroTimers:topTasks[id].completedPomodoroTimers, priority: 'Other', status: topTasks[id].status})
                 top.splice(id, 1)
             }
             if (originalCategory === 'Important') {
-                other.push({dateAssigned: importantTasks[id].dateAssigned, title: importantTasks[id].title, description: importantTasks[id].description, pomodoroTimers: importantTasks[id].pomodoroTimers, priority: 'Other', status: importantTasks[id].status})
+                other.push({dateAssigned: importantTasks[id].dateAssigned, title: importantTasks[id].title, description: importantTasks[id].description, pomodoroTimers: importantTasks[id].pomodoroTimers, completedPomodoroTimers:importantTasks[id].completedPomodoroTimers, priority: 'Other', status: importantTasks[id].status})
                 important.splice(id, 1)
             }
         }
@@ -216,6 +256,7 @@ function Homepage(){
         }
     }
 
+
     
 
     const navigate = useNavigate();
@@ -232,18 +273,23 @@ function Homepage(){
     }, [navigate])
     //status is broken into 4 different elements notStarted="NS", Finished="FN", InProgress="IP", Canceled="anything", movedOver="MO" 
     useEffect(() => {
-        fetch('http://localhost:5000/api/tasks/' + username)
-        .then(res => res.json())
-        .then(data => {setTopTasks(data.topTasks); setImportantTasks(data.importantTasks); setOtherTasks(data.otherTasks)})
-        .catch((err) => console.log(err))
+        if (username !== null) {
+            fetch('http://localhost:5000/api/tasks/' + username)
+            .then(res => res.json())
+            .then(data => {setTopTasks(data.topTasks); setImportantTasks(data.importantTasks); setOtherTasks(data.otherTasks)})
+            .catch((err) => console.log(err))
+        }
     }, [username])
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/user/' + username)
-        .then(res => res.json())
-        .then(data => {setTimerLength(data.pomodoro.timer)})
-        .catch((err) => console.log(err))
+        if (username !== null) {
+            fetch('http://localhost:5000/api/user/' + username)
+            .then(res => res.json())
+            .then(data => {setTimerLength(data.pomodoro.timer)})
+            .catch((err) => console.log(err))
+        }
     }, [username])
+
     
     // const topPriorityList = [["Complete Math Homework", "This is a hw", 1, "FN" ], ["Homework 2","This is a hw", 3, "NS"]];
     // const importantList = [["Homework 1", "This is a hw", 4, "FN" ], ["Homework 7","This is a hw", 2, "CA"]];
@@ -262,9 +308,9 @@ function Homepage(){
             </Heading>
 
               <Container borderRadius={"10"} bg={cont} minW={"100%"} h={"680px"} paddingTop={"5"} boxShadow={"2px 5px 50px 0px rgba(36, 37, 40, 0.10)"}>
-                <TaskContainer dateSelected={selectedDate} timerLength={timerLength} category='Top Priority' categoryList={topTasks} onChange={handleTop} handleUpdatedPomo={handleUpdatedPomo} handleUpdatedDescription={handleUpdatedDescription} handleUpdatedIcon={handleUpdatedIcon} handleDrop={handleDrop}/>
-                <TaskContainer dateSelected={selectedDate} timerLength={timerLength} category='Important' categoryList={importantTasks} onChange={handleImportant} handleUpdatedPomo={handleUpdatedPomo} handleUpdatedDescription={handleUpdatedDescription} handleUpdatedIcon={handleUpdatedIcon} handleDrop={handleDrop}/>
-                <TaskContainer dateSelected={selectedDate} timerLength={timerLength} category='Other' categoryList={otherTasks} onChange={handleOther} handleUpdatedPomo={handleUpdatedPomo} handleUpdatedDescription={handleUpdatedDescription} handleUpdatedIcon={handleUpdatedIcon} handleDrop={handleDrop}/>
+                <TaskContainer dateSelected={selectedDate} timerLength={timerLength} category='Top Priority' categoryList={topTasks} onChange={handleTop} handleUpdatedPomo={handleUpdatedPomo} handleUpdatedDescription={handleUpdatedDescription} handleUpdatedIcon={handleUpdatedIcon} handleDrop={handleDrop} handleCompletedChange={handleCompletedChange}/>
+                <TaskContainer dateSelected={selectedDate} timerLength={timerLength} category='Important' categoryList={importantTasks} onChange={handleImportant} handleUpdatedPomo={handleUpdatedPomo} handleUpdatedDescription={handleUpdatedDescription} handleUpdatedIcon={handleUpdatedIcon} handleDrop={handleDrop} handleCompletedChange={handleCompletedChange}/>
+                <TaskContainer dateSelected={selectedDate} timerLength={timerLength} category='Other' categoryList={otherTasks} onChange={handleOther} handleUpdatedPomo={handleUpdatedPomo} handleUpdatedDescription={handleUpdatedDescription} handleUpdatedIcon={handleUpdatedIcon} handleDrop={handleDrop} handleCompletedChange={handleCompletedChange}/>
                 
               </Container>
 
@@ -277,7 +323,7 @@ function Homepage(){
               
               </Heading>
 
-            <Appointment></Appointment>
+            <Appointment username={username} selectedDate={selectedDate}></Appointment>
   
           </VStack>
   

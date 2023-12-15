@@ -8,6 +8,7 @@ const bodyParser = require("body-parser");
 const userRoutes = require("./routes/user");
 const authRoute = require('./routes/auth');
 const tasksRoutes = require('./routes/tasks');
+const eventsRoutes = require('./routes/events');
 
 const app = express();
 
@@ -29,6 +30,8 @@ app.use('/api/auth', authRoute);
 app.use('/api/user', userRoutes);
 
 app.use('/api/tasks', tasksRoutes);
+
+app.use('/api/events', eventsRoutes);
 
 
 mongoose.connect(process.env.ATLAS_URI, {
