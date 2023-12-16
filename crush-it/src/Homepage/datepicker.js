@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {Center, IconButton, Menu, MenuButton, MenuList, MenuItem, Button, Text, useColorModeValue} from '@chakra-ui/react';
-import {IoChevronBackCircleSharp, IoChevronForwardCircleSharp, IoChevronDownCircleOutline} from 'react-icons/io5'
+import {IoChevronBackCircleSharp, IoChevronForwardCircleSharp, IoChevronDownCircleOutline} from 'react-icons/io5';
+import { useDateContext } from '../components/datecontext';
 
 function DatePicker({onDateSelected}) {
     const text = useColorModeValue('black', 'white');
@@ -16,6 +17,19 @@ function DatePicker({onDateSelected}) {
     const [selectedMonth, setSelectedMonth] = useState(curMonth);
     const [selectedDate, setSelectedDate] = useState(curDate);
     const [selectedYear, setSelectedYear] = useState(curYear);
+
+    //selected date = today
+    const { setAsCurrentDate } = useDateContext();
+
+    const isCurrentDate = (
+      selectedMonth === curMonth &&
+      selectedDate === curDate &&
+      selectedYear === curYear
+    );
+
+    console.log("isToday", isCurrentDate)
+
+    setAsCurrentDate(isCurrentDate);
   
     const handleDateSelected = (day, month, year)=> {
         onDateSelected(day.toString() + "-" + month.toString()+"-"+year.toString());

@@ -178,10 +178,10 @@ function CreateTable(list, events){
         const currentHour = parseInt(formattedTime.split(':')[0], 10);
         const hourPassed = conditionHour < currentHour
 
-        console.log('Current Time:', formattedTime);
-        console.log('Condition Value:', conditionValue);
-        console.log(`Hour ${conditionHour}:`, isCurrentHour);
-        console.log(`HourPassed ${conditionHour} ${currentHour}:`, hourPassed);
+        //console.log('Current Time:', formattedTime);
+        //console.log('Condition Value:', conditionValue);
+        //console.log(`Hour ${conditionHour}:`, isCurrentHour);
+        //console.log(`HourPassed ${conditionHour} ${currentHour}:`, hourPassed);
 
       
         if (i <= 12) {//hours before 12 AM
