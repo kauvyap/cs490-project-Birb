@@ -1,5 +1,5 @@
 import React from "react";
-import {Box,  Spacer,  Td, useDisclosure} from '@chakra-ui/react';
+import {Box,  Spacer,  Td, useDisclosure, useColorModeValue} from '@chakra-ui/react';
 // import {Box,  Spacer,  Td, useColorModeValue, useDisclosure} from '@chakra-ui/react';
 import { Heading, Flex } from '@chakra-ui/react';
 import {Icon } from '@chakra-ui/react'
@@ -11,10 +11,12 @@ function AppointmentContainer(props){
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     // const bg = useColorModeValue('#F5F7F9', '#1A202C')
-    // const cont = useColorModeValue("white", "#2d3748")
+    const cont = useColorModeValue("white", "#2d3748")
+    const passedFocus = useColorModeValue("#f3f6ff", "#243064") //use to gray out passed focus time
+
 
     return (
-             <Td padding={0} width={"88%"}>
+             <Td padding={0} width={"88%"} style={{ backgroundColor: `${cont}`}}>
                 
                 {props.isFocus? (
                 <Flex justifyContent={"center"} border={"2px solid #6284FF"} _hover={{bg:"#6284ff14"}} width={"95%"} bg={"white"} marginLeft={4} height={45} maxH={"100px"} overflowY={"auto"}>
@@ -43,7 +45,7 @@ function AppointmentContainer(props){
                     {props.isCont? (
                         <>
                         {props.isEnd? (
-                            <Flex justifyContent={"center"} borderRight={"2px solid #E2EAF1"} borderLeft={"2px solid #E2EAF1"} borderBottom={"2px solid #E2EAF1"} width={"95%"} bg={"white"} marginLeft={4} height={45} maxH={"100px"} overflowY={"auto"}>
+                            <Flex justifyContent={"center"} borderRight={"2px solid #E2EAF1"} borderLeft={"2px solid #E2EAF1"} borderBottom={"2px solid #E2EAF1"} width={"95%"} bg={cont} marginLeft={4} height={45} maxH={"100px"} overflowY={"auto"}>
                             <Flex justifyContent={"flex-left"} alignItems={"center"}>
                                 <Heading  padding={3} fontSize={"14px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"}>
                                     {props.title}
@@ -52,7 +54,7 @@ function AppointmentContainer(props){
                             <Spacer></Spacer>
                             </Flex>
                         ):(
-                            <Flex justifyContent={"center"} borderRight={"2px solid #E2EAF1"} borderLeft={"2px solid #E2EAF1"} width={"95%"} bg={"white"} marginLeft={4} height={45} maxH={"100px"} overflowY={"auto"}>
+                            <Flex justifyContent={"center"} borderRight={"2px solid #E2EAF1"} borderLeft={"2px solid #E2EAF1"} width={"95%"} bg={cont} marginLeft={4} height={45} maxH={"100px"} overflowY={"auto"}>
                             <Flex justifyContent={"flex-left"} alignItems={"center"}>
                                 <Heading  padding={3} fontSize={"14px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"}>
                                     {props.title}
@@ -64,7 +66,7 @@ function AppointmentContainer(props){
                         
                         </>
                     ):(
-                    <Flex justifyContent={"center"} border={"2px solid #E2EAF1"} width={"95%"} bg={"white"} marginLeft={4} height={45} maxH={"100px"} overflowY={"auto"}>
+                    <Flex justifyContent={"center"} border={"2px solid #E2EAF1"} width={"95%"} bg={cont} marginLeft={4} height={45} maxH={"100px"} overflowY={"auto"}>
                         <Flex justifyContent={"flex-left"} alignItems={"center"}>
                             <Heading  padding={3} fontSize={"14px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"}>
                                 {props.title}
