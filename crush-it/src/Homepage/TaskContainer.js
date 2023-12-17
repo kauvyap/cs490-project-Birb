@@ -181,7 +181,7 @@ function EditableNote( txt, handleUpdatedDescription, category, i ) {
 function TaskContainer(props) {
   // get all topPriority taks
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [elements, setElements] = useState()
+  const [elements, setElements] = useState();
   const [focusTitle, setFocusTitle] = useState();
   const [focusNotes, setFocusNotes] = useState();
   const [focusPomo, setFocusPomo] = useState();
@@ -190,8 +190,8 @@ function TaskContainer(props) {
   //split into 2d arrays [ [ Title, description, pomoTimer#, status]]
   //status = notStarted, inProgress, finished
   useEffect(() => {
-    setElements(props.categoryList)
-  }, [props.categoryList])
+    setElements(props.categoryList);
+  }, [props.categoryList]);
   //console.log("elements", elements)
 
   const bg = useColorModeValue('#F5F7F9', '#1A202C')

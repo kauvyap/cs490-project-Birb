@@ -1,5 +1,5 @@
 // We import bootstrap to make our application look better.
-import React from "react";
+import React, {useLayoutEffect, useState, useEffect} from "react";
 import { useNavigate } from "react-router";
  // We import NavLink to utilize the react router.
  
@@ -13,6 +13,129 @@ export default function Sidebar() {
 
   const location = useLocation();
   const navigate = useNavigate();
+
+  const [username, setUsername] = useState(null)
+  
+  const todayDate = new Date();
+  const curMonth = todayDate.toLocaleString('default', { month: 'long' });
+  const curDate = todayDate.getDate();
+  const curYear = todayDate.getFullYear();
+  const currentDate = curDate.toString() + "-" + curMonth.toString()+"-"+curYear.toString()
+  const prevDate = (curDate-1).toString() + "-" + curMonth.toString()+"-"+curYear.toString()
+
+  const [topTasks, setTopTasks] = useState([])
+  const [importantTasks, setImportantTasks] = useState([])
+  const [otherTasks, setOtherTasks] = useState([])
+  const [flag, setFlag] = useState(false);
+  
+
+
+  // useEffect(() => {
+  //   setElements(props.categoryList);
+  //   console.log(props.categoryList);
+  // }, [props.categoryList]);
+
+  useLayoutEffect(() => {
+    fetch("http://localhost:5000/api/auth/getUsername", {
+    headers: {
+        "x-access-token": localStorage.getItem("token")
+    }
+    })
+    .then(res => res.json())
+    .then(data => data.isLoggedIn ? setUsername(data.username): navigate('/login'))
+    .catch((err) => alert(err))
+  }, [navigate])
+  //status is broken into 4 different elements notStarted="NS", Finished="FN", InProgress="IP", Canceled="anything", movedOver="MO" 
+  useEffect(() => {
+      if (username !== null) {
+          fetch('http://localhost:5000/api/tasks/' + username)
+          .then(res => res.json())
+          .then(data => {setTopTasks(data.topTasks); setImportantTasks(data.importantTasks); setOtherTasks(data.otherTasks)})
+          .catch((err) => console.log(err))
+      }
+  }, [username])
+
+  useEffect(() => {
+    // top loop
+    var temp;
+    var tempTopTasks = topTasks;
+    topTasks.forEach(task => {
+      if (task !== null && task.dateAssigned === prevDate && (task.status === 'NS' || task.status === 'IP') ) {
+        temp = {...task};
+        temp.dateAssigned = currentDate;
+        delete temp._id;
+        task.status = 'MO';
+        tempTopTasks.push(temp);
+      }
+    });
+    setTopTasks(tempTopTasks);
+    // important
+    var tempImportantTasks = importantTasks;
+    importantTasks.forEach(task => {
+      if (task !== null && task.dateAssigned === prevDate && (task.status === 'NS' || task.status === 'IP') ) {
+        temp = {...task};
+        temp.dateAssigned = currentDate;
+        delete temp._id;
+        task.status = 'MO';
+        tempImportantTasks.push(temp);
+      }
+    });
+    setImportantTasks(tempImportantTasks);
+    // other
+    var tempOtherTasks = otherTasks;
+    otherTasks.forEach(task => {
+      if (task !== null && task.dateAssigned === prevDate && (task.status === 'NS' || task.status === 'IP') ) {
+        temp = {...task};
+        temp.dateAssigned = currentDate;
+        delete temp._id;
+        task.status = 'MO';
+        tempOtherTasks.push(temp);
+      }
+    });
+    setOtherTasks(tempOtherTasks);
+    console.log('all tasks', tempTopTasks, tempImportantTasks, tempOtherTasks);
+
+      // plan day is clicked
+      // if (flag) {
+      //   const response = await fetch('http://localhost:5000/api/tasks/' + username, {
+      //       method: "PUT",
+      //       body: JSON.stringify({
+      //           username: username,
+      //           topTasks: top,
+      //           importantTasks: important,
+      //           otherTasks: other,
+      //       }),
+      //       headers: {
+      //           'Content-Type': 'application/json'
+      //       }
+      //   });
+      //   if (!response.ok) {
+      //       console.log(response)
+      //   } else {
+      //       fetch('http://localhost:5000/api/tasks/' + username)
+      //       .then(res => res.json())
+      //       .then(data => {setTopTasks(data.topTasks); setImportantTasks(data.importantTasks); setOtherTasks(data.otherTasks)})
+      //       .catch((err) => console.log(err))
+      //   }
+
+      // }
+
+  }, [topTasks, importantTasks, otherTasks]);
+
+  const handlePlanDay = async () => {
+    setFlag(true);
+
+    // fetch tasks and assign previous day's to today's
+    console.log('today is ' + currentDate + ', yesterday was ' + prevDate);
+
+    if (username !== null) {
+      await fetch('http://localhost:5000/api/tasks/' + username)
+      .then(res => res.json())
+      .then(data => {setTopTasks(data.topTasks); setImportantTasks(data.importantTasks); setOtherTasks(data.otherTasks)})
+      .catch((err) => console.log(err))
+    }
+
+  }
 
   const handleLogout = () => {
     localStorage.clear();
@@ -38,7 +161,7 @@ export default function Sidebar() {
           <Image textColor="white" src="/smallLogo.svg" alt="SVG Image" />
           
           <Text fontFamily={"'DM Sans', sans-serif"} textAlign={"center"} fontSize={"20px"} textColor={"white"} fontWeight={"700"}>It's time to plan your day!</Text>
-          <Button data-testid="planDay" fontFamily={"'DM Sans', sans-serif"} height={"54px"} borderRadius={"14px"} variant="outline" color={"white"} fontSize={"18px"} fontWeight={"700"} width={"160px"}>Plan Day</Button>
+          <Button data-testid="planDay" fontFamily={"'DM Sans', sans-serif"} height={"54px"} borderRadius={"14px"} variant="outline" color={"white"} fontSize={"18px"} fontWeight={"700"} width={"160px"} onClick={handlePlanDay}>Plan Day</Button>
           <Spacer></Spacer>
 
           <Button data-testid="logout" fontFamily={"'DM Sans', sans-serif"} leftIcon={<Image borderRadius='full' boxSize="24px" src={logOutIcon} display='fixed'/>} onClick={handleLogout} fontSize={"12px"} borderRadius={"10px"} bg="#252628" variant={"outline"} textColor={"white"} margin={"14"} w={"120px"} h="38">
