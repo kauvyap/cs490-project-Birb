@@ -27,6 +27,14 @@ function FocusTime({isOpen, onClose, title, notes, timers, completedTimers, hand
     const [finishAt, setFinishAt] = useState('');
     const [flag, setFlag] = useState(false);
     
+    function handleOnClose(){
+      handleTabChange(0);
+      setTimer(pomoLength*60);
+      setShortTimer(shortLength*60);
+      setLongTimer(longLength*60);
+      onClose();
+    }
+
     const handleTabChange = (index) => {
       setIsPaused(true);
       setActiveTab(index);
@@ -39,14 +47,14 @@ function FocusTime({isOpen, onClose, title, notes, timers, completedTimers, hand
     // initialize currentPomo with info from DB
     useEffect(() => {
       setCurrentPomo(completedTimers)
-    }, completedTimers)
+    }, [completedTimers])
 
 
     // finish at
     useEffect(() => {
       let interval;
 
-      if (isPaused && timeLeft !== -1) {
+      if (isPaused ) {
         interval = setInterval(() => {
           console.log('paused', activeTab);
           futureTime.setSeconds(currentTime.getSeconds() + timeLeft);
@@ -80,7 +88,7 @@ function FocusTime({isOpen, onClose, title, notes, timers, completedTimers, hand
           var time;
           time = pomoLength*(timers-currentPomo)
           for (let i = currentPomo+1; i < timers; i++) {
-            if (i % 4 === 0) { // add a long break
+            if (i % 3 === 0) { // add a long break
               time += longLength;
             } else { // add a short break
               time += shortLength;
@@ -102,7 +110,7 @@ function FocusTime({isOpen, onClose, title, notes, timers, completedTimers, hand
         handleCompletedChange(currentPomo + 1, category, index)
         setCurrentPomo(prevPomo => prevPomo + 1);
         setIsPaused(true);
-        if ((currentPomo+1) % 4 !== 0) {
+        if ((currentPomo+1) % 3 !== 0) {
           setActiveTab(1) // change tab to short break
         } else {
           setActiveTab(2) // change tab to long break
@@ -205,7 +213,7 @@ function FocusTime({isOpen, onClose, title, notes, timers, completedTimers, hand
         
 
 
-                        <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+                        <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={handleOnClose}>
                         <ModalOverlay />
                         <ModalContent maxW="40%" maxH="80%">
                         <ModalBody>
