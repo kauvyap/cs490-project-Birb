@@ -54,7 +54,7 @@ function FocusTime({isOpen, onClose, title, notes, timers, completedTimers, hand
     useEffect(() => {
       let interval;
 
-      if (isPaused ) {
+      if (isPaused) {
         interval = setInterval(() => {
           console.log('paused', activeTab);
           futureTime.setSeconds(currentTime.getSeconds() + timeLeft);
