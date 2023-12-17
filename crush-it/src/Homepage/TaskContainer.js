@@ -186,6 +186,7 @@ function TaskContainer(props) {
   const [focusNotes, setFocusNotes] = useState();
   const [focusPomo, setFocusPomo] = useState();
   const [focusCompletedPomo, setFocusCompletedPomo] = useState();
+  const [focusIndex, setFocusIndex] = useState();
   //split into 2d arrays [ [ Title, description, pomoTimer#, status]]
   //status = notStarted, inProgress, finished
   useEffect(() => {
@@ -200,11 +201,12 @@ function TaskContainer(props) {
     e.preventDefault()
   }
 
-  function handleFocus(title, note, pomo, completedPomo){
+  function handleFocus(title, note, pomo, completedPomo, index){
     setFocusTitle(title);
     setFocusNotes(note);
     setFocusPomo(pomo);
     setFocusCompletedPomo(completedPomo)
+    setFocusIndex(index)
     onOpen();
   }
 
@@ -239,6 +241,9 @@ function TaskContainer(props) {
       }
     }
     var cards = []
+    console.log(props.category)
+    console.log("List:"+ list.toString())
+    console.log("Index:" + indices.toString())
 
     function onDragStart(ev, i, category, categoryList) {
       //console.log("dragstart", i)
@@ -263,7 +268,7 @@ function TaskContainer(props) {
                               <Box as="span" flex='1' textAlign='left'>
                                 <Flex  justifyContent={"flex-left"} alignItems={"top"}>
                                 {EditableIcon(list[i][3], props.handleUpdatedIcon, props.category, indices[i])}
-                                <Heading _hover={{bg:"#6284ff14"}} style={{ cursor: 'pointer' }} onClick={() =>handleFocus( list[i][0], list[i][1], list[i][2], list[i][4])} fontWeight={"700"} fontSize={"16px"} textColor={hd} fontFamily={"'DM Sans', sans-serif"}>{list[i][0]}</Heading>
+                                <Heading _hover={{bg:"#6284ff14"}} style={{ cursor: 'pointer' }} onClick={() =>handleFocus( list[i][0], list[i][1], list[i][2], list[i][4], indices[i])} fontWeight={"700"} fontSize={"16px"} textColor={hd} fontFamily={"'DM Sans', sans-serif"}>{list[i][0]}</Heading>
                                 </Flex>
                               </Box>
                             </>
@@ -283,7 +288,7 @@ function TaskContainer(props) {
                             <Box height={"1px"} width={"100%"} bg={"#E2EAF1"} marginBottom={"2"}></Box>
                             {EditablePomo(list[i][2], props.timerLength, props.handleUpdatedPomo, props.category, indices[i])}
                             {EditableNote(list[i][1], props.handleUpdatedDescription, props.category, indices[i])}
-                            <FocusTime isOpen={isOpen} onClose={onClose} title={focusTitle} notes={focusNotes} timers={focusPomo} completedTimers={focusCompletedPomo} handleCompletedChange={props.handleCompletedChange} category={props.category} index={indices[i]}/>
+                           
                           </AccordionPanel>
                         </>
                       )}
@@ -333,8 +338,8 @@ return(
         </Heading>
         <Box >
         {createCard(elements) }
-        
         </Box>
+        <FocusTime isOpen={isOpen} onClose={onClose} title={focusTitle} notes={focusNotes} timers={focusPomo} completedTimers={focusCompletedPomo} handleCompletedChange={props.handleCompletedChange} category={props.category} index={focusIndex}/>
     </Card>
 )
 }
