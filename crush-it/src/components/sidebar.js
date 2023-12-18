@@ -30,13 +30,6 @@ export default function Sidebar() {
   const [importantTasks, setImportantTasks] = useState([])
   const [otherTasks, setOtherTasks] = useState([])
   const [flag, setFlag] = useState(false);
-  
-
-
-  // useEffect(() => {
-  //   setElements(props.categoryList);
-  //   console.log(props.categoryList);
-  // }, [props.categoryList]);
 
   useLayoutEffect(() => {
     fetch("http://localhost:5000/api/auth/getUsername", {
@@ -99,29 +92,29 @@ export default function Sidebar() {
     console.log('all tasks', tempTopTasks, tempImportantTasks, tempOtherTasks);
 
       // plan day is clicked
-      // if (flag) {
-      //   const response = await fetch('http://localhost:5000/api/tasks/' + username, {
-      //       method: "PUT",
-      //       body: JSON.stringify({
-      //           username: username,
-      //           topTasks: top,
-      //           importantTasks: important,
-      //           otherTasks: other,
-      //       }),
-      //       headers: {
-      //           'Content-Type': 'application/json'
-      //       }
-      //   });
-      //   if (!response.ok) {
-      //       console.log(response)
-      //   } else {
-      //       fetch('http://localhost:5000/api/tasks/' + username)
-      //       .then(res => res.json())
-      //       .then(data => {setTopTasks(data.topTasks); setImportantTasks(data.importantTasks); setOtherTasks(data.otherTasks)})
-      //       .catch((err) => console.log(err))
-      //   }
-
-      // }
+      if (flag){
+        console.log(tempTopTasks)
+        fetch('http://localhost:5000/api/tasks/' + username, {
+            method: "PUT",
+            body: JSON.stringify({
+                username: username,
+                topTasks: tempTopTasks,
+                importantTasks: tempImportantTasks,
+                otherTasks: tempOtherTasks,
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(() => {
+          setTopTasks(tempTopTasks); 
+          setImportantTasks(tempImportantTasks); 
+          setOtherTasks(tempOtherTasks)
+          window.location.reload();})
+        .catch((err) => console.log(err))
+      }
+      setFlag(false);
 
   }, [topTasks, importantTasks, otherTasks]);
 
