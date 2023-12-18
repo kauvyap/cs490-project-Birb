@@ -32,15 +32,19 @@ export default function Sidebar() {
   const [flag, setFlag] = useState(false);
 
   useLayoutEffect(() => {
-    fetch("http://localhost:5000/api/auth/getUsername", {
-    headers: {
-        "x-access-token": localStorage.getItem("token")
-    }
-    })
-    .then(res => res.json())
-    .then(data => data.isLoggedIn ? setUsername(data.username): navigate('/login'))
-    .catch((err) => alert(err))
-  }, [navigate])
+    if (location.pathname !== "/login" && location.pathname !== "/signup") {
+      // console.log(localStorage.getItem("token"));
+       fetch("http://localhost:5000/api/auth/getUsername", {
+       headers: {
+           "x-access-token": localStorage.getItem("token")
+       }
+       })
+       .then(res => res.json())
+       .then(data => data.isLoggedIn ? setUsername(data.username): navigate('/login'))
+       .catch((err) => alert(err))
+   }
+}, [location.pathname, navigate])
+   
   //status is broken into 4 different elements notStarted="NS", Finished="FN", InProgress="IP", Canceled="anything", movedOver="MO" 
   useEffect(() => {
       if (username !== null) {

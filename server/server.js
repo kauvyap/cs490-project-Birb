@@ -9,6 +9,7 @@ const userRoutes = require("./routes/user");
 const authRoute = require('./routes/auth');
 const tasksRoutes = require('./routes/tasks');
 const eventsRoutes = require('./routes/events');
+const appointmentsRoutes = require('./routes/appointments');
 
 const app = express();
 
@@ -26,12 +27,10 @@ app.use((req, res, next) => {
 })
 
 app.use('/api/auth', authRoute);
-
 app.use('/api/user', userRoutes);
-
 app.use('/api/tasks', tasksRoutes);
-
 app.use('/api/events', eventsRoutes);
+app.use('/api/appointments', appointmentsRoutes);
 
 
 mongoose.connect(process.env.ATLAS_URI, {

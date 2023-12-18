@@ -107,6 +107,16 @@ function Signup() {
             'Content-Type': 'application/json'
         }
       });
+      
+      await fetch('http://localhost:5000/api/appointments/', {
+        method: "POST",
+        body: JSON.stringify({
+            username: email,
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+      });
 
 
       navigate('/login');

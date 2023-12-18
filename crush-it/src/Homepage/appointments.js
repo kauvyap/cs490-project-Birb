@@ -6,9 +6,12 @@ import {parse, format, addDays, parseISO, getHours, getMinutes, setHours, setMin
 function Appointment(props){
     // const bg = useColorModeValue('#F5F7F9', '#1A202C')
     const cont = useColorModeValue("white", "#2d3748")
+    const username = props.username;
 
     // data = raw data from the google calendar api for the selected day
     const [data, setData] = useState(null);
+    const [appointmentData, setAppointmentData] = useState(null);
+    console.log(appointmentData);
 
     // ** FOR GUI **
     // events with relevant information from google calendar are stored here => check the second useEffect 
@@ -26,6 +29,77 @@ function Appointment(props){
     
     //fill list with tasks to do today (do not use 0, use military time (1-24) and the function will convert to regular time)
     //title = string, isFocus = bool,
+
+    useEffect(() => {
+        if (username !== null) {
+            fetch('http://localhost:5000/api/appointments/' + username)
+            .then(res => res.json())
+            .then(data => {console.log("wtf"); setAppointmentData(data)})
+            .catch((err) => {
+                console.log(err);
+            })
+        }
+    }, []) 
+
+    //LOOK HERE FOR API CALL FOR APPOINTMENTS (GUI)
+    // api will find the date you specify and either 
+    // update the existing appointments for the existing date or 
+    // insert new appointments for the new date 
+    useEffect(() => {
+        if (username !== null) {
+
+            // put request for the current date
+
+            // fetch('http://localhost:5000/api/appointments/' + username, {
+            //     method: "PUT",
+            //     body: JSON.stringify({
+            //         date: String(props.selectedDate),
+            //         isPlanned: false,
+            //         updatedAppointments: {
+            //             index: 5,
+            //             title: 'Title', 
+            //             description: 'This is the description',
+            //             startHour: 9,
+            //             startMinutes: 30,
+            //             endHour: 10,
+            //             endMinutes: 0,
+            //             ifTask: true
+            //         }
+            //     }),
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     }
+            // });
+
+
+            // put request for any other date
+
+            // fetch('http://localhost:5000/api/appointments/' + username, {
+            //     method: "PUT",
+            //     body: JSON.stringify({
+            //         date: '26-December-2023',
+            //         isPlanned: false,
+            //         updatedAppointments: {
+            //             index: 5,
+            //             title: 'Title', 
+            //             description: 'This is the description',
+            //             startHour: 7,
+            //             startMinutes: 30,
+            //             endHour: 8,
+            //             endMinutes: 0,
+            //             ifTask: true
+            //         }
+            //     }),
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     }
+            // });
+        }
+    }, [username])
+
+
+
+
 
     var list= [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
 
@@ -129,12 +203,12 @@ function CreateTable(list, events){
             var x = parseInt( events[i][3],10)+1
             // mark both hour and minute until it reaches the event
             while(x <= events[i][5]){
-                if(x == parseInt(events[i][5],10) && parseInt(events[i][6],10) <= 30){
+                if(x === parseInt(events[i][5],10) && parseInt(events[i][6],10) <= 30){
                 }
                 else{
                     list[x*2] = events[i];
                 }
-                if(x == parseInt(events[i][5],10) && parseInt(events[i][6],10) == 0){
+                if(x === parseInt(events[i][5],10) && parseInt(events[i][6],10) === 0){
                 }else{
                     list[x*2-1] = events[i];
                 }
