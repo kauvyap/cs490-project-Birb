@@ -9,6 +9,8 @@ import { Box, VStack, Text, Button, Image, Spacer, useColorModeValue} from "@cha
 import logOutIcon from '../media/logout.png'
  // Here, we display our Navbar
 export default function Sidebar() {
+  const url = process.env.REACT_APP_API_URL;
+
   const { isCurrentDate } = useDateContext();
   console.log("sidebarDate", isCurrentDate)
 
@@ -34,7 +36,7 @@ export default function Sidebar() {
   useLayoutEffect(() => {
     if (location.pathname !== "/login" && location.pathname !== "/signup") {
       // console.log(localStorage.getItem("token"));
-       fetch("http://localhost:5000/api/auth/getUsername", {
+       fetch(url + "/api/auth/getUsername", {
        headers: {
            "x-access-token": localStorage.getItem("token")
        }
@@ -43,17 +45,17 @@ export default function Sidebar() {
        .then(data => data.isLoggedIn ? setUsername(data.username): navigate('/login'))
        .catch((err) => alert(err))
    }
-}, [location.pathname, navigate])
+}, [location.pathname, navigate, url])
    
   //status is broken into 4 different elements notStarted="NS", Finished="FN", InProgress="IP", Canceled="anything", movedOver="MO" 
   useEffect(() => {
       if (username !== null) {
-          fetch('http://localhost:5000/api/tasks/' + username)
+          fetch(url + '/api/tasks/' + username)
           .then(res => res.json())
           .then(data => {setTopTasks(data.topTasks); setImportantTasks(data.importantTasks); setOtherTasks(data.otherTasks)})
           .catch((err) => console.log(err))
       }
-  }, [username])
+  }, [username, url])
 
   useEffect(() => {
     // top loop
@@ -98,7 +100,7 @@ export default function Sidebar() {
       // plan day is clicked
       if (flag){
         console.log(tempTopTasks)
-        fetch('http://localhost:5000/api/tasks/' + username, {
+        fetch(url + '/api/tasks/' + username, {
             method: "PUT",
             body: JSON.stringify({
                 username: username,
@@ -120,7 +122,7 @@ export default function Sidebar() {
       }
       setFlag(false);
 
-  }, [topTasks, importantTasks, otherTasks]);
+  }, [topTasks, importantTasks, otherTasks, url]);
 
   const handlePlanDay = async () => {
     setFlag(true);
@@ -129,7 +131,7 @@ export default function Sidebar() {
     console.log('today is ' + currentDate + ', yesterday was ' + prevDate);
 
     if (username !== null) {
-      await fetch('http://localhost:5000/api/tasks/' + username)
+      await fetch(url + '/api/tasks/' + username)
       .then(res => res.json())
       .then(data => {setTopTasks(data.topTasks); setImportantTasks(data.importantTasks); setOtherTasks(data.otherTasks)})
       .catch((err) => console.log(err))

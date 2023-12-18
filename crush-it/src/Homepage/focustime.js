@@ -6,7 +6,7 @@ import { Button, Text, Box, Modal, ModalOverlay, ModalContent, ModalFooter, Moda
          Tab, TabList, TabPanel, TabPanels, Tabs, TabIndicator, Flex, useColorModeValue} from '@chakra-ui/react';
 
 function FocusTime({isOpen, onClose, title, notes, timers, completedTimers, handleCompletedChange, category, index}) {
-
+  const url = process.env.REACT_APP_API_URL;
     //const { isOpen, onOpen, onClose } = useDisclosure()
     const bg = useColorModeValue("#F3F3F3", "#1a202c");
     const blueTxt = useColorModeValue('#6284FF', '#90cdf4');
@@ -164,7 +164,7 @@ function FocusTime({isOpen, onClose, title, notes, timers, completedTimers, hand
     const [username, setUsername] = useState(null);
 
     useLayoutEffect(() => {
-        fetch("http://localhost:5000/api/auth/getUsername", {
+        fetch(url + "/api/auth/getUsername", {
         headers: {
             "x-access-token": localStorage.getItem("token")
         }
@@ -172,11 +172,11 @@ function FocusTime({isOpen, onClose, title, notes, timers, completedTimers, hand
         .then(res => res.json())
         .then(data => data.isLoggedIn ? setUsername(data.username): navigate('/login'))
         .catch((err) => alert(err))
-    }, [navigate])
+    }, [navigate, url])
 
     useEffect(() => {
       if (username !== null) {
-        fetch('http://localhost:5000/api/user/' + username)
+        fetch(url + '/api/user/' + username)
           .then(res => res.json())
           .then(userData => {
             if (userData && userData.pomodoro && userData.pomodoro.timer) {
@@ -194,7 +194,7 @@ function FocusTime({isOpen, onClose, title, notes, timers, completedTimers, hand
           })
           .catch(err => console.log(err));
       }
-    }, [username]);
+    }, [username, url]);
 
     function formatTime(totalSeconds) {
       const minutes = Math.floor(totalSeconds / 60);

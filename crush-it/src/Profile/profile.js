@@ -13,6 +13,7 @@ import UploadAvatar from './uploadAvatar';
 
 
 function Profile() {
+  const url = process.env.REACT_APP_API_URL;
   const [fname, setFname] = useState('');
   const [lname, setLname] = useState('');
   const [password, setPassword] = useState('');
@@ -48,7 +49,7 @@ function Profile() {
 
   useLayoutEffect(() => {
     console.log(localStorage.getItem("token"));
-    fetch("http://localhost:5000/api/auth/getUsername", {
+    fetch(url + "/api/auth/getUsername", {
       headers: {
         "x-access-token": localStorage.getItem("token")
       }
@@ -56,15 +57,15 @@ function Profile() {
     .then(res => res.json())
     .then(data => data.isLoggedIn ? setUser(data.username): navigate('/login'))
     .catch((err) => alert(err))
-  }, [navigate])
+  }, [navigate, url])
 
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/user/" + user)
+    fetch(url + "/api/user/" + user)
     .then(res => res.json())
     .then(data => {setUserData(data)})
     .catch((err) => console.log(err))
-  }, [user])
+  }, [user, url])
 
   useEffect(() => {
     if (Object.keys(userData).length > 0) {
@@ -111,7 +112,7 @@ function Profile() {
         username: user,
         password: password
       }
-      const response = await fetch('http://localhost:5000/api/auth/password', {
+      const response = await fetch(url + '/api/auth/password', {
         method: "POST",
         headers: {
           "Content-type": "application/json"
@@ -132,7 +133,7 @@ function Profile() {
         const validPassword = await response.json();
         if (validPassword.isValid) {
           console.log("Password updated")
-          await fetch('http://localhost:5000/api/user/password/' + user, {
+          await fetch(url + '/api/user/password/' + user, {
             method: "PUT",
             body: JSON.stringify({
               username: user,
@@ -147,7 +148,7 @@ function Profile() {
           });
         }
         else {
-          await fetch('http://localhost:5000/api/user/' + user, {
+          await fetch(url + '/api/user/' + user, {
             method: "PUT",
             body: JSON.stringify({
               username: user,
@@ -164,7 +165,7 @@ function Profile() {
         }
       }
     }
-    await fetch('http://localhost:5000/api/user/' + user, {
+    await fetch(url + '/api/user/' + user, {
       method: "PUT",
       body: JSON.stringify({
         username: user,

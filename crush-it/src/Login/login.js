@@ -7,6 +7,7 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import MainLogo from '../media/mainlogo';
 
 function Login() {
+  const url = process.env.REACT_APP_API_URL;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -33,7 +34,7 @@ function Login() {
 
 
   useLayoutEffect(() => {
-    fetch("http://localhost:5000/api/auth/getUsername", {
+    fetch(url + "/api/auth/getUsername", {
       headers: {
         "x-access-token": localStorage.getItem("token")
       }
@@ -41,7 +42,7 @@ function Login() {
     .then(res => res.json())
     .then(data => data.isLoggedIn ? navigate("/"): null)
     .catch((err) => console.log(err))
-  }, [navigate])
+  }, [navigate, url])
 
 
   async function onSubmit() {
@@ -50,7 +51,7 @@ function Login() {
       password: password
     }
 
-    const response = await fetch('http://localhost:5000/api/auth/login', {
+    const response = await fetch(url + '/api/auth/login', {
       method: "POST",
       headers: {
         "Content-type": "application/json"

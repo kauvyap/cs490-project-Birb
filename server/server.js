@@ -34,13 +34,15 @@ app.use('/api/events', eventsRoutes);
 app.use('/api/appointments', appointmentsRoutes);
 app.use('/api/pic', picRoutes);
 
+const port = process.env.PORT || 5000;
+
 mongoose.connect(process.env.ATLAS_URI, {
   dbName: 'crush-it'
 })
   .then(() => {
     console.log('Connected to MongoDB');
-    app.listen(process.env.PORT, () => {
-      console.log('Listening for requests on port', process.env.PORT);
+    app.listen(port, () => {
+      console.log(`Listening for requests on port ${port}`);
     });
   })
   .catch((err) => {

@@ -5,6 +5,7 @@ import userIcon from '../media/userIcon.png';
 import { TbPhotoEdit } from "react-icons/tb";
 
 function UploadAvatar(props){
+    const url = process.env.REACT_APP_API_URL;
     const [isOpen, setIsOpen] = useState(false);
     const username = props.username;
 
@@ -35,11 +36,11 @@ function UploadAvatar(props){
 
     useEffect(() => {
         if(username) {
-            fetch('http://localhost:5000/api/pic/' + username)
+            fetch(url + '/api/pic/' + username)
             .then(res => res.json())
             .then(data => setShowFile(data.picture))
         }
-    }, [username])
+    }, [username, url])
 
 
 
@@ -48,7 +49,7 @@ function UploadAvatar(props){
         if (selectedFile) {
             // Perform your upload logic here, e.g., send the file to your server
             let b64file = await toBase64(selectedFile);
-            fetch('http://localhost:5000/api/pic/' + username, {
+            fetch(url + '/api/pic/' + username, {
                 method: "PUT",
                 body: JSON.stringify({
                     username: username,

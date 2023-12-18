@@ -7,6 +7,9 @@ import userIcon from '../media/userIcon.png';
 
  // Here, we display our Navbar
 export default function Navbar() {
+    const url = process.env.REACT_APP_API_URL;
+
+
     const location = useLocation();
     const navigate = useNavigate();
     const [showFile, setShowFile] = useState(userIcon)
@@ -22,7 +25,7 @@ export default function Navbar() {
     useLayoutEffect(() => {
         if (location.pathname !== "/login" && location.pathname !== "/signup") {
            // console.log(localStorage.getItem("token"));
-            fetch("http://localhost:5000/api/auth/getUsername", {
+            fetch(url + "/api/auth/getUsername", {
             headers: {
                 "x-access-token": localStorage.getItem("token")
             }
@@ -31,21 +34,21 @@ export default function Navbar() {
             .then(data => data.isLoggedIn ? setUser(data.username): navigate('/login'))
             .catch((err) => alert(err))
         }
-    }, [location.pathname, navigate])
+    }, [location.pathname, navigate, url])
         
 
     useEffect(() => {
         if(user) {
-            fetch("http://localhost:5000/api/user/" + user)
+            fetch(url + "/api/user/" + user)
             .then(res => res.json())
             .then(data => {setUserData(data)})
             .catch((err) => console.log(err))
 
-            fetch('http://localhost:5000/api/pic/' + user)
+            fetch(url + '/api/pic/' + user)
             .then(res => res.json())
             .then(data => setShowFile(data.picture))
         }
-    }, [user])
+    }, [user, url])
 
     useEffect(() => {
 

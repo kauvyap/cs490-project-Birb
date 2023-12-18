@@ -7,6 +7,7 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import MainLogo from '../media/mainlogo';
 
 function Signup() {
+  const url = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,7 +35,7 @@ function Signup() {
   };
 
   useLayoutEffect(() => {
-    fetch("http://localhost:5000/api/auth/getUsername", {
+    fetch(url + "/api/auth/getUsername", {
       headers: {
         "x-access-token": localStorage.getItem("token")
       }
@@ -42,7 +43,7 @@ function Signup() {
     .then(res =>  res.json())
     .then(data => data.isLoggedIn ? navigate("/"): null)
     .catch((err) => (err))
-  }, [navigate]);
+  }, [navigate, url]);
 
 
 
@@ -71,7 +72,7 @@ function Signup() {
       return;
     }
 
-    const response = await fetch('http://localhost:5000/api/auth/register', {
+    const response = await fetch(url + '/api/auth/register', {
       method: "POST",
       headers: {
         "Content-type": "application/json"
@@ -84,7 +85,7 @@ function Signup() {
         setEmailSameError(true);
       }
     } else {
-      const taskResponse = await fetch('http://localhost:5000/api/tasks', {
+      const taskResponse = await fetch(url + '/api/tasks', {
         method: "POST",
         headers: {
           "Content-type": "application/json"
@@ -97,7 +98,7 @@ function Signup() {
         //console.log("Successfully inserted tasks document for user")
       }
 
-      await fetch('http://localhost:5000/api/events/', {
+      await fetch(url + '/api/events/', {
         method: "PUT",
         body: JSON.stringify({
             username: email,
@@ -108,7 +109,7 @@ function Signup() {
         }
       });
       
-      await fetch('http://localhost:5000/api/appointments/', {
+      await fetch(url + '/api/appointments/', {
         method: "POST",
         body: JSON.stringify({
             username: email,
@@ -118,7 +119,7 @@ function Signup() {
         }
       });
 
-      await fetch('http://localhost:5000/api/pic/', {
+      await fetch(url + '/api/pic/', {
         method: "POST",
         body: JSON.stringify({
             username: email,

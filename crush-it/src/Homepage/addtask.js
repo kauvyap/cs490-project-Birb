@@ -4,8 +4,8 @@ import { IconButton, Button, Modal, ModalOverlay, ModalContent, ModalHeader, Mod
 import { AddIcon } from "@chakra-ui/icons";
 
 function AddTask(props) {
-
-  //use date.dateSelected to get the date selected by the datePicker component.
+  const url = process.env.REACT_APP_API_URL;
+  //use date.dateSelected to get the date se  lected by the datePicker component.
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -41,7 +41,7 @@ function AddTask(props) {
       var topTasks = []
       var importantTasks = []
       var otherTasks = []
-      await fetch('http://localhost:5000/api/tasks/' + props.user)
+      await fetch(url + '/api/tasks/' + props.user)
       .then(res => res.json())
       .then(data => {topTasks = data.topTasks; importantTasks = data.importantTasks; otherTasks = data.otherTasks})
       .catch((err) => console.log(err))
@@ -77,7 +77,7 @@ function AddTask(props) {
         return -1;
       }
 
-    const response = await fetch('http://localhost:5000/api/tasks/' + props.user, {
+    const response = await fetch(url + '/api/tasks/' + props.user, {
       method: "PUT",
       body: JSON.stringify({
         username: props.user,

@@ -9,7 +9,7 @@ import Appointment from "./appointments";
 
 
 function Homepage(){
-
+    const url = process.env.REACT_APP_API_URL;
     //selectedDate uses a CallBack function to get the currentDay from DatePicker
     //setting up selectedDate
 
@@ -59,7 +59,7 @@ function Homepage(){
             edit = {dateAssigned: otherTasks[i].dateAssigned, title: otherTasks[i].title, description: otherTasks[i].description, pomodoroTimers: pomo, completedPomodoroTimers:otherTasks[i].completedPomodoroTimers, priority: otherTasks[i].priority, status: otherTasks[i].status}
             other[i] = edit
         }
-        const response = await fetch('http://localhost:5000/api/tasks/' + username, {
+        const response = await fetch(url + '/api/tasks/' + username, {
             method: "PUT",
             body: JSON.stringify({
                 username: username,
@@ -97,7 +97,7 @@ function Homepage(){
             edit = {dateAssigned: otherTasks[i].dateAssigned, title: otherTasks[i].title, description: description, pomodoroTimers: otherTasks[i].pomodoroTimers, completedPomodoroTimers:otherTasks[i].completedPomodoroTimers, priority: otherTasks[i].priority, status: otherTasks[i].status}
             other[i] = edit
         }
-        const response = await fetch('http://localhost:5000/api/tasks/' + username, {
+        const response = await fetch(url + '/api/tasks/' + username, {
             method: "PUT",
             body: JSON.stringify({
                 username: username,
@@ -135,7 +135,7 @@ function Homepage(){
             edit = {dateAssigned: otherTasks[i].dateAssigned, title: otherTasks[i].title, description: otherTasks[i].description, pomodoroTimers: otherTasks[i].pomodoroTimers, completedPomodoroTimers:otherTasks[i].completedPomodoroTimers, priority: otherTasks[i].priority, status: String(icon)}
             other[i] = edit
         }
-        const response = await fetch('http://localhost:5000/api/tasks/' + username, {
+        const response = await fetch(url + '/api/tasks/' + username, {
             method: "PUT",
             body: JSON.stringify({
                 username: username,
@@ -173,7 +173,7 @@ function Homepage(){
             edit = {dateAssigned: otherTasks[i].dateAssigned, title: otherTasks[i].title, description: otherTasks[i].description, pomodoroTimers: otherTasks[i].pomodoroTimers, completedPomodoroTimers: completed, priority: otherTasks[i].priority, status: otherTasks[i].status}
             other[i] = edit
         }
-        const response = await fetch('http://localhost:5000/api/tasks/' + username, {
+        const response = await fetch(url + '/api/tasks/' + username, {
             method: "PUT",
             body: JSON.stringify({
                 username: username,
@@ -234,7 +234,7 @@ function Homepage(){
             }
         }
 
-        const response = await fetch('http://localhost:5000/api/tasks/' + username, {
+        const response = await fetch(url + '/api/tasks/' + username, {
             method: "PUT",
             body: JSON.stringify({
                 username: username,
@@ -249,7 +249,7 @@ function Homepage(){
         if (!response.ok) {
             console.log(response)
         } else {
-            fetch('http://localhost:5000/api/tasks/' + username)
+            fetch(url + '/api/tasks/' + username)
             .then(res => res.json())
             .then(data => {setTopTasks(data.topTasks); setImportantTasks(data.importantTasks); setOtherTasks(data.otherTasks)})
             .catch((err) => console.log(err))
@@ -262,7 +262,7 @@ function Homepage(){
     const navigate = useNavigate();
 
     useLayoutEffect(() => {
-        fetch("http://localhost:5000/api/auth/getUsername", {
+        fetch(url + "/api/auth/getUsername", {
         headers: {
             "x-access-token": localStorage.getItem("token")
         }
@@ -270,25 +270,25 @@ function Homepage(){
         .then(res => res.json())
         .then(data => data.isLoggedIn ? setUsername(data.username): navigate('/login'))
         .catch((err) => alert(err))
-    }, [navigate])
+    }, [navigate, url])
     //status is broken into 4 different elements notStarted="NS", Finished="FN", InProgress="IP", Canceled="anything", movedOver="MO" 
     useEffect(() => {
         if (username !== null) {
-            fetch('http://localhost:5000/api/tasks/' + username)
+            fetch(url + '/api/tasks/' + username)
             .then(res => res.json())
             .then(data => {setTopTasks(data.topTasks); setImportantTasks(data.importantTasks); setOtherTasks(data.otherTasks)})
             .catch((err) => console.log(err))
         }
-    }, [username])
+    }, [username, url])
 
     useEffect(() => {
         if (username !== null) {
-            fetch('http://localhost:5000/api/user/' + username)
+            fetch(url + '/api/user/' + username)
             .then(res => res.json())
             .then(data => {setTimerLength(data.pomodoro.timer)})
             .catch((err) => console.log(err))
         }
-    }, [username])
+    }, [username, url])
 
     
     // const topPriorityList = [["Complete Math Homework", "This is a hw", 1, "FN" ], ["Homework 2","This is a hw", 3, "NS"]];

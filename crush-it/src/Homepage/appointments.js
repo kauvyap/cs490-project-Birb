@@ -4,6 +4,8 @@ import AppointmentContainer from "./appointmentContainer";
 import {parse, format, addDays, parseISO, getHours, getMinutes, setHours, setMinutes, setSeconds, setMilliseconds} from 'date-fns';
 
 function Appointment(props){
+    const url = process.env.REACT_APP_API_URL;
+
     // const bg = useColorModeValue('#F5F7F9', '#1A202C')
     const cont = useColorModeValue("white", "#2d3748")
     const username = props.username;
@@ -32,7 +34,7 @@ function Appointment(props){
 
     useEffect(() => {
         if (username !== null) {
-            fetch('http://localhost:5000/api/appointments/' + username)
+            fetch(url + '/api/appointments/' + username)
             .then(res => res.json())
             .then(data => {console.log("wtf"); setAppointmentData(data)})
             .catch((err) => {
@@ -50,7 +52,7 @@ function Appointment(props){
 
             // put request for the current date
 
-            // fetch('http://localhost:5000/api/appointments/' + username, {
+            // fetch(url + '/api/appointments/' + username, {
             //     method: "PUT",
             //     body: JSON.stringify({
             //         date: String(props.selectedDate),
@@ -74,7 +76,7 @@ function Appointment(props){
 
             // put request for any other date
 
-            // fetch('http://localhost:5000/api/appointments/' + username, {
+            // fetch(url + '/api/appointments/' + username, {
             //     method: "PUT",
             //     body: JSON.stringify({
             //         date: '26-December-2023',
@@ -111,7 +113,7 @@ function Appointment(props){
             const endOfDayFormatted = format(setHours(setMinutes(setSeconds(setMilliseconds(endOfDayParsed, 0), 0), 0), 5), "yyyy-MM-dd'T'HH:mm:ss.SSS") + 'Z';
             const formattedDate = format(setHours(setMinutes(setSeconds(setMilliseconds(parsedDate, 0), 0), 0), 5), "yyyy-MM-dd'T'HH:mm:ss.SSS") + 'Z';
         
-            fetch("http://localhost:5000/api/events/calendar/" + props.username, {
+            fetch(url + "/api/events/calendar/" + props.username, {
                 method: "POST",
                 body: JSON.stringify({
                     start: formattedDate.toString(),
@@ -127,7 +129,7 @@ function Appointment(props){
             
             console.log(data)
         }
-    }, [props.username, props.selectedDate])
+    }, [props.username, props.selectedDate, url])
     
 
 
