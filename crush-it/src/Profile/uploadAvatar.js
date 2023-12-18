@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Image, Icon, IconButton, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, 
          ModalBody, ModalFooter } from '@chakra-ui/react';
 import userIcon from '../media/userIcon.png';
 import { TbPhotoEdit } from "react-icons/tb";
 
-function UploadAvatar(){
+function UploadAvatar(props){
     const [isOpen, setIsOpen] = useState(false);
+    const username = props.username;
 
     const openModal = () => {
         setIsOpen(true);
@@ -15,21 +16,54 @@ function UploadAvatar(){
         setIsOpen(false);
     };
 
+    const [showFile, setShowFile] = useState(userIcon)
     const [selectedFile, setSelectedFile] = useState(null);
 
     const handleFileChange = (event) => {
+        event.preventDefault()
         const file = event.target.files[0];
-        setSelectedFile(file);
+        setSelectedFile(file)
     };
 
-    const handleUpload = () => {
+    const toBase64 = (file) =>
+        new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
+    });
+
+    useEffect(() => {
+        if(username) {
+            fetch('http://localhost:5000/api/pic/' + username)
+            .then(res => res.json())
+            .then(data => setShowFile(data.picture))
+        }
+    }, [username])
+
+
+
+    const handleUpload = async (e) => {
+        e.preventDefault();
         if (selectedFile) {
-        // Perform your upload logic here, e.g., send the file to your server
-        console.log('Uploading file:', selectedFile);
-        // Reset the selected file state after upload
-        setSelectedFile(null);
+            // Perform your upload logic here, e.g., send the file to your server
+            let b64file = await toBase64(selectedFile);
+            fetch('http://localhost:5000/api/pic/' + username, {
+                method: "PUT",
+                body: JSON.stringify({
+                    username: username,
+                    selectedFile: b64file
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            // Reset the selected file state after upload\
+            setSelectedFile(null);
+            closeModal();
+            setShowFile(b64file);
         } else {
-        console.error('No file selected for upload');
+            console.error('No file selected for upload');
         }
     };
 
@@ -60,7 +94,7 @@ function UploadAvatar(){
             >
             <IconButton
                 onClick={openModal}
-                icon={<Image src={userIcon} alt="Profile Icon" h="100%" />}
+                icon={<Image src={showFile} alt="Profile Icon" h="100%" />}
                 isRound
                 h={"75px"}
             />

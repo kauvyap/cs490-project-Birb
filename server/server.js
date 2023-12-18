@@ -10,6 +10,7 @@ const authRoute = require('./routes/auth');
 const tasksRoutes = require('./routes/tasks');
 const eventsRoutes = require('./routes/events');
 const appointmentsRoutes = require('./routes/appointments');
+const picRoutes = require('./routes/pic');
 
 const app = express();
 
@@ -31,7 +32,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/tasks', tasksRoutes);
 app.use('/api/events', eventsRoutes);
 app.use('/api/appointments', appointmentsRoutes);
-
+app.use('/api/pic', picRoutes);
 
 mongoose.connect(process.env.ATLAS_URI, {
   dbName: 'crush-it'
@@ -46,4 +47,4 @@ mongoose.connect(process.env.ATLAS_URI, {
     console.log(err);
   });
 
-  module.exports = app;
+  module.exports = app

@@ -9,10 +9,12 @@ import userIcon from '../media/userIcon.png';
 export default function Navbar() {
     const location = useLocation();
     const navigate = useNavigate();
+    const [showFile, setShowFile] = useState(userIcon)
 
     const [user, setUser] = useState(null)
     const [userData, setUserData] = useState({});
     //console.log(userData);
+    console.log('showfile',showFile)
 
     const bg = useColorModeValue('white', '#1E1E1E')
     const text = useColorModeValue('black', 'white')
@@ -33,11 +35,21 @@ export default function Navbar() {
         
 
     useEffect(() => {
-    fetch("http://localhost:5000/api/user/" + user)
-    .then(res => res.json())
-    .then(data => {setUserData(data)})
-    .catch((err) => console.log(err))
+        if(user) {
+            fetch("http://localhost:5000/api/user/" + user)
+            .then(res => res.json())
+            .then(data => {setUserData(data)})
+            .catch((err) => console.log(err))
+
+            fetch('http://localhost:5000/api/pic/' + user)
+            .then(res => res.json())
+            .then(data => setShowFile(data.picture))
+        }
     }, [user])
+
+    useEffect(() => {
+
+    }, [showFile])
 
   
     if (location.pathname === "/login" || location.pathname === "/signup"){
@@ -50,7 +62,7 @@ export default function Navbar() {
                 <Input placeholder='What are you looking for?' width={"100vh"} mt={5} mb={5} />
                 <Spacer></Spacer>
                 <NavLink to={"/profile/" + user} >
-                <Button  data-testid="prof" leftIcon={<Image borderRadius='full' boxSize="40px" src={userIcon} display='fixed'/>} variant={"ghost"} colorScheme="linkedin" bg={bg} color={text}>{userData.fname} {userData.lname}</Button>
+                <Button  data-testid="prof" leftIcon={<Image borderRadius='full' boxSize="40px" src={showFile} display='fixed'/>} variant={"ghost"} colorScheme="linkedin" bg={bg} color={text}>{userData.fname} {userData.lname}</Button>
                 </NavLink>
             </Flex>
         )
@@ -61,7 +73,7 @@ export default function Navbar() {
     <Heading mt={2} mb={3}>Profile</Heading>
     <Spacer></Spacer>
     <NavLink to={"/profile/" + user} >
-        <Button data-testid="prof" leftIcon={<Image borderRadius='full' boxSize="40px" src={userIcon} display='fixed'/>} variant={"ghost"} colorScheme="linkedin" bg={bg} color={text}>{userData.fname} {userData.lname}</Button>
+        <Button data-testid="prof" leftIcon={<Image borderRadius='full' boxSize="40px" src={showFile} display='fixed'/>} variant={"ghost"} colorScheme="linkedin" bg={bg} color={text}>{userData.fname} {userData.lname}</Button>
     </NavLink>
                      
     </Flex>

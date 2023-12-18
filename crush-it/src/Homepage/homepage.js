@@ -4,7 +4,6 @@ import {Box, Heading, Container, VStack, HStack, useColorModeValue, Spacer} from
 import TaskContainer from "./TaskContainer"
 import DatePicker from './datepicker';
 import AddTask from './addtask';
-import Sidebar from '../components/sidebar'
 // import FocusTime from "./focustime";
 import Appointment from "./appointments";
 
@@ -18,47 +17,47 @@ function Homepage(){
     const cont = useColorModeValue("white", "#2d3748")
 
     const [selectedDate, setSelectedDate] = useState(null);
-    const [username, setUsername] = useState(null);
-    const [timerLength, setTimerLength] = useState(30);
-    const [topTasks, setTopTasks] = useState([]);
-    const [importantTasks, setImportantTasks] = useState([]);
-    const [otherTasks, setOtherTasks] = useState([]);
+    const [username, setUsername] = useState(null)
+    const [timerLength, setTimerLength] = useState(30)
+    const [topTasks, setTopTasks] = useState([])
+    const [importantTasks, setImportantTasks] = useState([])
+    const [otherTasks, setOtherTasks] = useState([])
 
     
     //handle the date change
     const handleSelected = (date) => {
-        setSelectedDate(date);
+        setSelectedDate (date)  
     };
     //use {selectedDate} anywhere
 
     const handleTop = (arr) => {
         setTopTasks(arr);
-    };
+    }
 
     const handleImportant = (arr) => {
         setImportantTasks(arr);
-    };
+    }
 
     const handleOther = (arr) => {
         setOtherTasks(arr);
-    };
+    }
 
     const handleUpdatedPomo = async (pomo, category, i) => {      
-        var edit = null;
-        var top = topTasks;
-        var important = importantTasks;
-        var other = otherTasks;
+        var edit = null 
+        var top = topTasks
+        var important = importantTasks
+        var other = otherTasks
         if (category === 'Top Priority') {
             edit = {dateAssigned: topTasks[i].dateAssigned, title: topTasks[i].title, description: topTasks[i].description, pomodoroTimers: pomo, completedPomodoroTimers:topTasks[i].completedPomodoroTimers, priority: topTasks[i].priority, status: topTasks[i].status}
-            top[i] = edit;
+            top[i] = edit
         }
         if (category === 'Important') {
             edit = {dateAssigned: importantTasks[i].dateAssigned, title: importantTasks[i].title, description: importantTasks[i].description, pomodoroTimers: pomo, completedPomodoroTimers:importantTasks[i].completedPomodoroTimers, priority: importantTasks[i].priority, status: importantTasks[i].status}
-            important[i] = edit;
+            important[i] = edit
         }
         if (category === 'Other') {
             edit = {dateAssigned: otherTasks[i].dateAssigned, title: otherTasks[i].title, description: otherTasks[i].description, pomodoroTimers: pomo, completedPomodoroTimers:otherTasks[i].completedPomodoroTimers, priority: otherTasks[i].priority, status: otherTasks[i].status}
-            other[i] = edit;
+            other[i] = edit
         }
         const response = await fetch('http://localhost:5000/api/tasks/' + username, {
             method: "PUT",
@@ -289,7 +288,7 @@ function Homepage(){
             .then(data => {setTimerLength(data.pomodoro.timer)})
             .catch((err) => console.log(err))
         }
-    }, [username]);
+    }, [username])
 
     
     // const topPriorityList = [["Complete Math Homework", "This is a hw", 1, "FN" ], ["Homework 2","This is a hw", 3, "NS"]];
@@ -301,7 +300,7 @@ function Homepage(){
 
         <Box p={5} bg={bg} height={"94vh"}>
         <DatePicker onDateSelected={handleSelected} />
-
+  
         <HStack justify={"left"} p={5}  h={"93%"} width={ "100%"} align={"flex-start"} >
             <VStack  h={"100%"} width={"60%" } align="top" justify={"left"} marginBottom={1}>
             <Heading fontSize={"30px"} fontWeight={"700"} fontFamily={"'DM Sans', sans-serif"}>Tasks

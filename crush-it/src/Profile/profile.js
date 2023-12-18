@@ -236,7 +236,7 @@ function Profile() {
         <Flex justifyContent="space-between" width="100%" mb={2}>
           <Heading as="h2" size="md">
             User Info
-            <UploadAvatar></UploadAvatar>
+            <UploadAvatar username={user}></UploadAvatar>
           </Heading>
           
           <Flex alignItems="center">
